@@ -43,7 +43,7 @@ public class Base {
 
     public final String systemPath = System.getProperty("user.dir");
     private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
-    private final String EXCEL_RELATIVE_PATH = "/src/main/resources/TestData.xlsx";
+    private final String EXCEL_RELATIVE_PATH = "/src/test/resources/TestData.xlsx";
     private final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
     private final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
 
@@ -171,6 +171,15 @@ public class Base {
     }
 
     //HELPER METHODS FOR SELENIUM
+    public void clickOnElement(WebElement element) {
+        try {
+            explicitWait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("UNABLE TO CLICK ON ELEMENT");
+        }
+    }
+
     public void sendKeysToElement(WebElement element, String value) {
         try {
             element.sendKeys(value);
@@ -229,22 +238,6 @@ public class Base {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
         Select select = new Select(element);
         select.selectByVisibleText(visibleText);
-    }
-
-    public void clickOnElement(WebElement element) {
-        try {
-            explicitWait.until(ExpectedConditions.elementToBeClickable(element));
-        } catch (StaleElementReferenceException e1) {
-            e1.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            element.click();
-        } catch (Exception e1) {
-            clickJScript(element);
-        }
     }
 
     public void clickJScript(WebElement element) {
