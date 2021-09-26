@@ -12,8 +12,6 @@
     <modules>
         <module>com.expedia</module>
         <module>base</module>
-        <module>base</module>
-        <module>com.expedia</module>
         <module>com.ebay</module>
         <module>com.cbssports</module>
         <module>com.att</module>

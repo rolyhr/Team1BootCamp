@@ -249,4 +249,19 @@ public class Base {
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public boolean isElementPresent(WebElement element){
+        boolean flag = false;
+        try{
+            explicitWait.until(ExpectedConditions.visibilityOf(element));
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Can't locate the element");
+        }
+        return flag;
+    }
+
+
+
 }
