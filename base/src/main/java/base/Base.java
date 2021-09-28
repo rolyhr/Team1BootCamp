@@ -3,6 +3,7 @@ package base;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.LogStatus;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.math3.analysis.function.Exp;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.*;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 import reporting.ExtentManager;
 import reporting.ExtentTestManager;
 
@@ -24,10 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 public class Base {
 
@@ -262,6 +261,15 @@ public class Base {
         return flag;
     }
 
+    public List<WebElement> getWebElementList(By by){
+
+        try {
+            explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return driver.findElements(by);
+    }
 
 
 }
