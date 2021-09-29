@@ -249,6 +249,7 @@ public class Base {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    //Helper Method: Check if an element is existed.
     public boolean isElementPresent(WebElement element){
         boolean flag = false;
         try{
@@ -261,7 +262,7 @@ public class Base {
         return flag;
     }
 
-    public List<WebElement> getWebElementList(By by){
+    public List<WebElement> getListOfADropDownMenu(By by){
 
         try {
             explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
@@ -271,5 +272,69 @@ public class Base {
         return driver.findElements(by);
     }
 
+    //Helper Method: Create a list of Webelements of a drop_down menu and test an element of
+    //that list by truth of source then select that element.
+    public void selectASubCategoryOfADropDownMenuByPassingTestData(By by, String category) {
+        List<WebElement> listOfADropDownMenu = getListOfADropDownMenu(by);
+        List<String > listOfTextOfSubCategory = new ArrayList<>();
 
+        for(WebElement e : listOfADropDownMenu){
+            listOfTextOfSubCategory.add(e.getText());
+        }
+        for(int i = 0; i < listOfTextOfSubCategory.size(); i++) {
+            try {
+                if (category.equalsIgnoreCase(listOfTextOfSubCategory.get(i))) {
+                    listOfADropDownMenu.get(i).click();
+                    break;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println("Unable to find the element");
+            }
+        }
+    }
+
+    //Helper Method:
+    public boolean compareListsOfString(List<String> actual, List<String> expected) {
+        boolean flag;
+
+        int length = actual.size();
+        int count = 0;
+
+        for (int i = 0; i < length; i++) {
+            String actualString = actual.get(i);
+            String expString = expected.get(i);
+
+            if (!actualString.trim().equalsIgnoreCase(expString)) {
+                count++;
+                System.out.println("***MISMATCH***");
+                System.out.println("ACTUAL: " + actualString);
+                System.out.println("EXPECTED: " + expString);
+            }
+        }
+        if (count > 0) {
+            flag = false;
+        } else {
+            flag = true;
+        }
+
+        return flag;
+    }
+
+    //Create List of String from a Div or Category
+    public List<String> getListFromADiv(By by) {
+        List<String> list = new ArrayList<>();
+        List<WebElement> webElementList = driver.findElements(by);
+
+        for (int i = 0; i < webElementList.size(); i++){
+            list.add(i, webElementList.get(i).getText());
+        }
+        return list;
+    }
+
+    /* Synchronization method */
+    public void pageUpDown(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,1000)");
+    }
 }
