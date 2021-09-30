@@ -50,10 +50,17 @@ public class TestLogin extends TestBase {
         System.out.println(isDisplayed);
     }
 
-    @Test (description = "TC007LI", priority = 7, enabled = true)
+    @Test (description = "TC007LI", priority = 7, enabled = false)
     public void testIsSignUpOptionAvailable() {
         login = new Login();
         boolean isDisplayed = login.isSignUpOptionAvailable();
+        System.out.println(isDisplayed);
+    }
+
+    @Test (description = "TC008LO", priority = 8, enabled = true)
+    public void testIsLoggedOut() {
+        login = new Login();
+        boolean isDisplayed = login.isLoggedOut();
         System.out.println(isDisplayed);
     }
 }

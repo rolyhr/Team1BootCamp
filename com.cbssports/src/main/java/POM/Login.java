@@ -138,11 +138,7 @@ public class Login extends Base {
         }
         String actualForgotPassLinkText = explicitWait.until(ExpectedConditions.visibilityOf(forgotPasswordLink)).getText();
         String expectedForgotPassLinkText = "FORGOT YOUR PASSWORD?";
-        if (actualForgotPassLinkText.equals(expectedForgotPassLinkText)) {
-            return true;
-        } else {
-            return false;
-        }
+        return actualForgotPassLinkText.equals(expectedForgotPassLinkText);
     }
 
     //TC007LI
@@ -154,10 +150,22 @@ public class Login extends Base {
         }
         String actualSignUpLinkText = explicitWait.until(ExpectedConditions.visibilityOf(newAccountSignUpLink)).getText();
         String expectedSignUpLinkText = "DON'T HAVE AN ACCOUNT? SIGN UP";
-        if (actualSignUpLinkText.equals(expectedSignUpLinkText)) {
-            return true;
-        } else {
-            return false;
+        return actualSignUpLinkText.equals(expectedSignUpLinkText);
+    }
+
+    //TC007LO
+    public boolean isLoggedOut() {
+        try {
+            clickOnElement(homePageLoginButton);
+        } catch (ElementNotVisibleException e) {
+            clickJScript(homePageLoginButton);
         }
+        sendKeysToElement(loginUserId, "sample789098@yahoo.com");
+        sendKeysToElement(loginPassword, "QAZ@xsw.7890");
+        clickJScript(loginSubmitButton);
+        hoverOverElement(myTeamDdHoverMM, myTeamDdHoverSM);
+        String actualLoginBtnText = explicitWait.until(ExpectedConditions.visibilityOf(homePageLoginButton)).getText();
+        String expectedLoginBtnText = "LOG IN";
+        return actualLoginBtnText.equals(expectedLoginBtnText);
     }
 }
