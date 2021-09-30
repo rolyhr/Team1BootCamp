@@ -23,6 +23,9 @@ import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -123,7 +126,7 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
-        driver.close();
+//        driver.close();
     }
 
     @AfterSuite (alwaysRun = true)
@@ -156,7 +159,6 @@ public class Base {
         return calendar.getTime();
     }
 
-    //captureScreenshot() Method Needs To Be Debugged
     private static void captureScreenshot(WebDriver driver, String testName) {
         String fileName = testName + ".png";
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -182,10 +184,15 @@ public class Base {
 
     public void sendKeysToElement(WebElement element, String value) {
         try {
-            element.sendKeys(value);
+            explicitWait.until(ExpectedConditions.elementToBeClickable(element)).sendKeys(value);
         } catch (TimeoutException e) {
-            element.sendKeys(value);
+            explicitWait.until(ExpectedConditions.elementToBeClickable(element)).sendKeys(value);
         }
+    }
+
+    public boolean isButtonEnabled(WebElement element) {
+        WebElement button = fluentWait.until(ExpectedConditions.visibilityOf(element));
+        return button.isEnabled();
     }
 
     public void waitForElementToContainText(WebElement element, String text) {
@@ -229,11 +236,6 @@ public class Base {
         return driver.findElement(by);
     }
 
-    public void sendKeysToInput(WebElement element, String keys) {
-        explicitWait.until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(keys);
-    }
-
     public void dropdownSelectByVisibleText(WebElement element, String visibleText) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
         Select select = new Select(element);
@@ -249,4 +251,39 @@ public class Base {
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public String getDate() {
+        String[] dateArray = new String[6];
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date today = new Date();
+            Date todayWithZeroTime = formatter.parse(formatter.format(today));
+            dateArray = todayWithZeroTime.toString().split(" ");
+        } catch (ParseException parseException) {
+            parseException.printStackTrace();
+        }
+        return dateArray[1].trim() + " " + dateArray[2].trim() + ", " + dateArray[5].trim();
+    }
+
+    public void pickCalendarDate(WebElement monthYearElement, WebElement monPickerBtn, String month, int day, String startORend) {
+        while (true) {
+            String extractMonthYear = explicitWait.until(ExpectedConditions.visibilityOf(monthYearElement)).getText().toLowerCase();
+            String[] array = extractMonthYear.split(" ");
+            String extractedMonth = array[0].trim();
+            if (extractedMonth.equals(month.toLowerCase())) {
+                break;
+            } else {
+                explicitWait.until(ExpectedConditions.elementToBeClickable(monPickerBtn)).click();
+            }
+        }
+        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(getCustomLocator(day, startORend))));
+        exactDay.click();
+    }
+
+    //NEED TO MODIFY THIS getDay() HELPER METHOD BASED ON THE PROJECT REQUIREMENT
+    //HELPER METHOD FOR pickCalendarDay()
+    public static String getCustomLocator(int day, String startORend) {
+        return "#departureDate-"+startORend+"DateRange > div > div > div:nth-child(4) > table > tbody > tr > td > button[data-day='" + day + "']";
+    }
+
 }

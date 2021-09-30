@@ -1,11 +1,11 @@
 package testBase;
 
-import POM.Homepage;
+import POM.Cruise;
 import base.Base;
 
 public class TestBase extends Base {
 
-    public Homepage getHomepage() {
-        return new Homepage();
+    public Cruise getHomepage() {
+        return new Cruise();
     }
 }

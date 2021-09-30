@@ -1,11 +1,11 @@
 package testBase;
 
-import POM.Homepage;
+import POM.Register;
 import base.Base;
 
 public class TestBase extends Base {
 
-    public Homepage getHomepage() {
-        return new Homepage();
+    public Register getHomepage() {
+        return new Register();
     }
 }

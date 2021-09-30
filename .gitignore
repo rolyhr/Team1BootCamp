@@ -1,8 +1,8 @@
 ### Java template
 *.iml
 *.html
-\.idea
-\target
+*\.idea
+*\target
 
 # Compiled class file
 *.class
