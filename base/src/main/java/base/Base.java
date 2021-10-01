@@ -10,6 +10,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -89,7 +90,7 @@ public class Base {
     public void driverSetup(@Optional("chrome") String browser, String url) {
         driver = initDriver(browser);
         explicitWait = new WebDriverWait(driver, 10);
-        fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(10))
+        fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(30))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(StaleElementReferenceException.class);
         driver.get(url);
@@ -144,6 +145,9 @@ public class Base {
             case "edge":
                 WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
+                break;
+            case "safari":
+                driver = new SafariDriver();
                 break;
         }
         return driver;
@@ -253,7 +257,8 @@ public class Base {
     public boolean isElementPresent(WebElement element){
         boolean flag = false;
         try{
-            explicitWait.until(ExpectedConditions.visibilityOf(element));
+            //explicitWait.until(ExpectedConditions.visibilityOf(element));
+            fluentWait.until(ExpectedConditions.visibilityOf(element));
             flag = true;
         }catch (Exception e){
             e.printStackTrace();
