@@ -12,7 +12,6 @@ public class CarsPage extends Base {
         PageFactory.initElements(driver, this);
     }
 
-    String expDay;
 
     @FindBy(id = "location-field-locn-menu")
     WebElement pickingLocationButton;
@@ -23,14 +22,11 @@ public class CarsPage extends Base {
     @FindBy(css = "#location-field-locn")
     WebElement pickupLocationInput;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//*[@id=\"location-field-loc2-menu\"]/div[1]/button")
     WebElement dropOffLocationButton;
 
     @FindBy(css = "#location-field-loc2")
     WebElement dropOffLocationInput;
-
-    @FindBy(xpath = "")
-    WebElement droppingLocation;
 
     @FindBy(id = "d1-btn")
     WebElement pickUpDateButton;
@@ -51,7 +47,7 @@ public class CarsPage extends Base {
     public WebElement pickUpDay;
 
     @FindBy(xpath = "//*[@class = \"uitk-date-picker-menu-months-container\"]//div[2]//tr//button[@data-day=20]")
-    WebElement dropOffUpDaySameWindow;
+    WebElement dropOffDaySameCalender;
 
     @FindBy(xpath = "")
     WebElement pickUpTimeComboBox;
@@ -86,10 +82,31 @@ public class CarsPage extends Base {
     @FindBy(xpath = "//div[@data-testid = 'lob-error-summary']")
     WebElement errorMessageForPickUpLocation;
 
+    @FindBy(xpath = "//*[@id=\"location-field-loc2-menu\"]/div[2]/ul/li[1]/button")
+    WebElement selectALocationFromDropOffDropDown;
+
+    @FindBy(css = "#countryCode")
+    WebElement countryCodeDropDown;
+
+    @FindBy(css = "#phoneNumber")
+    WebElement phoneNumberInputField;
+
+    @FindBy(css = "#submitBtn")
+    WebElement submitButton;
+
+    @FindBy(xpath = "//div[contains(text(),'download the app')]")
+    WebElement messageForSuccessfulSubmit;
+
+    @FindBy(xpath = "//div[contains(text(),'enter a valid')]")
+    WebElement messageForUnsuccessfulSubmit;
+
+    void sendPhoneNumberToPhoneNumberInputField(String phoneNumber){sendKeysToInput(phoneNumberInputField,phoneNumber);}
+    void clickOnSubmitButton(){clickOnElement(submitButton);}
+    void clickOnCountryCode(){clickOnElement(countryCodeDropDown);}
     void clickPickingLocationButton(){ clickOnElement(pickingLocationButton);}
     void clickDropOffLocationButton(){ clickOnElement(dropOffLocationButton);}
     void selectPickUpLocation(){ clickOnElement(selectALocationFromPickupDropDown);}
-    void selectDropOffLocation(){}
+    void selectDropOffLocation(){clickOnElement(selectALocationFromDropOffDropDown);}
     void clickPickUpDateButton(){ clickOnElement(pickUpDateButton);}
     void clickDropOffDateButton(){ clickOnElement(dropOffDateButton);}
     void selectPickUpDay(String expDay){
@@ -102,11 +119,17 @@ public class CarsPage extends Base {
     void selectDropOffDay(String expDay){
         driver.findElement(By.xpath("//*[@class = \"uitk-date-picker-menu-months-container\"]//div[1]//tr//button[@data-day='"+expDay+"']")).click();
     }
+
     void clickOnRightArrowButton(){ clickOnElement(rightArrowButton);}
+
     void clickOnLeftArrowButton(){ clickOnElement(leftArrowButton);}
+
     void clickOnDoneButton(){clickOnElement(doneButton);}
+
     void clickOnSearchButton(){ clickOnElement(searchButton);}
+
     void calenderToVisible(){ waitForElementToBeVisible(calendar);}
+
     void waitForSearchResultPageToBeVisible(){waitForElementToBeVisible(searchResultTitle);}
 
     public boolean isSearchPageDropOffLocPresent(){
@@ -117,9 +140,7 @@ public class CarsPage extends Base {
         sendKeysToInput(pickupLocationInput,pickUpLocation);
     }
 
-    void sendLocationToDropOffInputField(WebElement element, String dropOffLocation){
-        sendKeysToInput(dropOffLocationInput,dropOffLocation);
-    }
+    void sendLocationToDropOffInputField(String dropOffLocation){sendKeysToInput(dropOffLocationInput,dropOffLocation);}
 
     String getPickUpMonthYear(){
         return pickUpMonthYear.getText();
@@ -129,16 +150,72 @@ public class CarsPage extends Base {
         return isElementPresent(errorMessageForPickUpLocation);
     }
 
-    public void doSearchWithoutAnySelection(){
-        clickOnSearchButton();
+    public boolean isSearchResultTitlePresent(){ return isElementPresent(searchResultTitle);}
+
+    public boolean hasMessageAppearForValidSubmission(){return isElementPresent(messageForSuccessfulSubmit);}
+
+    public boolean hasMessageAppearForInvalidSubmission(){return isElementPresent(messageForUnsuccessfulSubmit);}
+
+    public void doDownloadAppByInvalidPhoneNumber(String countryCode, String phoneNumber){
+        clickOnCountryCode();
+        dropdownSelectByVisibleText(countryCodeDropDown,countryCode);
+        sendPhoneNumberToPhoneNumberInputField(phoneNumber);
+        clickOnSubmitButton();
+        waitForElementToBeVisible(messageForUnsuccessfulSubmit);
     }
 
-    public void doSelectPickupAndDropOffDate(String picDay,String pickMonth, String pickYear,String dropDay,String dropMonth, String dropYear) throws InterruptedException {
+    public void doDownloadAppByValidPhoneNumber(String countryCode, String phoneNumber){
+        clickOnCountryCode();
+        dropdownSelectByVisibleText(countryCodeDropDown,countryCode);
+        sendPhoneNumberToPhoneNumberInputField(phoneNumber);
+        clickOnSubmitButton();
+        waitForElementToBeVisible(messageForSuccessfulSubmit);
+    }
+
+    public void doDownLoadAppForDifferentCountry(String countryCode, String phoneNumber){
+        clickOnCountryCode();
+        dropdownSelectByVisibleText(countryCodeDropDown,countryCode);
+        sendPhoneNumberToPhoneNumberInputField(phoneNumber);
+        clickOnSubmitButton();
+        waitForElementToBeVisible(messageForSuccessfulSubmit);
+    }
+
+    public void doSearchBySelectDropOffLocation(String pickLocation,String dropOffLocation, String picDay, String pickMonth, String pickYear, String dropDay, String dropMonth, String dropYear){
 
         clickPickingLocationButton();
         waitForElementToBeVisible(pickupLocationInput);
 
-        sendLocationToPickupInputField("New York");
+        sendLocationToPickupInputField(pickLocation);
+        selectPickUpLocation();
+
+        clickDropOffLocationButton();
+        waitForElementToBeVisible(dropOffLocationInput);
+
+        sendLocationToDropOffInputField(dropOffLocation);
+        selectDropOffLocation();
+
+        clickPickUpDateButton();
+        calenderToVisible();
+
+        datePicker(picDay,pickMonth,pickYear);
+        datePicker(dropDay,dropMonth,dropYear);
+
+        clickOnDoneButton();
+        clickOnSearchButton();
+        waitForSearchResultPageToBeVisible();
+
+    }
+
+    public void doSearchWithoutAnySelection(){
+        clickOnSearchButton();
+    }
+
+    public void doSearchBySelectPickupAndDropOffDate(String location,String picDay, String pickMonth, String pickYear, String dropDay, String dropMonth, String dropYear) throws InterruptedException {
+
+        clickPickingLocationButton();
+        waitForElementToBeVisible(pickupLocationInput);
+
+        sendLocationToPickupInputField(location);
         selectPickUpLocation();
 
         clickPickUpDateButton();
