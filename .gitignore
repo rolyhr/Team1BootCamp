@@ -1,6 +1,7 @@
 ### Java template
 *.iml
 *.html
+*.png
 *\.idea
 *\target
 

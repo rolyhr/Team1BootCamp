@@ -9,9 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class Login extends Base {
+public class CBSLogin extends Base {
 
-    public Login() {
+    public CBSLogin() {
         PageFactory.initElements(driver, this);
     }
 
@@ -153,7 +153,7 @@ public class Login extends Base {
         return actualSignUpLinkText.equals(expectedSignUpLinkText);
     }
 
-    //TC007LO
+    //TC008LO
     public boolean isLoggedOut() {
         try {
             clickOnElement(homePageLoginButton);
