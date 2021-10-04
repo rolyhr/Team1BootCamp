@@ -109,6 +109,7 @@ public class CarsPage extends Base {
     void selectDropOffLocation(){clickOnElement(selectALocationFromDropOffDropDown);}
     void clickPickUpDateButton(){ clickOnElement(pickUpDateButton);}
     void clickDropOffDateButton(){ clickOnElement(dropOffDateButton);}
+
     void selectPickUpDay(String expDay){
         try {
             driver.findElement(By.xpath("//*[@class = \"uitk-date-picker-menu-months-container\"]//div[1]//tr//button[@data-day='" + expDay + "']")).click();
@@ -226,7 +227,7 @@ public class CarsPage extends Base {
 
         clickOnDoneButton();
         clickOnSearchButton();
-        //waitForSearchResultPageToBeVisible();
+        waitForSearchResultPageToBeVisible();
 
     }
     public void datePicker(String expDay, String expMonth, String expYear){

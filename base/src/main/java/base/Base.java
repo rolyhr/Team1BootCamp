@@ -338,8 +338,14 @@ public class Base {
     }
 
     /* Synchronization method */
-    public void pageUpDown(){
+    public void pageUpDown(int pixel){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,1000)");
+        js.executeScript("window.scrollBy(0,"+pixel+")");
+    }
+
+    //Helper Method
+    public void mouseHoverOnAnElement(WebElement element){
+        Actions action = new Actions(driver);
+        action.moveToElement(element).perform();
     }
 }

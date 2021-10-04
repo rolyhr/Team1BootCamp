@@ -14,12 +14,14 @@ public class TestCarsPage extends TestBase {
     CarsPage carsPage;
     String[][] testData;
 
-    @Test(description = "ID: 001",priority = 1, enabled = false)
-    public void testPickUpDate() throws InterruptedException {
+    @Test(description = "ID: 001",priority = 1, enabled = true)
+    public void testPickUpDate() throws InterruptedException, IOException {
         homepage = new Homepage();
         carsPage = homepage.navigateToCarsPage();
-        carsPage.doSearchBySelectPickupAndDropOffDate("New York","20","March","2022","3","April","2022");
-        Assert.assertTrue(carsPage.isSearchPageDropOffLocPresent());
+        testData = getTestDataFromExcelFile("ExpediaTestData");
+        carsPage.doSearchBySelectPickupAndDropOffDate(testData[0][0],testData[0][2],testData[0][3],testData[0][4],testData[0][5],testData[0][6],testData[1][4]);
+        
+        Assert.assertTrue(carsPage.isSearchResultTitlePresent());
     }
 
     @Test(description = "Case ID:002", priority = 2, enabled = false)
@@ -56,7 +58,7 @@ public class TestCarsPage extends TestBase {
         Assert.assertTrue(carsPage.hasMessageAppearForInvalidSubmission());
     }
 
-    @Test(description = "Case ID: 006", priority = 6, enabled = true)
+    @Test(description = "Case ID: 006", priority = 6, enabled = false)
     public void testAppDownloadForDifferentCountry() throws IOException, InterruptedException {
         homepage = new Homepage();
         carsPage = homepage.navigateToCarsPage();

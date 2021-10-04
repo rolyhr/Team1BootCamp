@@ -8,10 +8,10 @@
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <!--<class name="testPOM.ClassName"/>   UNCOMMENT THIS LINE TO RUN TEST CASES-->
+            <class name="testPOM.TestSoccerPage"/>
         </classes>
     </test>
 
-    <parameter name="url" value="https://www.cbssports.com/"/>
+    <parameter name="url" value="https://www.cbssports.com/soccer/"/>
     <parameter name="browser" value="chrome"/>
 </suite>
