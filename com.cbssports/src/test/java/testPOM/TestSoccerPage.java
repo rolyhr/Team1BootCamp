@@ -71,7 +71,7 @@ public class TestSoccerPage extends TestBase {
         Assert.assertTrue(soccerPage.isMessageForEmailRequiredPresent());
     }
 
-    @Test(description = "CaseID: 8",priority = 8, enabled = true)
+    @Test(description = "CaseID: 8",priority = 8, enabled = false)
     public void testDoNotSellMyLink() throws IOException {
         soccerPage=getSoccerPage();
         soccerPage.openDoNotSellMyInfoIntoNewTab();
@@ -91,5 +91,14 @@ public class TestSoccerPage extends TestBase {
         Assert.assertEquals(actualURL,expectedURL);
     }
 
+    @Test(description = "CaseID: 10",priority = 10, enabled = true)
+    public void testSelectLanguageFromComboBox() throws IOException {
+        soccerPage=getSoccerPage();
+        testData = getTestDataFromExcelFile("CBSSportsEmail");
+        soccerPage.doSelectALanguageFromLanguageComboBox(testData[0][1]);
+        String expectedFooter = testData[0][2];
+        String actualFooter = soccerPage.changedLanguageForFooter();
+        Assert.assertEquals(actualFooter,expectedFooter);
+    }
 
 }

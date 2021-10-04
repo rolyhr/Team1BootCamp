@@ -206,7 +206,7 @@ public class Base {
         WebElement sm = explicitWait.until(ExpectedConditions.visibilityOf(subMenu));
         actions.moveToElement(sm).click().build().perform();
     }
-
+    //
     public String readFromExcel(String sheetName, int index) {
         String[] excelData = new String[index];
         try {
@@ -347,5 +347,29 @@ public class Base {
     public void mouseHoverOnAnElement(WebElement element){
         Actions action = new Actions(driver);
         action.moveToElement(element).perform();
+    }
+
+    //Helper Method
+    public void switchToANewTabAndCloseParentTab(){
+
+        String parentTab = driver.getWindowHandle();
+
+        explicitWait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        Set<String> all = driver.getWindowHandles();
+
+        for(String winHandle : driver.getWindowHandles())
+        {
+            if(winHandle.equals(parentTab))
+            {
+                //Condition satisfied. Switching to the parent tab and closing it
+                driver.switchTo().window(winHandle);
+                driver.close();
+            }
+        }
+        all.remove(parentTab);
+
+        for(String winHandle : all) {
+            driver.switchTo().window(winHandle);
+        }
     }
 }

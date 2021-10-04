@@ -12,6 +12,6 @@
         </classes>
     </test>
 
-    <parameter name="url" value="https://www.bankofamerica.com"/>
+    <parameter name="url" value="https://locators.bankofamerica.com"/>
     <parameter name="browser" value="chrome"/>
 </suite>

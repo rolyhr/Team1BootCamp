@@ -6,11 +6,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class SoccerPage extends Base {
 
@@ -51,11 +48,20 @@ public class SoccerPage extends Base {
     @FindBy(css = "body > header > div > a")
     WebElement backToTopButton;
 
+    @FindBy(css = "#language-selector")
+    WebElement selectLanguageComboBox;
+
+    @FindBy(css = "body > footer > div > p")
+    WebElement footerForChangedLanguage;
+
+
     void clickOnBackToTopButton(){clickOnElement(backToTopButton);}
 
     void clickOnDoNotSellMyInfo(){clickOnElement(doNotSellMyPersonalInformationLink);}
 
     public String getURLOfDoNotSellMyPersonalInfoPage(){ return driver.getCurrentUrl();}
+
+    public String changedLanguageForFooter(){return footerForChangedLanguage.getText();}
 
     public boolean isMessageForEmailRequiredPresent(){return isElementPresent(messageForEmailRequired);}
 
@@ -85,50 +91,30 @@ public class SoccerPage extends Base {
         mouseHoverOnAnElement(watchNavBarMenu);
     }
 
-    public void openDoNotSellMyInfoIntoNewTab(){
-        pageUpDown(900);
-        String parentTab = driver.getWindowHandle();
+    public void doSelectALanguageFromLanguageComboBox(String language){
+        ((JavascriptExecutor) driver)
+                .executeScript("window.scrollTo(0, document.body.scrollHeight)");
         clickOnDoNotSellMyInfo();
-        explicitWait.until(ExpectedConditions.numberOfWindowsToBe(2));
-        Set<String> all = driver.getWindowHandles();
+        switchToANewTabAndCloseParentTab();
+        dropdownSelectByVisibleText(selectLanguageComboBox,language);
 
-        for(String winHandle : driver.getWindowHandles())
-        {
-            if(winHandle.equals(parentTab))
-            {
-                //Condition satisfied. Switching to the parent tab and closing it
-                driver.switchTo().window(winHandle);
-                driver.close();
-            }
-        }
-        all.remove(parentTab);
+    }
 
-        for(String winHandle : all) {
-            driver.switchTo().window(winHandle);
-        }
+    public void openDoNotSellMyInfoIntoNewTab(){
+        ((JavascriptExecutor) driver)
+                .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+        clickOnDoNotSellMyInfo();
+        switchToANewTabAndCloseParentTab();
     }
 
     public void clickBackOnTopButtonATDoNotSellMyInfoTab(){
-        pageUpDown(900);
-        String parentTab = driver.getWindowHandle();
+        ((JavascriptExecutor) driver)
+                .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
         clickOnDoNotSellMyInfo();
-        explicitWait.until(ExpectedConditions.numberOfWindowsToBe(2));
-        Set<String> all = driver.getWindowHandles();
 
-        for(String winHandle : driver.getWindowHandles())
-        {
-            if(winHandle.equals(parentTab))
-            {
-                //Condition satisfied. Switching to the parent tab and closing it
-                driver.switchTo().window(winHandle);
-                driver.close();
-            }
-        }
-        all.remove(parentTab);
-
-        for(String winHandle : all) {
-            driver.switchTo().window(winHandle);
-        }
+        switchToANewTabAndCloseParentTab();
 
         ((JavascriptExecutor) driver)
                 .executeScript("window.scrollTo(0, document.body.scrollHeight)");
@@ -167,5 +153,6 @@ public class SoccerPage extends Base {
     public List<String> getNavigationBarMenuList(){
         return getListFromADiv(By.cssSelector("div #cbs-site-nav nav li.nav-list-item.nav-item-overflow a"));
     }
+
 
 }
