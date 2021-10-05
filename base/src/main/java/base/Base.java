@@ -126,12 +126,12 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
-//        driver.close();
+        driver.close();
+        driver.quit();
     }
 
     @AfterSuite (alwaysRun = true)
     private void afterSuiteTearDown() {
-        driver.quit();
         extent.close();
     }
 

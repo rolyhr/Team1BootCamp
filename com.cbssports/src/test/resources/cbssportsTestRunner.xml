@@ -8,7 +8,8 @@
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <class name="testPOM.TestCBSLogin"/>
+<!--            <class name="testPOM.TestCBSLogin"/>-->
+            <class name="testPOM.TestCBSSignUp"/>
         </classes>
     </test>
 
