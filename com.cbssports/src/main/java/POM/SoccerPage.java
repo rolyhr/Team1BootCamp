@@ -151,7 +151,7 @@ public class SoccerPage extends Base {
     }
 
     public List<String> getNavigationBarMenuList(){
-        return getListFromADiv(By.cssSelector("div #cbs-site-nav nav li.nav-list-item.nav-item-overflow a"));
+        return getStringListFromADiv(By.cssSelector("div #cbs-site-nav nav li.nav-list-item.nav-item-overflow a"));
     }
 
 

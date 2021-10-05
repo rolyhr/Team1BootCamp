@@ -1,9 +1,12 @@
 package POM;
 
 import base.Base;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class Homepage extends Base {
 
@@ -80,9 +83,31 @@ public class Homepage extends Base {
     @FindBy(xpath = "//*[@id=\"lid664159\"]/div/a[2]")
     WebElement searchResult;
 
-    @FindBy(xpath = "//div[@class = 'map-filter-scroll']//label[1]")
-    WebElement filterOptions;
+    @FindBy(xpath = "//div[@class = 'map-filter-scroll']//label")
+    WebElement listOfFilterOptions;
 
+    @FindBy(name = "Show_Filters")
+    WebElement filterButton;
+
+    @FindBy(name = "View_All_Filters")
+    WebElement viewAllFiltersButton;
+
+    @FindBy(xpath = "//button[text() = 'Apply filters']")
+    WebElement applyFilterButton;
+
+    void clickOnApplyFilterButton(){clickOnElement(applyFilterButton);}
+
+    void clickOnViewAllFiltersButton(){clickJScript(viewAllFiltersButton);}
+
+    void clickOnFilterButton(){clickJScript(filterButton);}
+
+    void selectFilterOption(String option){
+        selectASubCategoryOfADropDownMenuByPassingTestData(By.xpath("//div[@class = 'map-filter-scroll']//label"), option);}
+
+    public List<String> getAListOfStringOfFilterOptions(){
+        doNavigateFinancialCenterAndATMLocationPage();
+        clickOnFilterButton();
+        return getStringListFromADiv(By.xpath("//div[@class = 'map-filter-scroll']//label"));}
 
     void clickOnSearchButton(){clickJScript(searchButton);}
 
@@ -124,6 +149,21 @@ public class Homepage extends Base {
     public boolean isWarningMessageForUnableToVerifyPresent(){ return  isElementPresent(unableToResetPasswordMessage);}
 
     public boolean isWarningForInvalidCredentialPresent(){return isElementPresent(warningForInvalidCredential);}
+
+
+    public void doSearchForFinancialCenterLocationApplyingFilter(String zipCode, String option) throws InterruptedException {
+        doNavigateFinancialCenterAndATMLocationPage();
+        sendValuesToZipCodeInputField(zipCode);
+        clickOnSearchButton();
+        waitForElementToBeVisible(searchResult);
+        clickOnFilterButton();
+        selectFilterOption(option);
+        Thread.sleep(2000);
+        clickOnApplyFilterButton();
+        waitForElementToBeVisible(searchResult);
+
+
+    }
 
     public void doSearchForFinancialCenterLocation(String values) throws InterruptedException {
         doNavigateFinancialCenterAndATMLocationPage();

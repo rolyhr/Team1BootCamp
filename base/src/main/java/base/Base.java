@@ -123,13 +123,14 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
+        extent.close();
         driver.close();
     }
 
     @AfterSuite (alwaysRun = true)
     private void afterSuiteTearDown() {
         driver.quit();
-        extent.close();
+        //extent.close();
     }
 
     public WebDriver initDriver(String browser) {
@@ -199,7 +200,7 @@ public class Base {
         }
     }
 
-    public void hoverOverElement(WebElement mainMenu, WebElement subMenu) {
+    public void hoverOverSubElement(WebElement mainMenu, WebElement subMenu) {
         Actions actions = new Actions(driver);
         WebElement mm = explicitWait.until(ExpectedConditions.visibilityOf(mainMenu));
         actions.moveToElement(mm).build().perform();
@@ -327,7 +328,7 @@ public class Base {
     }
 
     //Create List of String from a Div or Category
-    public List<String> getListFromADiv(By by) {
+    public List<String> getStringListFromADiv(By by) {
         List<String> list = new ArrayList<>();
         List<WebElement> webElementList = driver.findElements(by);
 

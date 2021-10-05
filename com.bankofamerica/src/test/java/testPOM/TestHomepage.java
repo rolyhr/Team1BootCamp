@@ -6,11 +6,13 @@ import org.testng.annotations.Test;
 import testBase.TestBase;
 
 import java.io.IOException;
+import java.util.List;
 
 public class TestHomepage extends TestBase {
 
     String[][] testData;
     Homepage homepage;
+    List<String> expectedList;
 
     @Test(description = "ID:01",priority = 1, enabled = false)
     public void testDoSignInWithInvalidIDAndPassword() throws IOException {
@@ -98,7 +100,7 @@ public class TestHomepage extends TestBase {
 
     }
 
-    @Test(description = "ID:09",priority = 9, enabled = true)
+    @Test(description = "ID:09",priority = 9, enabled = false)
     public void testSearchForFinancialCenterLocation() throws IOException, InterruptedException {
 
         homepage = getHomepage();
@@ -108,6 +110,26 @@ public class TestHomepage extends TestBase {
         String actualURL = driver.getCurrentUrl();
         Assert.assertEquals(actualURL, expectedURL);
 
+    }
+
+    @Test(description = "ID:10",priority = 10, enabled = false)
+    public void tesForCompareFilterOptionsList() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        expectedList = getExpectedList("FilterOptions");
+        List<String> actualList = homepage.getAListOfStringOfFilterOptions();
+        compareListsOfString(actualList,expectedList);
+
+    }
+
+    @Test(description = "ID:11",priority = 11, enabled = true)
+    public void tesdoSearchForFinancialCenterLocationApplyingFilter() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        testData = getString2DDataFromExcelFile("URL");
+        expectedList = getExpectedList("FilterOptions");
+        homepage.doSearchForFinancialCenterLocationApplyingFilter(testData[2][1],expectedList.get(0));
+        Assert.assertEquals("","");
     }
 
 }

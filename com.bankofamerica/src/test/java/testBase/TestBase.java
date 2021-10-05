@@ -5,6 +5,7 @@ import base.Base;
 import base.ExcelReader;
 
 import java.io.IOException;
+import java.util.List;
 
 public class TestBase extends Base {
 
@@ -19,4 +20,8 @@ public class TestBase extends Base {
         return excelReader.fileReaderArrayStringArraysXSSF(path,sheetName);
     }
 
+    public List<String> getExpectedList(String sheetName) throws IOException {
+        excelReader = new ExcelReader();
+        return excelReader.fileReaderStringListXSSF(path,sheetName);
+    }
 }

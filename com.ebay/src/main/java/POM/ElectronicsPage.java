@@ -100,16 +100,16 @@ public class ElectronicsPage extends Base {
     }
 
     public List<String> getListOfMostPopularName(){
-        return  getListFromADiv(By.xpath(getMostPopularNameElements()));
+        return  getStringListFromADiv(By.xpath(getMostPopularNameElements()));
     }
 
     public List<String> getListOfEbayRefurbishedName(){
-        return getListFromADiv(By.xpath(getEbayRefurbishedNameElements()));
+        return getStringListFromADiv(By.xpath(getEbayRefurbishedNameElements()));
     }
 
     public List<String> getListOfShopByCategoryName(){
 
-        return getListFromADiv(By.xpath(getShopByCategoryNameElements()));
+        return getStringListFromADiv(By.xpath(getShopByCategoryNameElements()));
     }
 
     public void doShopBySubCategoryOfCameraAndPhoto(String category){
