@@ -1,11 +1,11 @@
 package testBase;
 
-import POM.Homepage;
+import POM.ESPNHomepage;
 import base.Base;
 
 public class TestBase extends Base {
 
-    public Homepage getHomepage() {
-        return new Homepage();
+    public ESPNHomepage getHomepage() {
+        return new ESPNHomepage();
     }
 }

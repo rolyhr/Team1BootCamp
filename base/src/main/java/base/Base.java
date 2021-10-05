@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.*;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 import reporting.ExtentManager;
 import reporting.ExtentTestManager;
 
@@ -27,10 +28,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 public class Base {
 
@@ -126,8 +124,8 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
-        driver.close();
-        driver.quit();
+//        driver.close();
+//        driver.quit();
     }
 
     @AfterSuite (alwaysRun = true)
@@ -211,6 +209,21 @@ public class Base {
         actions.moveToElement(sm).click().build().perform();
     }
 
+    public void mouseHover(WebElement element) {
+        try {
+            Actions hover = new Actions(driver);
+            hover.moveToElement(element).perform();
+        } catch (Exception ex) {
+            driver.navigate().refresh();
+
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            Actions hover = new Actions(driver);
+
+            wait.until(ExpectedConditions.visibilityOf(element));
+            hover.moveToElement(element).perform();
+        }
+    }
+
     public String readFromExcel(String sheetName, int index) {
         String[] excelData = new String[index];
         try {
@@ -284,6 +297,25 @@ public class Base {
     //HELPER METHOD FOR pickCalendarDay()
     public static String getCustomLocator(int day, String startORend) {
         return "#departureDate-"+startORend+"DateRange > div > div > div:nth-child(4) > table > tbody > tr > td > button[data-day='" + day + "']";
+    }
+
+    public String getCurrentPageUrl() {
+        return driver.getCurrentUrl();
+    }
+
+    public String getCurrentPageTitle() {
+        return driver.getTitle();
+    }
+
+    public List<WebElement> getListOfWebElementsByXpath(WebElement element, String locator) {
+        List<WebElement> list = new ArrayList<WebElement>();
+        list = element.findElements(By.xpath(locator));
+        return list;
+    }
+
+    public static List<WebElement> getListOfWebElementsByCss(WebElement element, String locator) {
+        List<WebElement> list = element.findElements(By.cssSelector(locator));
+        return list;
     }
 
 }

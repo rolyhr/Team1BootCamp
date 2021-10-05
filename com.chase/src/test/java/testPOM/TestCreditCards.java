@@ -1,19 +1,17 @@
 package testPOM;
 
-import POM.Homepage;
+import POM.CreditCards;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import testBase.TestBase;
 
-import java.util.ArrayList;
 import java.util.Set;
 
-public class TestHomepage extends TestBase {
+public class TestCreditCards extends TestBase {
 
     @Test
     public void testDownloadFile() throws InterruptedException {
-        Homepage homepage = new Homepage();
+        CreditCards homepage = new CreditCards();
         JavascriptExecutor js = (JavascriptExecutor)driver;
 
         Set<String> tabs = driver.getWindowHandles();
