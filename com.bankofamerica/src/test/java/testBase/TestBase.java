@@ -1,13 +1,22 @@
 package testBase;
 
 import POM.Homepage;
-import POM.LocatorsPage;
 import base.Base;
+import base.ExcelReader;
+
+import java.io.IOException;
 
 public class TestBase extends Base {
 
     public Homepage getHomepage() {
         return new Homepage();
     }
-    public LocatorsPage getLocatorsPage(){return new LocatorsPage();}
+
+    static String path = System.getProperty("user.dir") + "/src/test/resources/BankOfAmerica.xlsx";
+
+    public String[][] getString2DDataFromExcelFile(String sheetName) throws IOException {
+        excelReader = new ExcelReader();
+        return excelReader.fileReaderArrayStringArraysXSSF(path,sheetName);
+    }
+
 }

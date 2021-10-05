@@ -207,7 +207,7 @@ public class Base {
         actions.moveToElement(sm).click().build().perform();
     }
     //
-    public String readFromExcel(String sheetName, int index) {
+    public String getStringFromExelSheet(String sheetName, int index) {
         String[] excelData = new String[index];
         try {
             excelData = excelReader.fileReaderStringXSSF(EXCEL_FILE_PATH, sheetName);
