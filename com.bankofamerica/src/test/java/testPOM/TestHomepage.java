@@ -113,7 +113,7 @@ public class TestHomepage extends TestBase {
     }
 
     @Test(description = "ID:10",priority = 10, enabled = false)
-    public void tesForCompareFilterOptionsList() throws IOException, InterruptedException {
+    public void testForCompareFilterOptionsList() throws IOException, InterruptedException {
 
         homepage = getHomepage();
         expectedList = getExpectedList("FilterOptions");
@@ -122,14 +122,36 @@ public class TestHomepage extends TestBase {
 
     }
 
-    @Test(description = "ID:11",priority = 11, enabled = true)
-    public void tesdoSearchForFinancialCenterLocationApplyingFilter() throws IOException, InterruptedException {
+    @Test(description = "ID:11",priority = 11, enabled = false)
+    public void testDoSearchForFinancialCenterLocationApplyingFilter() throws IOException, InterruptedException {
 
         homepage = getHomepage();
         testData = getString2DDataFromExcelFile("URL");
         expectedList = getExpectedList("FilterOptions");
+        String expectedResult = "38";
         homepage.doSearchForFinancialCenterLocationApplyingFilter(testData[2][1],expectedList.get(0));
-        Assert.assertEquals("","");
+        Assert.assertEquals(homepage.getTextOfFilteredResult(),expectedResult);
     }
+
+    @Test(description = "ID:12", priority = 12, enabled = false)
+    public void testDoSearchForFinancialCenterLocationApplyingDifferentFilter() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        testData = getString2DDataFromExcelFile("URL");
+        expectedList = getExpectedList("FilterOptions");
+        String expectedResult = "6";
+        homepage.doSearchForFinancialCenterLocationApplyingFilter(testData[2][1],expectedList.get(7));
+        Assert.assertEquals(homepage.getTextOfFilteredResult(),expectedResult);
+    }
+
+    @Test(description = "ID:13", priority = 13, enabled = true)
+    public void testCompareNavigationBarMenuList() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        expectedList = getExpectedList("NavigationBarMenu");
+        List<String> actualList = homepage.getListOfNavigationBarMenu();
+        Assert.assertTrue(compareListsOfString(actualList,expectedList));
+    }
+
 
 }

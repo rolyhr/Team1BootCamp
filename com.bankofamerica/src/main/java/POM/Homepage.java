@@ -78,7 +78,7 @@ public class Homepage extends Base {
     WebElement zipCodeInputField;
 
     @FindBy(xpath = "//*[@id=\"search-button\"]")
-    WebElement searchButton;
+    WebElement zipCodesearchButton;
 
     @FindBy(xpath = "//*[@id=\"lid664159\"]/div/a[2]")
     WebElement searchResult;
@@ -95,6 +95,43 @@ public class Homepage extends Base {
     @FindBy(xpath = "//button[text() = 'Apply filters']")
     WebElement applyFilterButton;
 
+    @FindBy(xpath = "//*[@id=\"aria-map-list-header\"]/span[1]")
+    WebElement filteredSearchResult;
+
+    @FindBy(css = "#nav-search-query")
+    WebElement helpSearchBar;
+
+    @FindBy(xpath = "//*[@id=\"searchStub\"]//input[@title ='Search']")
+    WebElement searchButton;
+
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[1]")
+    WebElement suggestedSearchOptionRoutingNumber;
+
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[2]")
+    WebElement suggestedSearchOptionBillingDispute;
+
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[3]")
+    WebElement suggestedSearchOptionErica;
+
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[4]")
+    WebElement suggestedSearchOptionBillPay;
+
+
+
+
+    void clickOnOptionRoutingNumber(){clickOnElement(suggestedSearchOptionRoutingNumber);}
+
+    void clickOnOptionBillingDispute(){clickOnElement(suggestedSearchOptionBillingDispute);}
+
+    void clickOnOptionErica(){clickOnElement(suggestedSearchOptionErica);}
+
+    void clickOnOptionBillPay(){clickOnElement(suggestedSearchOptionBillPay);}
+
+    public List<String> getListOfNavigationBarMenu(){
+        return getStringListFromADiv(By.xpath("//*[@id=\"navigationDesktop\"]/div[1]//span[@class = 'title']"));}
+
+    public String getTextOfFilteredResult(){return filteredSearchResult.getText();}
+
     void clickOnApplyFilterButton(){clickOnElement(applyFilterButton);}
 
     void clickOnViewAllFiltersButton(){clickJScript(viewAllFiltersButton);}
@@ -109,7 +146,7 @@ public class Homepage extends Base {
         clickOnFilterButton();
         return getStringListFromADiv(By.xpath("//div[@class = 'map-filter-scroll']//label"));}
 
-    void clickOnSearchButton(){clickJScript(searchButton);}
+    void clickOnSearchButton(){clickJScript(zipCodesearchButton);}
 
     void sendValuesToZipCodeInputField(String values){sendKeysToElement(zipCodeInputField,values);}
 
@@ -151,6 +188,8 @@ public class Homepage extends Base {
     public boolean isWarningForInvalidCredentialPresent(){return isElementPresent(warningForInvalidCredential);}
 
 
+
+
     public void doSearchForFinancialCenterLocationApplyingFilter(String zipCode, String option) throws InterruptedException {
         doNavigateFinancialCenterAndATMLocationPage();
         sendValuesToZipCodeInputField(zipCode);
@@ -158,11 +197,8 @@ public class Homepage extends Base {
         waitForElementToBeVisible(searchResult);
         clickOnFilterButton();
         selectFilterOption(option);
-        Thread.sleep(2000);
         clickOnApplyFilterButton();
-        waitForElementToBeVisible(searchResult);
-
-
+        waitForElementToBeVisible(filteredSearchResult);
     }
 
     public void doSearchForFinancialCenterLocation(String values) throws InterruptedException {
@@ -232,6 +268,5 @@ public class Homepage extends Base {
         sendPasswordToPasswordInputField(password);
         clickSignInButton();
     }
-
 
 }
