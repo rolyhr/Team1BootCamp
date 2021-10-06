@@ -144,13 +144,45 @@ public class TestHomepage extends TestBase {
         Assert.assertEquals(homepage.getTextOfFilteredResult(),expectedResult);
     }
 
-    @Test(description = "ID:13", priority = 13, enabled = true)
+    @Test(description = "ID:13", priority = 13, enabled = false)
     public void testCompareNavigationBarMenuList() throws IOException, InterruptedException {
 
         homepage = getHomepage();
         expectedList = getExpectedList("NavigationBarMenu");
         List<String> actualList = homepage.getListOfNavigationBarMenu();
         Assert.assertTrue(compareListsOfString(actualList,expectedList));
+    }
+
+    @Test(description = "ID:14", priority = 14, enabled = false)
+    public void testDoSearchForRoutingNumber() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        homepage.doSearchForRoutingNumber();
+        Assert.assertTrue(homepage.isSearchResultForRoutingNumberPresent());
+    }
+
+    @Test(description = "ID:15", priority = 15, enabled = false)
+    public void testDoSearchForErica() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        homepage.doSearchForErica();
+        Assert.assertTrue(homepage.isSearchResultForEricaPresent());
+    }
+
+    @Test(description = "ID:16", priority = 16, enabled = false)
+    public void testDoSearchForBillPay() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        homepage.doSearchForBillPay();
+        Assert.assertTrue(homepage.isSearchResultForBillPayPresent());
+    }
+
+    @Test(description = "ID:17", priority = 17, enabled = true)
+    public void testDoSearchForBillingDispute() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        homepage.doSearchForBillingDispute();
+        Assert.assertTrue(homepage.isSearchResultForBillingDispute());
     }
 
 

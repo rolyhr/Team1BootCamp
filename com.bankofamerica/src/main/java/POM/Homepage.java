@@ -98,34 +98,62 @@ public class Homepage extends Base {
     @FindBy(xpath = "//*[@id=\"aria-map-list-header\"]/span[1]")
     WebElement filteredSearchResult;
 
-    @FindBy(css = "#nav-search-query")
+    @FindBy(id = "nav-search-query")
     WebElement helpSearchBar;
 
     @FindBy(xpath = "//*[@id=\"searchStub\"]//input[@title ='Search']")
     WebElement searchButton;
 
-    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[1]")
+    @FindBy(xpath = "//*[@id=\"searchStub\"]/div/div/form")
+    WebElement suggestionForSearchTopic;
+
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//li[1]//a")
     WebElement suggestedSearchOptionRoutingNumber;
 
-    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[2]")
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//li[2]//a")
     WebElement suggestedSearchOptionBillingDispute;
 
-    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[3]")
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//li[3]//a")
     WebElement suggestedSearchOptionErica;
 
-    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//a[4]")
+    @FindBy(xpath = "//*[@class = 'suggestions nav-search-suggestions']//li[4]//a")
     WebElement suggestedSearchOptionBillPay;
 
+    @FindBy(xpath = "//div[@class = 'main']//a[@role ='button']")
+    WebElement routingNumberButton;
+
+    @FindBy(xpath = "//*[@id=\"searchStub\"]//h3/span")
+    WebElement searchResultForErica;
+
+    @FindBy(xpath = "//*[@id=\"searchStub\"]//h3/span")
+    WebElement searchResultForBillPay;
+
+    @FindBy(xpath = "//*[@id=\"searchStub\"]//h3/span")
+    WebElement searchResultForBillingDispute;
 
 
 
-    void clickOnOptionRoutingNumber(){clickOnElement(suggestedSearchOptionRoutingNumber);}
+    public boolean isSearchResultForBillingDispute(){return  isElementPresent(searchResultForBillingDispute);}
 
-    void clickOnOptionBillingDispute(){clickOnElement(suggestedSearchOptionBillingDispute);}
+    public boolean isSearchResultForBillPayPresent(){return  isElementPresent(searchResultForBillPay);}
 
-    void clickOnOptionErica(){clickOnElement(suggestedSearchOptionErica);}
+    public boolean isSearchResultForEricaPresent(){return  isElementPresent(searchResultForErica);}
 
-    void clickOnOptionBillPay(){clickOnElement(suggestedSearchOptionBillPay);}
+    public boolean isSearchResultForRoutingNumberPresent(){return isElementPresent(routingNumberButton);}
+
+    void waitForSuggestionTopicToBePopulated(){waitForElementToBeVisible(suggestionForSearchTopic);}
+
+    void clickOnRoutingNumberButton(){clickJScript(routingNumberButton);}
+
+    void selectOptionRoutingNumber(){clickOnElement(suggestedSearchOptionRoutingNumber);}
+
+    void selectOnOptionBillingDispute(){clickOnElement(suggestedSearchOptionBillingDispute);}
+
+    void selectOptionErica(){clickOnElement(suggestedSearchOptionErica);}
+
+    void selectOptionBillPay(){clickOnElement(suggestedSearchOptionBillPay);}
+
+    void clickOnSearchBar(){clickOnElement(helpSearchBar);}
 
     public List<String> getListOfNavigationBarMenu(){
         return getStringListFromADiv(By.xpath("//*[@id=\"navigationDesktop\"]/div[1]//span[@class = 'title']"));}
@@ -188,7 +216,37 @@ public class Homepage extends Base {
     public boolean isWarningForInvalidCredentialPresent(){return isElementPresent(warningForInvalidCredential);}
 
 
+    public void doSearchForBillPay(){
+        waitForElementToBeVisible(helpSearchBar);
+        clickOnSearchBar();
+        waitForSuggestionTopicToBePopulated();
+        selectOptionBillPay();
+        waitForElementToBeVisible(searchResultForBillPay);
+    }
 
+    public void doSearchForBillingDispute(){
+        waitForElementToBeVisible(helpSearchBar);
+        clickOnSearchBar();
+        waitForSuggestionTopicToBePopulated();
+        selectOnOptionBillingDispute();
+        waitForElementToBeVisible(searchResultForBillingDispute);
+    }
+
+    public void doSearchForErica(){
+        waitForElementToBeVisible(helpSearchBar);
+        clickOnSearchBar();
+        waitForSuggestionTopicToBePopulated();
+        selectOptionErica();
+        waitForElementToBeVisible(searchResultForErica);
+    }
+
+    public void doSearchForRoutingNumber(){
+        waitForElementToBeVisible(helpSearchBar);
+        clickOnSearchBar();
+        waitForSuggestionTopicToBePopulated();
+        selectOptionRoutingNumber();
+        waitForElementToBeVisible(routingNumberButton);
+    }
 
     public void doSearchForFinancialCenterLocationApplyingFilter(String zipCode, String option) throws InterruptedException {
         doNavigateFinancialCenterAndATMLocationPage();
