@@ -318,4 +318,9 @@ public class Base {
         return list;
     }
 
+    public void scrollToElementJScript(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
 }
