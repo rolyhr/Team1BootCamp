@@ -114,7 +114,7 @@ public class BMWLogin extends Base {
     public boolean isForgotPasswordOptionAvailable() {
         navigateToLoginPage();
         String actualForgotPassLinkText = explicitWait.until(ExpectedConditions.visibilityOf(forgotYourPasswordLink)).getText();
-        String expectedForgotPassLinkText = "Forgot your password?";
+        String expectedForgotPassLinkText = readFromExcel("Expected", 0);
         return actualForgotPassLinkText.equals(expectedForgotPassLinkText);
     }
 
@@ -122,7 +122,7 @@ public class BMWLogin extends Base {
     public boolean isRegisterNowOptionAvailable() {
         navigateToLoginPage();
         String actualForgotPassLinkText = explicitWait.until(ExpectedConditions.visibilityOf(registerNowLink)).getText();
-        String expectedForgotPassLinkText = "Register now";
+        String expectedForgotPassLinkText = readFromExcel("Expected", 1);
         return actualForgotPassLinkText.equals(expectedForgotPassLinkText);
     }
 
@@ -132,12 +132,12 @@ public class BMWLogin extends Base {
         sendKeysToElement(loginEmailAddressInput, "sample7890321@outlook.com");
         sendKeysToElement(loginPasswordInput, "qazxsw@7890");
         clickJScript(loginButton);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,250)", "");
-        fluentWait.until(ExpectedConditions.elementToBeClickable(afterLoginUpArrow)).click();
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("window.scrollBy(0,250)", "");
+        explicitWait.until(ExpectedConditions.elementToBeClickable(afterLoginUpArrow)).click();
         clickJScript(logoutLink);
         String actualLoginPageMsg =  explicitWait.until(ExpectedConditions.visibilityOf(loginPageValidationMsg)).getText();
-        String expectedLoginPageMsg = "ONE LOGIN. ALL ACCESS.";
+        String expectedLoginPageMsg = readFromExcel("Expected", 2);
         return actualLoginPageMsg.equals(expectedLoginPageMsg);
     }
 

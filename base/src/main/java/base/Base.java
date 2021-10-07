@@ -124,8 +124,8 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
-//        driver.close();
-//        driver.quit();
+        driver.close();
+        driver.quit();
     }
 
     @AfterSuite (alwaysRun = true)
