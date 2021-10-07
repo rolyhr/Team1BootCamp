@@ -175,9 +175,13 @@ public class Base {
         try {
             explicitWait.until(ExpectedConditions.elementToBeClickable(element)).click();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("UNABLE TO CLICK ON ELEMENT");
+            clickJScript(element);
         }
+    }
+
+    public void clickJScript(WebElement element) { //helper method for clickOnElement()
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();", element);
     }
 
     public void sendKeysToElement(WebElement element, String value) {
@@ -203,8 +207,10 @@ public class Base {
 
     public void hoverOverElement(WebElement mainMenu, WebElement subMenu) {
         Actions actions = new Actions(driver);
+
         WebElement mm = explicitWait.until(ExpectedConditions.visibilityOf(mainMenu));
         actions.moveToElement(mm).build().perform();
+
         WebElement sm = explicitWait.until(ExpectedConditions.visibilityOf(subMenu));
         actions.moveToElement(sm).click().build().perform();
     }
@@ -267,16 +273,12 @@ public class Base {
         select.selectByVisibleText(visibleText);
     }
 
-    public void clickJScript(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("arguments[0].click();", element);
-    }
-
-    //SYNC Methods
+    //SYNC Method
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    //GET CURRENT DATE - FORMAT: September 12, 2020
     public String getDate() {
         String[] dateArray = new String[6];
         try {
@@ -311,7 +313,7 @@ public class Base {
         return "#departureDate-"+startORend+"DateRange > div > div > div:nth-child(4) > table > tbody > tr > td > button[data-day='" + day + "']";
     }
 
-    public String getCurrentPageUrl() {
+    public String getCurrentPageURL() {
         return driver.getCurrentUrl();
     }
 
@@ -320,15 +322,12 @@ public class Base {
     }
 
     public List<WebElement> getListOfWebElementsByXpath(WebElement element, String locator) {
-        List<WebElement> list = new ArrayList<WebElement>();
-        list = element.findElements(By.xpath(locator));
-        return list;
-    }
+        return element.findElements(By.xpath(locator));
+    } //DELETE THIS METHOD
 
     public static List<WebElement> getListOfWebElementsByCss(WebElement element, String locator) {
-        List<WebElement> list = element.findElements(By.cssSelector(locator));
-        return list;
-    }
+        return element.findElements(By.cssSelector(locator));
+    } //DELETE THIS METHOD
 
     public void scrollToElementJScript(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
