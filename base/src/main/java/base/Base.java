@@ -43,10 +43,10 @@ public class Base {
     public ResultSet resultSet = null;
 
     public final String systemPath = System.getProperty("user.dir");
-    private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
-    private final String EXCEL_RELATIVE_PATH = "/src/test/resources/TestData.xlsx";
-    private final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
-    private final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
+    public final String PROP_RELATIVE_PATH = "\\src\\main\\resources\\credentials.properties";
+    public final String EXCEL_RELATIVE_PATH = "\\src\\test\\resources\\TestData.xlsx";
+    public final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
+    public final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuiteExtentSetup(ITestContext context) {
@@ -232,8 +232,8 @@ public class Base {
             System.out.println("UNABLE TO READ FROM EXCEL FILE!");
         }
         return Arrays.toString(new String[]{excelData[index]})
-                .replace("[", "")
-                .replace("]", "");
+                     .replace("[", "")
+                     .replace("]", "");
     }
 
     public String getDataFromMySQL(String query, String columnLabel) throws SQLException, IOException, ClassNotFoundException {
@@ -321,6 +321,15 @@ public class Base {
     public void scrollToElementJScript(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    public List<String> getListItems(String cssSelector) {
+        List<WebElement> menuItems = driver.findElements(By.cssSelector(cssSelector));
+        List<String> element = new ArrayList<>();
+        for (WebElement menuItem : menuItems) {
+            element.add(menuItem.getText());
+        }
+        return element;
     }
 
 }
