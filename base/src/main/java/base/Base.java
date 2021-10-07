@@ -28,6 +28,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Duration;
 import java.util.*;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 public class Base {
 
@@ -89,8 +91,9 @@ public class Base {
     @BeforeMethod (alwaysRun = true)
     public void driverSetup(@Optional("chrome") String browser, String url) {
         driver = initDriver(browser);
-        explicitWait = new WebDriverWait(driver, 10);
-        fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(30))
+
+        explicitWait = new WebDriverWait(driver, 20);
+        fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(StaleElementReferenceException.class);
         driver.get(url);
@@ -254,6 +257,27 @@ public class Base {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public void waitForElementToBeVisibleForStaleElement(WebElement element){
+        boolean staleElement = true;
+
+        while(staleElement){
+
+            try{
+
+                explicitWait.until(ExpectedConditions.visibilityOf(element));
+
+                staleElement = false;
+
+
+            } catch(StaleElementReferenceException e){
+
+                staleElement = true;
+
+            }
+
+        }
+    }
+
     //Helper Method: Check if an element is existed.
     public boolean isElementPresent(WebElement element){
         boolean flag = false;
@@ -348,6 +372,16 @@ public class Base {
     public void mouseHoverOnAnElement(WebElement element){
         Actions action = new Actions(driver);
         action.moveToElement(element).perform();
+    }
+
+    public void mouseHoverOnAnElementAndClick(WebElement element){
+        Actions action = new Actions(driver);
+
+        try {
+            action.moveToElement(element).click().build().perform();
+        }catch(NoSuchElementException e){
+            System.out.println("Element Couldn't Found");
+        }
     }
 
     //Helper Method

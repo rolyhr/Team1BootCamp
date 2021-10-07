@@ -177,13 +177,58 @@ public class TestHomepage extends TestBase {
         Assert.assertTrue(homepage.isSearchResultForBillPayPresent());
     }
 
-    @Test(description = "ID:17", priority = 17, enabled = true)
+    @Test(description = "ID:17", priority = 17, enabled = false)
     public void testDoSearchForBillingDispute() throws IOException, InterruptedException {
 
         homepage = getHomepage();
         homepage.doSearchForBillingDispute();
-        Assert.assertTrue(homepage.isSearchResultForBillingDispute());
+        Assert.assertTrue(homepage.isSearchResultForBillingDisputePresent());
     }
+
+    @Test(description = "ID:18", priority = 18, enabled = false)
+    public void testDoSearchBySendingSearchTerm() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        homepage.doSearchBySendingSearchTerm("OverDraft Charge");
+        Assert.assertTrue(homepage.isSearchResultForSearchTermPresent());
+    }
+
+    @Test(description = "ID:19", priority = 19, enabled = false)
+    public void testDoSearchBySendingSearchTermAndSelectSuggestedTopic() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        homepage.doSearchBySendingSearchTermAndSelectSuggestedTerm("Balance");
+        Assert.assertTrue(homepage.isSearchResultForSearchTermPresent());
+    }
+
+    @Test(description = "ID:20", priority = 20, enabled = false)
+    public void testDoManageAppointmentBySendingEmail() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        testData = getString2DDataFromExcelFile("ManageAppointment");
+        homepage.doManageAppointmentBySendingEmail(testData[0][0]);
+        Assert.assertTrue(homepage.isConfirmationOfAppointmentPresent());
+    }
+
+    @Test(description = "ID:21", priority = 21, enabled = false)
+    public void testDoManageAppointmentBySendingConfirmationCode() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        testData = getString2DDataFromExcelFile("ManageAppointment");
+        homepage.doManageAppointmentBySendingConfirmationCode(testData[0][1]);
+        Assert.assertTrue(homepage.isConfirmationOfAppointmentPresent());
+    }
+
+    @Test(description = "ID:22", priority = 22, enabled = true)
+    public void testDoManageAppointmentBySendingConfirmationCodeAndCancel() throws IOException, InterruptedException {
+
+        homepage = getHomepage();
+        testData = getString2DDataFromExcelFile("ManageAppointment");
+        homepage.doManageAppointmentBySendingConfirmationCodeAndCancel(testData[0][1]);
+        Assert.assertTrue(homepage.isManageAppointmentButtonPresent());
+    }
+
+
 
 
 }

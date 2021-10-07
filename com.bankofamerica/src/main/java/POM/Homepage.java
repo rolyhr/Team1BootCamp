@@ -98,7 +98,7 @@ public class Homepage extends Base {
     @FindBy(xpath = "//*[@id=\"aria-map-list-header\"]/span[1]")
     WebElement filteredSearchResult;
 
-    @FindBy(id = "nav-search-query")
+    @FindBy(css = "#nav-search-query")
     WebElement helpSearchBar;
 
     @FindBy(xpath = "//*[@id=\"searchStub\"]//input[@title ='Search']")
@@ -131,9 +131,68 @@ public class Homepage extends Base {
     @FindBy(xpath = "//*[@id=\"searchStub\"]//h3/span")
     WebElement searchResultForBillingDispute;
 
+    @FindBy(xpath = "//*[@id=\"searchStub\"]//p[1]/span[@class = 'query']")
+    WebElement searchResultForSearchTerm;
 
+    @FindBy(xpath = "//*[@id=\"searchStub\"]/div/div/form/div[2]/ul/li[1]/a")
+    WebElement suggestionTerm1stOption;
 
-    public boolean isSearchResultForBillingDispute(){return  isElementPresent(searchResultForBillingDispute);}
+    @FindBy(xpath = "//*[@id=\"apptScheduler\"]")
+    WebElement scheduleAppointmentLink;
+
+    @FindBy(xpath = "//*[@id='btn-manage-rebook-appointment']")
+    WebElement manageAppointmentButton;
+
+    @FindBy(css = "#inputFieldEmailAddress")
+    WebElement manageAppointmentEmailInputField;
+
+    @FindBy(css = "#inputFieldConfirmationCode")
+    WebElement manageAppointmentConfirmationCodeInputField;
+
+    @FindBy(css = "#triggerFindEmailAddress")
+    WebElement manageAppointmentEmailFindButton;
+
+    @FindBy(css = "#triggerFindConfirmationCode")
+    WebElement manageAppointmentConfirmationFindButton;
+
+    @FindBy(xpath = "//*[@id=\"sendEmailModalClose\"]")
+    WebElement sendEmailButton;
+
+    @FindBy(xpath = "//*[@id=\"sendEmailModalCancel\"]")
+    WebElement cancelEmailButton;
+
+    @FindBy(xpath = "//*[@id=\"sentEmailNotSent\"]/h4")
+    WebElement confirmationOfNoAppointment;
+
+    public boolean isManageAppointmentButtonPresent(){ return isElementPresent(manageAppointmentButton);}
+
+    public boolean isConfirmationOfAppointmentPresent(){return isElementPresent(confirmationOfNoAppointment);}
+
+    void clickOnCancelEmailButton(){clickOnElement(cancelEmailButton);}
+
+    void clickOnSendEmailButton(){clickOnElement(sendEmailButton);}
+
+    void clickOnManageAppointmentConfirmationFindButton(){clickOnElement(manageAppointmentConfirmationFindButton);}
+
+    void clickOnManageAppointmentEmailFindButton(){clickOnElement(manageAppointmentEmailFindButton);}
+
+    void sendConfirmationToConfirmationInputFieldForManageAppointment(String confirmationCode){sendKeysToElement(manageAppointmentConfirmationCodeInputField,confirmationCode);}
+
+    void sendEmailToEmailInputFieldForManageAppointment(String email){sendKeysToElement(manageAppointmentEmailInputField,email);}
+
+    void clickManageAppointmentButton(){clickOnElement(manageAppointmentButton);}
+
+    void clickOnScheduleAppointmentLintLink(){clickOnElement(scheduleAppointmentLink);}
+
+    void mouseOverOnSuggestionTermAndSelect(){mouseHoverOnAnElementAndClick(suggestionTerm1stOption);}
+
+    void clickOnSearchButton(){clickOnElement(searchButton);}
+
+    public boolean isSearchResultForSearchTermPresent(){return  isElementPresent(searchResultForSearchTerm);}
+
+    void sendSearchTermIntoSearchBar(String searchTerm){sendKeysToElement(helpSearchBar,searchTerm);}
+
+    public boolean isSearchResultForBillingDisputePresent(){return  isElementPresent(searchResultForBillingDispute);}
 
     public boolean isSearchResultForBillPayPresent(){return  isElementPresent(searchResultForBillPay);}
 
@@ -142,8 +201,6 @@ public class Homepage extends Base {
     public boolean isSearchResultForRoutingNumberPresent(){return isElementPresent(routingNumberButton);}
 
     void waitForSuggestionTopicToBePopulated(){waitForElementToBeVisible(suggestionForSearchTopic);}
-
-    void clickOnRoutingNumberButton(){clickJScript(routingNumberButton);}
 
     void selectOptionRoutingNumber(){clickOnElement(suggestedSearchOptionRoutingNumber);}
 
@@ -162,8 +219,6 @@ public class Homepage extends Base {
 
     void clickOnApplyFilterButton(){clickOnElement(applyFilterButton);}
 
-    void clickOnViewAllFiltersButton(){clickJScript(viewAllFiltersButton);}
-
     void clickOnFilterButton(){clickJScript(filterButton);}
 
     void selectFilterOption(String option){
@@ -174,7 +229,7 @@ public class Homepage extends Base {
         clickOnFilterButton();
         return getStringListFromADiv(By.xpath("//div[@class = 'map-filter-scroll']//label"));}
 
-    void clickOnSearchButton(){clickJScript(zipCodesearchButton);}
+    void clickOnZIPCodeSearchButton(){clickJScript(zipCodesearchButton);}
 
     void sendValuesToZipCodeInputField(String values){sendKeysToElement(zipCodeInputField,values);}
 
@@ -216,8 +271,48 @@ public class Homepage extends Base {
     public boolean isWarningForInvalidCredentialPresent(){return isElementPresent(warningForInvalidCredential);}
 
 
+
+    public void doManageAppointmentBySendingConfirmationCodeAndCancel(String confirmationCode){
+        clickOnScheduleAppointmentLintLink();
+        clickManageAppointmentButton();
+        sendConfirmationToConfirmationInputFieldForManageAppointment(confirmationCode);
+        clickOnManageAppointmentConfirmationFindButton();
+        clickOnCancelEmailButton();
+    }
+
+    public void doManageAppointmentBySendingConfirmationCode(String confirmationCode){
+        clickOnScheduleAppointmentLintLink();
+        clickManageAppointmentButton();
+        sendConfirmationToConfirmationInputFieldForManageAppointment(confirmationCode);
+        clickOnManageAppointmentConfirmationFindButton();
+        clickOnSendEmailButton();
+    }
+
+    public void doManageAppointmentBySendingEmail(String email){
+        clickOnScheduleAppointmentLintLink();
+        clickManageAppointmentButton();
+        sendEmailToEmailInputFieldForManageAppointment(email);
+        clickOnManageAppointmentEmailFindButton();
+        clickOnSendEmailButton();
+    }
+
+    public void doSearchBySendingSearchTermAndSelectSuggestedTerm(String value){
+        waitForElementToBeVisibleForStaleElement(helpSearchBar);
+        sendSearchTermIntoSearchBar(value);
+        waitForSuggestionTopicToBePopulated();
+        mouseOverOnSuggestionTermAndSelect();
+        waitForElementToBeVisible(searchResultForSearchTerm);
+    }
+
+    public void doSearchBySendingSearchTerm(String value){
+        waitForElementToBeVisibleForStaleElement(helpSearchBar);
+        sendSearchTermIntoSearchBar(value);
+        clickOnSearchButton();
+        waitForElementToBeVisible(searchResultForSearchTerm);
+    }
+
     public void doSearchForBillPay(){
-        waitForElementToBeVisible(helpSearchBar);
+        waitForElementToBeVisibleForStaleElement(helpSearchBar);
         clickOnSearchBar();
         waitForSuggestionTopicToBePopulated();
         selectOptionBillPay();
@@ -225,7 +320,7 @@ public class Homepage extends Base {
     }
 
     public void doSearchForBillingDispute(){
-        waitForElementToBeVisible(helpSearchBar);
+        waitForElementToBeVisibleForStaleElement(helpSearchBar);
         clickOnSearchBar();
         waitForSuggestionTopicToBePopulated();
         selectOnOptionBillingDispute();
@@ -233,7 +328,7 @@ public class Homepage extends Base {
     }
 
     public void doSearchForErica(){
-        waitForElementToBeVisible(helpSearchBar);
+        waitForElementToBeVisibleForStaleElement(helpSearchBar);
         clickOnSearchBar();
         waitForSuggestionTopicToBePopulated();
         selectOptionErica();
@@ -241,7 +336,7 @@ public class Homepage extends Base {
     }
 
     public void doSearchForRoutingNumber(){
-        waitForElementToBeVisible(helpSearchBar);
+        waitForElementToBeVisibleForStaleElement(helpSearchBar);
         clickOnSearchBar();
         waitForSuggestionTopicToBePopulated();
         selectOptionRoutingNumber();
@@ -251,7 +346,7 @@ public class Homepage extends Base {
     public void doSearchForFinancialCenterLocationApplyingFilter(String zipCode, String option) throws InterruptedException {
         doNavigateFinancialCenterAndATMLocationPage();
         sendValuesToZipCodeInputField(zipCode);
-        clickOnSearchButton();
+        clickOnZIPCodeSearchButton();
         waitForElementToBeVisible(searchResult);
         clickOnFilterButton();
         selectFilterOption(option);
@@ -262,7 +357,7 @@ public class Homepage extends Base {
     public void doSearchForFinancialCenterLocation(String values) throws InterruptedException {
         doNavigateFinancialCenterAndATMLocationPage();
         sendValuesToZipCodeInputField(values);
-        clickOnSearchButton();
+        clickOnZIPCodeSearchButton();
         //Thread.sleep(3000);
         waitForElementToBeVisible(searchResult);
     }
