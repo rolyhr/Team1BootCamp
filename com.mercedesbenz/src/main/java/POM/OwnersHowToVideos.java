@@ -66,24 +66,24 @@ public class OwnersHowToVideos extends Base {
         }
     }
 
-    public static void main(String[] args) throws ScriptException, NoSuchMethodException, ParseException {
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("JavaScript");
-
-        String script1 = "function hello(name) {print ('Hello, ' + name);}";
-        engine.eval(script1);
-        Invocable inv = (Invocable) engine;
-        inv.invokeFunction("hello", "Roly");
-
-        String cssSelector = "#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button";
-        String titleValue = "function getAttributeValue(value) {\n" +
-                                "var btn = document.querySelector(value);\n" +
-                                    "if (btn) {\n" +
-                                        "return btn.getAttribute('title');\n" +
-                                    "}\n" +
-                            "}";
-        engine.eval(titleValue);
-        inv.invokeFunction("getAttributeValue", cssSelector);
-    }
+//    public static void main(String[] args) throws ScriptException, NoSuchMethodException, ParseException {
+//        ScriptEngineManager manager = new ScriptEngineManager();
+//        ScriptEngine engine = manager.getEngineByName("JavaScript");
+//
+//        String script1 = "function hello(name) {print ('Hello, ' + name);}";
+//        engine.eval(script1);
+//        Invocable inv = (Invocable) engine;
+//        inv.invokeFunction("hello", "Roly");
+//
+//        String cssSelector = "#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button";
+//        String titleValue = "function getAttributeValue(value) {\n" +
+//                                "var btn = document.querySelector(value);\n" +
+//                                    "if (btn) {\n" +
+//                                        "return btn.getAttribute('title');\n" +
+//                                    "}\n" +
+//                            "}";
+//        engine.eval(titleValue);
+//        inv.invokeFunction("getAttributeValue", cssSelector);
+//    }
 
 }

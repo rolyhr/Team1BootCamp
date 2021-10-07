@@ -69,8 +69,8 @@ public class CBSLogin extends Base {
         } catch (ElementNotVisibleException e) {
             clickJScript(homePageLoginButton);
         }
-        sendKeysToElement(loginUserId, "sample789098@yahoo.com");
-        sendKeysToElement(loginPassword, "QAZ@xsw.7890");
+        sendKeysToElement(loginUserId, readFromExcel2D("Credentials", 0, 0));
+        sendKeysToElement(loginPassword, readFromExcel2D("Credentials", 0, 1));
         clickJScript(loginSubmitButton);
         return explicitWait.until(ExpectedConditions.visibilityOf(successfulLoginVerificationMsg)).getText();
     }
@@ -82,8 +82,8 @@ public class CBSLogin extends Base {
         } catch (ElementNotVisibleException e) {
             clickJScript(homePageLoginButton);
         }
-        sendKeysToElement(loginUserId, "sample@yahoo.com");
-        sendKeysToElement(loginPassword, "password123");
+        sendKeysToElement(loginUserId, readFromExcel2D("Credentials", 1, 0));
+        sendKeysToElement(loginPassword, readFromExcel2D("Credentials", 1, 1));
         clickJScript(loginSubmitButton);
         return explicitWait.until(ExpectedConditions.visibilityOf(warningForBothEmailPassFields)).getText();
     }
@@ -110,8 +110,8 @@ public class CBSLogin extends Base {
         } catch (ElementNotVisibleException e) {
             clickJScript(homePageLoginButton);
         }
-        sendKeysToElement(loginUserId, "sample.yahoo.com");
-        sendKeysToElement(loginPassword, "QAZ@xsw.7890");
+        sendKeysToElement(loginUserId, readFromExcel2D("Credentials", 2, 0));
+        sendKeysToElement(loginPassword, readFromExcel2D("Credentials", 2, 1));
         clickJScript(loginSubmitButton);
         return explicitWait.until(ExpectedConditions.visibilityOf(warningEmailField)).getText();
     }
@@ -123,8 +123,8 @@ public class CBSLogin extends Base {
         } catch (ElementNotVisibleException e) {
             clickJScript(homePageLoginButton);
         }
-        sendKeysToElement(loginUserId, "sample.yahoo.com");
-        sendKeysToElement(loginPassword, "QAZ");
+        sendKeysToElement(loginUserId, readFromExcel2D("Credentials", 3, 0));
+        sendKeysToElement(loginPassword, readFromExcel2D("Credentials", 3, 1));
         clickJScript(loginSubmitButton);
         return explicitWait.until(ExpectedConditions.visibilityOf(warningPasswordField)).getText();
     }
@@ -137,7 +137,7 @@ public class CBSLogin extends Base {
             clickJScript(homePageLoginButton);
         }
         String actualForgotPassLinkText = explicitWait.until(ExpectedConditions.visibilityOf(forgotPasswordLink)).getText();
-        String expectedForgotPassLinkText = "FORGOT YOUR PASSWORD?";
+        String expectedForgotPassLinkText = readFromExcel("Expected", 0);
         return actualForgotPassLinkText.equals(expectedForgotPassLinkText);
     }
 
@@ -149,7 +149,7 @@ public class CBSLogin extends Base {
             clickJScript(homePageLoginButton);
         }
         String actualSignUpLinkText = explicitWait.until(ExpectedConditions.visibilityOf(newAccountSignUpLink)).getText();
-        String expectedSignUpLinkText = "DON'T HAVE AN ACCOUNT? SIGN UP";
+        String expectedSignUpLinkText = readFromExcel("Expected", 1);
         return actualSignUpLinkText.equals(expectedSignUpLinkText);
     }
 
@@ -160,12 +160,12 @@ public class CBSLogin extends Base {
         } catch (ElementNotVisibleException e) {
             clickJScript(homePageLoginButton);
         }
-        sendKeysToElement(loginUserId, "sample789098@yahoo.com");
-        sendKeysToElement(loginPassword, "QAZ@xsw.7890");
+        sendKeysToElement(loginUserId, readFromExcel2D("Credentials", 4, 0));
+        sendKeysToElement(loginPassword, readFromExcel2D("Credentials", 4, 1));
         clickJScript(loginSubmitButton);
         hoverOverElement(myTeamDdHoverMM, myTeamDdHoverSM);
         String actualLoginBtnText = explicitWait.until(ExpectedConditions.visibilityOf(homePageLoginButton)).getText();
-        String expectedLoginBtnText = "LOG IN";
+        String expectedLoginBtnText = readFromExcel("Expected", 2);
         return actualLoginBtnText.equals(expectedLoginBtnText);
     }
 }

@@ -82,15 +82,15 @@ public class CBSSignUp extends Base {
     //TC001REG
     public String registerNewAccountWithAllValidData() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample021788@gmail.com");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "Password%1234");
-        sendKeysToElement(reEnterPassword, "Password%1234");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 0, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 0, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 0, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 0, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 0, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 0, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 0, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 0, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 0, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(termsCheckbox);
@@ -101,15 +101,15 @@ public class CBSSignUp extends Base {
     //TC002REG
     public String registerNewAccountWithAllInvalidData() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888");
-        sendKeysToElement(firstNameInput, "S");
-        sendKeysToElement(lastNameInput, "E");
-        sendKeysToElement(passwordInput, "Pas");
-        sendKeysToElement(reEnterPassword, "Pa");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "25");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "1143");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 1, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 1, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 1, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 1, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 1, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 1, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 1, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 1, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 1, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(termsCheckbox);
@@ -120,23 +120,23 @@ public class CBSSignUp extends Base {
                 (ExpectedConditions.visibilityOf(warningPassword)).getText();
         String warningPasswordNotMarch = explicitWait.until
                 (ExpectedConditions.visibilityOf(warningPasswordNotMatch)).getText();
-        return notValidEmail + "\n" +
-                warningPass + "\n" +
-                warningPasswordNotMarch + "\n";
+        return notValidEmail + " " +
+                warningPass + " " +
+                warningPasswordNotMarch + " ";
     }
 
     //TC003REG
     public String registerNewAccountWithInvalidEmailOnly() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "Password%1234");
-        sendKeysToElement(reEnterPassword, "Password%1234");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 2, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 2, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 2, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 2, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 2, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 2, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 2, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 2, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 2, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(termsCheckbox);
@@ -147,15 +147,15 @@ public class CBSSignUp extends Base {
     //TC004REG
     public String registerNewAccountWithDuplicateEmail() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888@gmail.com");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "Password%1234");
-        sendKeysToElement(reEnterPassword, "Password%1234");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 3, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 3, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 3, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 3, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 3, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 3, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 3, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 3, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 3, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(termsCheckbox);
@@ -166,15 +166,15 @@ public class CBSSignUp extends Base {
     //TC005REG
     public String registerNewAccountWithInvalidPasswordOnly() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888@gmail.com");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "password34");
-        sendKeysToElement(reEnterPassword, "password34");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 4, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 4, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 4, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 4, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 4, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 4, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 4, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 4, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 4, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(termsCheckbox);
@@ -185,15 +185,15 @@ public class CBSSignUp extends Base {
     //TC006REG
     public String registerNewAccountWithInvalidPasswordSixCharOrLess() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888@gmail.com");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "pas");
-        sendKeysToElement(reEnterPassword, "pas");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 5, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 5, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 5, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 5, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 5, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 5, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 5, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 5, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 5, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(termsCheckbox);
@@ -204,15 +204,15 @@ public class CBSSignUp extends Base {
     //TC007REG
     public String registerNewAccountWhenConfirmPasswordDoNotMatch() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888@gmail.com");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "pas");
-        sendKeysToElement(reEnterPassword, "pass");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 6, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 6, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 6, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 6, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 6, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 6, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 6, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 6, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 6, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(termsCheckbox);
@@ -223,15 +223,15 @@ public class CBSSignUp extends Base {
     //TC008REG
     public String registerNewAccountWithTOSCheckboxUnchecked() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888@gmail.com");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "Password%1234");
-        sendKeysToElement(reEnterPassword, "Password%1234");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 7, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 7, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 7, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 7, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 7, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 7, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 7, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 7, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 7, 8));
         clickOnElement(newsletterCheckbox1);
         clickJScript(newsletterCheckbox2);
         clickJScript(registerButton);
@@ -245,15 +245,15 @@ public class CBSSignUp extends Base {
     //TC009REG
     public boolean isNewsletterCheckboxCheckedByDefault() {
         navigateToSignUpPage();
-        sendKeysToElement(emailInput, "sample73888@gmail.com");
-        sendKeysToElement(firstNameInput, "Sample");
-        sendKeysToElement(lastNameInput, "Email");
-        sendKeysToElement(passwordInput, "Password%1234");
-        sendKeysToElement(reEnterPassword, "Password%1234");
-        dropdownSelectByVisibleText(monthInput, "April");
-        dropdownSelectByVisibleText(dayInput, "15");
-        dropdownSelectByVisibleText(yearInput, "2001");
-        sendKeysToElement(zipCodeInput, "11433");
+        sendKeysToElement(emailInput, readFromExcel2D("REGCredentials", 8, 0));
+        sendKeysToElement(firstNameInput, readFromExcel2D("REGCredentials", 8, 1));
+        sendKeysToElement(lastNameInput, readFromExcel2D("REGCredentials", 8, 2));
+        sendKeysToElement(passwordInput, readFromExcel2D("REGCredentials", 8, 3));
+        sendKeysToElement(reEnterPassword, readFromExcel2D("REGCredentials", 8, 4));
+        dropdownSelectByVisibleText(monthInput, readFromExcel2D("REGCredentials", 8, 5));
+        dropdownSelectByVisibleText(dayInput, readFromExcel2D("REGCredentials", 8, 6));
+        dropdownSelectByVisibleText(yearInput, readFromExcel2D("REGCredentials", 8, 7));
+        sendKeysToElement(zipCodeInput, readFromExcel2D("REGCredentials", 8, 8));
         boolean cbsSport =  explicitWait.until(ExpectedConditions.visibilityOf(newsletterCheckbox1)).isSelected();
         boolean sportsLine =  explicitWait.until(ExpectedConditions.visibilityOf(newsletterCheckbox2)).isSelected();
         return cbsSport && sportsLine;

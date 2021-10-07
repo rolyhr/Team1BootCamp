@@ -236,6 +236,18 @@ public class Base {
                      .replace("]", "");
     }
 
+    public String readFromExcel2D(String sheetName, int index1, int index2) {
+        String[][] excelData = new String[index1][index2];
+        try {
+            excelData = excelReader.fileReaderArrayStringArraysXSSF(EXCEL_FILE_PATH, sheetName);
+        } catch (IOException e) {
+            System.out.println("UNABLE TO READ FROM EXCEL FILE!");
+        }
+        return Arrays.toString(new String[]{excelData[index1][index2]})
+                .replace("[", "")
+                .replace("]", "");
+    }
+
     public String getDataFromMySQL(String query, String columnLabel) throws SQLException, IOException, ClassNotFoundException {
         mySqlReader = new MySqlReader();
         MySqlReader.loadProperties();

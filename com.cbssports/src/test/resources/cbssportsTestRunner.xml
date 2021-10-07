@@ -8,7 +8,17 @@
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-<!--            <class name="testPOM.TestCBSLogin"/>-->
+            <class name="testPOM.TestCBSLogin"/>
+        </classes>
+    </test>
+
+    <test name="SignUp" >
+        <!--        <groups>-->
+        <!--            <run>-->
+        <!--                <include name="Regression"/>-->
+        <!--            </run>-->
+        <!--        </groups>-->
+        <classes>
             <class name="testPOM.TestCBSSignUp"/>
         </classes>
     </test>
