@@ -43,8 +43,29 @@ public class FantasyPage extends Base {
     @FindBy(xpath = "//*[@class = 'global-nav-container']//li[10]//a")
     WebElement espnAppMenu;
 
+    @FindBy(xpath = "//*[@id=\"fitt-analytics\"]//span[text() = 'Fantasy Basketball']")
+    WebElement contentFantasyBasketballPage;
 
 
+
+    public boolean isResultForFantasyBasketballPresent(){return isElementPresent(contentFantasyBasketballPage);}
+    void clickOnNavMenuSignUpFantasyBasketball(){clickOnElement(signUpFantasyBasketballMenu);}
+    void clickOnNavMenuSignUpFantasyHockey(){clickOnElement(signUpFantasyHockeyMenu);}
+    void clickOnNavMenuBaseBall(){clickOnElement(baseBallMenu);}
+    void clickOnNavMenuFootBall(){clickOnElement(footBallMenu);}
+    void clickOnNavMenuGamesHome(){clickOnElement(gamesHomeMenu);}
+    void clickOnNavMenuBasketBall(){clickOnElement(basketBallMenu);}
+    void clickOnNavMenuHockey(){clickOnElement(hockeyMenu);}
+    void clickOnNavMenuStreak(){clickOnElement(streakMenu);}
+    void clickOnNavMenuEspnApp(){clickOnElement(espnAppMenu);}
+
+
+
+
+    public void navigateToSignUpFantasyBasketballPage(){
+        clickOnNavMenuSignUpFantasyBasketball();
+        waitForElementToBeVisible(contentFantasyBasketballPage);
+    }
 
     public List<String> getNavBarMenuList(){
         return getStringListFromADiv(By.xpath("/*[@class = 'global-nav-container']//li//span[2]"));}
