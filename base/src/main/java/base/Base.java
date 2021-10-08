@@ -126,14 +126,13 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
-        extent.close();
         driver.close();
     }
 
     @AfterSuite (alwaysRun = true)
     private void afterSuiteTearDown() {
         driver.quit();
-        //extent.close();
+        extent.close();
     }
 
     public WebDriver initDriver(String browser) {
@@ -256,25 +255,17 @@ public class Base {
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
-
+    //Synchronization method for Stale Element error.
     public void waitForElementToBeVisibleForStaleElement(WebElement element){
         boolean staleElement = true;
 
         while(staleElement){
-
             try{
-
                 explicitWait.until(ExpectedConditions.visibilityOf(element));
-
                 staleElement = false;
-
-
             } catch(StaleElementReferenceException e){
-
                 staleElement = true;
-
             }
-
         }
     }
 
@@ -302,7 +293,7 @@ public class Base {
         return driver.findElements(by);
     }
 
-    //Helper Method: Create a list of Webelements of a drop_down menu and test an element of
+    //Helper Method: Create a list of WebElements of a drop_down menu and test an element of
     //that list by truth of source then select that element.
     public void selectASubCategoryOfADropDownMenuByPassingTestData(By by, String category) {
         List<WebElement> listOfADropDownMenu = getListOfADropDownMenu(by);
@@ -347,7 +338,6 @@ public class Base {
         } else {
             flag = true;
         }
-
         return flag;
     }
 
@@ -373,7 +363,7 @@ public class Base {
         Actions action = new Actions(driver);
         action.moveToElement(element).perform();
     }
-
+    //Helper Method
     public void mouseHoverOnAnElementAndClick(WebElement element){
         Actions action = new Actions(driver);
 
@@ -407,6 +397,19 @@ public class Base {
             driver.switchTo().window(winHandle);
         }
     }
+    //Helper Method
+    public void sendKeysToElementAndClearDefaultValue(WebElement element, String value){
+        try {
+            String s = Keys.chord(Keys.COMMAND, "a");
+            element.sendKeys(s);
+            element.sendKeys(Keys.DELETE);
+            element.clear();
+            Thread.sleep(2000);
+            element.sendKeys(value);
+        }catch (TimeoutException | InterruptedException e) {
 
+            element.sendKeys(value);
+        }
+    }
 
 }

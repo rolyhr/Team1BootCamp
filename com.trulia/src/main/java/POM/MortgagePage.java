@@ -58,6 +58,43 @@ public class MortgagePage extends Base {
     @FindBy(xpath = "//*[@id=\"main-content\"]/div[1]//h1/div")
     WebElement contentForRefinanceRatesPage;
 
+    @FindBy(xpath = "//div[@r = 's']//button[text() = 'Mortgage Calculator']")
+    WebElement mortgageCalculatorButton;
+
+    @FindBy(id = "HomePriceInput")
+    WebElement homePriceInput;
+
+    @FindBy(id = "RightSplitFinancialInput")
+    WebElement downPaymentPercentageInput;
+
+    @FindBy(xpath= "//*[@id=\"main-content\"]/div[2]/div[3]/div[2]/div/div/div[4]/div/div[2]/div/div[2]")
+    WebElement loanTypeSelectionButton;
+
+    @FindBy(xpath = "//*[@id=\"LoanTypeInput\"]//option")
+    WebElement loanTypeDiv;
+
+    @FindBy(xpath = "//*[@id=\"LoanTypeInput\"]")
+    WebElement loanTypeList;
+
+    @FindBy(xpath= "//*[@id=\"main-content\"]/div[2]/div[3]/div[4]/div[1]/div/div[2]/div/div[1]")
+    WebElement mortgagePaymentAmount;
+
+
+    public String getMortgagePaymentAmount(){return mortgagePaymentAmount.getText();}
+
+    public void selectLoanTypeFromList(String loanType){dropdownSelectByVisibleText(loanTypeList,loanType);}
+
+    void clickOnLoanTypeDropDown(){clickOnElement(loanTypeSelectionButton);}
+
+    void sendPercentageOfDownPayment(String downPayment){sendKeysToElementAndClearDefaultValue(downPaymentPercentageInput,downPayment);}
+
+    void sendHomePrice(String price){sendKeysToElementAndClearDefaultValue(homePriceInput,price);}
+
+    void selectLoanType(String typeOfLoan){
+        selectASubCategoryOfADropDownMenuByPassingTestData(By.xpath("//*[@id=\"LoanTypeInput\"]//option"),typeOfLoan);}
+
+    void clickMortgageCalculatorButton(){ clickOnElement(mortgageCalculatorButton);}
+
     public boolean isContentForRefinanceRatesPage(){ return isElementPresent(contentForRefinanceRatesPage);}
 
     public boolean isContentForAffordabilityCalculatorPage(){return isElementPresent(contentForAffordabilityCalculatorPage);}
@@ -71,7 +108,6 @@ public class MortgagePage extends Base {
     public boolean isContentForPreQualifiedPagePresent(){return isElementPresent(contentForPreQualifiedPage);}
 
     public boolean isContentForMortgageOverviewPagePresent(){return isElementPresent(contentForMortgageOverviewPage);}
-
 
     void clickOnSubMenuRefinanceCalculator(){clickOnElement(subMenuRefinanceCalculator);}
 
@@ -92,6 +128,17 @@ public class MortgagePage extends Base {
 
     void mouseHoverOnMortgageNavMenu(){mouseHoverOnAnElement(mortgageNavMenu);}
 
+
+    public void mortgagePaymentCalculation(String homePrice, String percentageDownPayment, String loanType) throws InterruptedException {
+
+        clickMortgageCalculatorButton();
+        pageUpDown(800);
+        waitForElementToBeVisibleForStaleElement(homePriceInput);
+        sendHomePrice(homePrice);
+        sendPercentageOfDownPayment(percentageDownPayment);
+        clickOnLoanTypeDropDown();
+        selectLoanType(loanType);
+    }
 
     public void doNavigateToRefinanceCalculatorPage(){
         visibilityOfMortgageNavDropdownMenu();

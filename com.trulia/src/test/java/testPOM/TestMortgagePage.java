@@ -87,4 +87,100 @@ public class TestMortgagePage extends TestBase {
         Assert.assertTrue(mortgagePage.isContentForRefinanceCalculatorPagePresent());
 
     }
+
+    @Test(description = "ID:09", priority = 9, enabled = false)
+    public void testMortgagePaymentCalculationLoanType30Year() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[0][3];
+        mortgagePage.mortgagePaymentCalculation(testData[0][0], testData[0][1], testData[0][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
+
+    @Test(description = "ID:10", priority = 10, enabled = false)
+    public void testMortgagePaymentCalculationLoanType20Year() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[1][3];
+        mortgagePage.mortgagePaymentCalculation(testData[1][0], testData[1][1], testData[1][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
+
+    @Test(description = "ID:11", priority = 11, enabled = false)
+    public void testMortgagePaymentCalculationLoanType15Year() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[2][3];
+        mortgagePage.mortgagePaymentCalculation(testData[2][0], testData[2][1], testData[2][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
+
+    @Test(description = "ID:12", priority = 12, enabled = false)
+    public void testMortgagePaymentCalculationLoanType10Year() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[3][3];
+        mortgagePage.mortgagePaymentCalculation(testData[3][0], testData[3][1], testData[3][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
+
+    @Test(description = "ID:13", priority = 13, enabled = false)
+    public void testMortgagePaymentCalculationLoanTypeFHA30() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[4][3];
+        mortgagePage.mortgagePaymentCalculation(testData[4][0], testData[4][1], testData[4][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
+
+    @Test(description = "ID:14", priority = 14, enabled = false)
+    public void testMortgagePaymentCalculationLoanTypeFHA15() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[5][3];
+        mortgagePage.mortgagePaymentCalculation(testData[5][0], testData[5][1], testData[5][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
+
+    @Test(description = "ID:15", priority = 15, enabled = false)
+    public void testMortgagePaymentCalculationLoanTypeVA30() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[6][3];
+        mortgagePage.mortgagePaymentCalculation(testData[6][0], testData[6][1], testData[6][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
+
+    @Test(description = "ID:16", priority = 16, enabled = false)
+    public void testMortgagePaymentCalculationLoanTypeVA15() throws IOException, InterruptedException {
+
+        mortgagePage = getMortgagePage();
+        testData = getString2DDataFromExcelFile("MortgageCalculator");
+        String expectedPayment = testData[7][3];
+        mortgagePage.mortgagePaymentCalculation(testData[7][0], testData[7][1], testData[7][2]);
+        String actualPayment = mortgagePage.getMortgagePaymentAmount();
+        Assert.assertEquals(actualPayment, expectedPayment);
+
+    }
 }
