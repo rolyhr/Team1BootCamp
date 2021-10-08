@@ -13,9 +13,11 @@ import org.openqa.selenium.support.ui.*;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 import reporting.ExtentManager;
 import reporting.ExtentTestManager;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,10 +26,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
+import java.util.List;
 
 public class Base {
 
@@ -35,7 +35,7 @@ public class Base {
     public static Wait<WebDriver> fluentWait;
     public static WebDriverWait explicitWait;
     public static ExtentReports extent;
-    public static ExcelReader excelReader;
+    public static ExcelReader excelReader = new ExcelReader();;
     public static MySqlReader mySqlReader;
     private Properties properties;
     public Statement statement = null;
@@ -45,7 +45,7 @@ public class Base {
     private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
     private final String EXCEL_RELATIVE_PATH = "/src/main/resources/TestData.xlsx";
     private final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
-    private final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
+    public final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuiteExtentSetup(ITestContext context) {
@@ -86,7 +86,7 @@ public class Base {
     }
 
     @Parameters({"browser", "url"})
-    @BeforeMethod (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void driverSetup(@Optional("chrome") String browser, String url) {
         driver = initDriver(browser);
         explicitWait = new WebDriverWait(driver, 10);
@@ -126,7 +126,7 @@ public class Base {
         driver.close();
     }
 
-    @AfterSuite (alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     private void afterSuiteTearDown() {
         driver.quit();
         extent.close();
@@ -248,7 +248,7 @@ public class Base {
     }
 
     public void clickJScript(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", element);
     }
 
@@ -256,4 +256,120 @@ public class Base {
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public void clickOnElementT(WebElement element) {
+        System.out.println(element);
+        try {
+            explicitWait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("UNABLE TO CLICK ON ELEMENT");
+        }
+    }
+
+
+    //click on page
+
+    public void clickOnPage() throws AWTException {
+        Actions actions = new Actions(driver);
+        Robot robot = new Robot();
+        robot.mouseMove(50, 100);
+        actions.click().build().perform();
+    }
+
+    //get list of web elements
+    public List<WebElement> getListOfWebElements(By by) {
+        try {
+            explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return driver.findElements(by);
+    }
+
+    //get list of string elements
+    public List<String> getListOfStringElements(List<WebElement> elementList) {
+        List<String> arrayList = new ArrayList<>();
+        for(int i = 0; i< elementList.size();i++){
+            System.out.println(elementList.get(i).getText());
+            arrayList.add(elementList.get(i).getText());
+        }
+        return arrayList;
+    }
+
+
+
+    //select month
+
+    public void selectMonthByNextPrevious(WebElement dateStartMonth, WebElement nextMonth,String monthName){
+
+        String   seletecMonth = null;
+        boolean flag = true;
+        while (flag){
+            String text  = dateStartMonth.getText();
+            if(text.equalsIgnoreCase(monthName)){
+                flag = false;
+            }
+            else {
+                nextMonth.click();
+            }
+        }
+    }
+
+    public void selectDate( List<WebElement> dates ,WebElement  selectedDate,String dateSelectValue){
+        String  date = null;
+        String actualseletecMonth;
+        int total_node = dates.size();
+
+        for (int i = 0; i<total_node;i++){
+            date = dates.get(i).getText();
+            if(date.equals(dateSelectValue)){
+                dates.get(i).click();
+                actualseletecMonth  =  selectedDate.getText();
+
+            }
+        }
+    }
+
+    //click on elements multiple time
+    public boolean clickMultipleTimeOnAddElement(WebElement element, int num){
+        int i = 1;
+        boolean flag = false;
+        while (i < num) {
+            clickOnElement(element);
+            flag = element.isEnabled();
+
+            i++;
+        }
+        return flag;
+    }
+
+    //click on elements multiple time
+    public boolean clickMultipleTimeOnRemoveElement(WebElement element, int num){
+        int i = num;
+        boolean flag = false;
+        while (i>2){
+            clickOnElement(element);
+            flag = element.isEnabled();
+            i--;
+        }
+        return flag;
+    }
+
+    //switchToIframe
+    public void switchToIframe(WebElement element){
+        driver.switchTo().frame(element);
+    }
+
+    //convertJSToWebelemnt
+    public void convertJSToWebelement(String element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement name = (WebElement) js.executeScript("return"+ element);
+        js.executeScript("arguments[0].click();", name);
+
+
+
+    }
+
 }
