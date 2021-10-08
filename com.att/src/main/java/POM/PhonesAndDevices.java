@@ -37,7 +37,7 @@ public class PhonesAndDevices extends Base {
     public void validateTopLeftMenuBarText() {
         SoftAssert softAssert = new SoftAssert();
         navigateToPhonesAndDevicesPage();
-        List<String> topLeftMenu = getListItems(TOP_LEFT_MENU_BAR);
+        List<String> topLeftMenu = getListItemsByCss(TOP_LEFT_MENU_BAR);
 
         for (int i = 0; i < topLeftMenu.size(); i++) {
             String actualText = topLeftMenu.get(i);
@@ -51,7 +51,7 @@ public class PhonesAndDevices extends Base {
     public void validateTopCenterMenuBarText() {
         SoftAssert softAssert = new SoftAssert();
         navigateToPhonesAndDevicesPage();
-        List<String> topCenterMenu = getListItems(TOP_CENTER_MENU_BAR_WITH_ICON);
+        List<String> topCenterMenu = getListItemsByCss(TOP_CENTER_MENU_BAR_WITH_ICON);
 
         for (int i = 0; i < topCenterMenu.size(); i++) {
             String actualText = topCenterMenu.get(i);
@@ -66,7 +66,7 @@ public class PhonesAndDevices extends Base {
         SoftAssert softAssert = new SoftAssert();
         navigateToPhonesAndDevicesPage();
         openHamburgerMenu();
-        List<String> topHamburgerMenu = getListItems(TOP_LEFT_HAMBURGER_DD_MENU_LIST);
+        List<String> topHamburgerMenu = getListItemsByCss(TOP_LEFT_HAMBURGER_DD_MENU_LIST);
 
         for (int i = 0; i < topHamburgerMenu.size(); i++) {
             String actualText = topHamburgerMenu.get(i);
@@ -80,7 +80,7 @@ public class PhonesAndDevices extends Base {
     public void validatePickYourPhoneMenuBarText() {
         SoftAssert softAssert = new SoftAssert();
         navigateToPhonesAndDevicesPage();
-        List<String> phoneMenuBar = getListItems(PICK_YOUR_PHONE_MENU_BAR);
+        List<String> phoneMenuBar = getListItemsByCss(PICK_YOUR_PHONE_MENU_BAR);
 
         for (int i = 0; i < phoneMenuBar.size(); i++) {
             String actualText = phoneMenuBar.get(i);

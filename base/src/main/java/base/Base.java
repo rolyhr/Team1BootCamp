@@ -334,8 +334,17 @@ public class Base {
         js.executeScript("arguments[0].scrollIntoView();", element);
     }
 
-    public List<String> getListItems(String cssSelector) {
+    public List<String> getListItemsByCss(String cssSelector) {
         List<WebElement> menuItems = driver.findElements(By.cssSelector(cssSelector));
+        List<String> element = new ArrayList<>();
+        for (WebElement menuItem : menuItems) {
+            element.add(menuItem.getText());
+        }
+        return element;
+    }
+
+    public List<String> getListItemsByXpath(String xpath) {
+        List<WebElement> menuItems = driver.findElements(By.cssSelector(xpath));
         List<String> element = new ArrayList<>();
         for (WebElement menuItem : menuItems) {
             element.add(menuItem.getText());
