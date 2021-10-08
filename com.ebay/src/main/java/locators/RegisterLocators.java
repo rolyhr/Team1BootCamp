@@ -11,5 +11,6 @@ public class RegisterLocators {
     public static final String REGISTER_CREATE_ACCOUNT_BUTTON = "#EMAIL_REG_FORM_SUBMIT";
     public static final String REGISTER_DISPLAY_NAME_AFTER_REG = "#gh-ug > b:nth-child(1)";
     public static final String REGISTER_EMAIL_ERROR = "#Email_err";
+    public static final String REGISTER_PASSWORD_ERROR = "#password_err";
 
 }

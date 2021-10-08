@@ -41,21 +41,25 @@ public class Register extends Base {
     @FindBy (css = REGISTER_EMAIL_ERROR)
     public WebElement registerEmailError;
 
-    public void createNewPersonalAccountWithValidData() {
+    @FindBy (css = REGISTER_PASSWORD_ERROR)
+    public WebElement registerPasswordError;
+
+    public String createNewPersonalAccountWithValidData() {
         clickOnElement(registerLink);
         bypassCaptcha();
         boolean radioBtn = driver.findElement(By.cssSelector(REGISTER_PERSONAL_ACCOUNT_RADIO_BUTTON)).isSelected();
         if (!radioBtn) {
             clickOnElement(registerPersonalAccountRadioButton);
         }
-        sendKeysToElement(registerFirstNameInput, "John");
-        sendKeysToElement(registerLastNameInput, "Smith");
-        sendKeysToElement(registerEmailInput, "sample09764@email.com");
-        sendKeysToElement(registerPasswordInput, "qaz@890.xyz");
+        sendKeysToElement(registerFirstNameInput, readFromExcel2D("REGCredentials", 0, 0));
+        sendKeysToElement(registerLastNameInput, readFromExcel2D("REGCredentials", 0, 1));
+        sendKeysToElement(registerEmailInput, readFromExcel2D("REGCredentials", 0, 2));
+        sendKeysToElement(registerPasswordInput, readFromExcel2D("REGCredentials", 0, 3));
         clickOnElement(registerCreateAccountButton);
+        return getText(registerDisplayNameAfterReg);
     }
 
-    public void createNewPersonalAccountWithNoData() {
+    public boolean createNewPersonalAccountWithNoData() {
         clickOnElement(registerLink);
         bypassCaptcha();
         boolean radioBtn = driver.findElement(By.cssSelector(REGISTER_PERSONAL_ACCOUNT_RADIO_BUTTON)).isSelected();
@@ -66,51 +70,80 @@ public class Register extends Base {
         sendKeysToElement(registerLastNameInput, "");
         sendKeysToElement(registerEmailInput, "");
         sendKeysToElement(registerPasswordInput, "");
+        return checkButtonStatus();
     }
 
-    public void createNewPersonalAccountWithExistingEmail() {
+    public String createNewPersonalAccountWithExistingEmail() {
         clickOnElement(registerLink);
         bypassCaptcha();
         boolean radioBtn = driver.findElement(By.cssSelector(REGISTER_PERSONAL_ACCOUNT_RADIO_BUTTON)).isSelected();
         if (!radioBtn) {
             clickOnElement(registerPersonalAccountRadioButton);
         }
-        sendKeysToElement(registerFirstNameInput, "John");
-        sendKeysToElement(registerLastNameInput, "Smith");
-        sendKeysToElement(registerEmailInput, "john@yahoo.com");
-        sendKeysToElement(registerPasswordInput, "john@4580.xyz");
+        sendKeysToElement(registerFirstNameInput, readFromExcel2D("REGCredentials", 1, 0));
+        sendKeysToElement(registerLastNameInput, readFromExcel2D("REGCredentials", 1, 1));
+        sendKeysToElement(registerEmailInput, readFromExcel2D("REGCredentials", 1, 2));
+        sendKeysToElement(registerPasswordInput, readFromExcel2D("REGCredentials", 1, 3));
+        return getText(registerEmailError);
     }
 
-    public void createNewPersonalAccountWithInvalidEmail() {
+    public String createNewPersonalAccountWithInvalidEmail() {
         clickOnElement(registerLink);
         bypassCaptcha();
         boolean radioBtn = driver.findElement(By.cssSelector(REGISTER_PERSONAL_ACCOUNT_RADIO_BUTTON)).isSelected();
         if (!radioBtn) {
             clickOnElement(registerPersonalAccountRadioButton);
         }
-        sendKeysToElement(registerFirstNameInput, "John");
-        sendKeysToElement(registerLastNameInput, "Smith");
-        sendKeysToElement(registerEmailInput, "john7890");
-        sendKeysToElement(registerPasswordInput, "john@4580.xyz");
+        sendKeysToElement(registerFirstNameInput, readFromExcel2D("REGCredentials", 2, 0));
+        sendKeysToElement(registerLastNameInput, readFromExcel2D("REGCredentials", 2, 1));
+        sendKeysToElement(registerEmailInput, readFromExcel2D("REGCredentials", 2, 2));
+        sendKeysToElement(registerPasswordInput, readFromExcel2D("REGCredentials", 2, 3));
+        return getText(registerEmailError);
     }
 
-    public void createNewPersonalAccountWithInvalidPasswordLess6Char() {
+    public String createNewPersonalAccountWithInvalidPasswordLess6Char() {
         clickOnElement(registerLink);
         bypassCaptcha();
         boolean radioBtn = driver.findElement(By.cssSelector(REGISTER_PERSONAL_ACCOUNT_RADIO_BUTTON)).isSelected();
         if (!radioBtn) {
             clickOnElement(registerPersonalAccountRadioButton);
         }
-        sendKeysToElement(registerFirstNameInput, "John");
-        sendKeysToElement(registerLastNameInput, "Smith");
-        sendKeysToElement(registerEmailInput, "john7890");
-        sendKeysToElement(registerPasswordInput, "john@4580.xyz");
+        sendKeysToElement(registerFirstNameInput, readFromExcel2D("REGCredentials", 3, 0));
+        sendKeysToElement(registerLastNameInput, readFromExcel2D("REGCredentials", 3, 1));
+        sendKeysToElement(registerEmailInput, readFromExcel2D("REGCredentials", 3, 2));
+        sendKeysToElement(registerPasswordInput, readFromExcel2D("REGCredentials", 3, 3));
+        return getText(registerEmailError);
     }
 
-    //createNewPersonalAccountWithInvalidPasswordNoSymbol
-    //createNewPersonalAccountWithInvalidPasswordNoLetter
+    public String createNewPersonalAccountWithInvalidPasswordNoSymbol() {
+        clickOnElement(registerLink);
+        bypassCaptcha();
+        boolean radioBtn = driver.findElement(By.cssSelector(REGISTER_PERSONAL_ACCOUNT_RADIO_BUTTON)).isSelected();
+        if (!radioBtn) {
+            clickOnElement(registerPersonalAccountRadioButton);
+        }
+        sendKeysToElement(registerFirstNameInput, readFromExcel2D("REGCredentials", 4, 0));
+        sendKeysToElement(registerLastNameInput, readFromExcel2D("REGCredentials", 4, 1));
+        sendKeysToElement(registerEmailInput, readFromExcel2D("REGCredentials", 4, 2));
+        sendKeysToElement(registerPasswordInput, readFromExcel2D("REGCredentials", 4, 3));
+        return getText(registerEmailError);
+    }
 
+    public String createNewPersonalAccountWithInvalidPasswordNoLetter() {
+        clickOnElement(registerLink);
+        bypassCaptcha();
+        boolean radioBtn = driver.findElement(By.cssSelector(REGISTER_PERSONAL_ACCOUNT_RADIO_BUTTON)).isSelected();
+        if (!radioBtn) {
+            clickOnElement(registerPersonalAccountRadioButton);
+        }
+        sendKeysToElement(registerFirstNameInput, readFromExcel2D("REGCredentials", 5, 0));
+        sendKeysToElement(registerLastNameInput, readFromExcel2D("REGCredentials", 5, 1));
+        sendKeysToElement(registerEmailInput, readFromExcel2D("REGCredentials", 5, 2));
+        sendKeysToElement(registerPasswordInput, readFromExcel2D("REGCredentials", 5, 3));
+        return getText(registerEmailError);
+    }
 
+    //HELPER METHODS
     public boolean checkButtonStatus() {
         return isButtonEnabled(registerCreateAccountButton);
     }
