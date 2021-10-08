@@ -10,8 +10,7 @@ import java.util.List;
 
 public class FantasyPage extends Base {
 
-    public FantasyPage(){
-        PageFactory.initElements(driver,this);}
+    public FantasyPage(){PageFactory.initElements(driver,this);}
 
     @FindBy(xpath = "//*[@class = 'global-nav-container']//li//span[2]")
     WebElement navBarMenuList;
@@ -41,26 +40,73 @@ public class FantasyPage extends Base {
     WebElement streakMenu;
 
     @FindBy(xpath = "//*[@class = 'global-nav-container']//li[10]//a")
-    WebElement espnAppMenu;
+    WebElement espnFantasyAppMenu;
 
     @FindBy(xpath = "//*[@id=\"fitt-analytics\"]//span[text() = 'Fantasy Basketball']")
     WebElement contentFantasyBasketballPage;
 
+    @FindBy(xpath = "//*[@id=\"fitt-analytics\"]//span[text() = 'Fantasy Hockey']")
+    WebElement contentFantasyHockeyPage;
 
 
-    public boolean isResultForFantasyBasketballPresent(){return isElementPresent(contentFantasyBasketballPage);}
+
+
+    public boolean isContentForFantasyHockeyPagePresent(){return isElementPresent(contentFantasyHockeyPage);}
+
+     public boolean isContentForFantasyBasketballPagePresent(){return isElementPresent(contentFantasyBasketballPage);}
+
     void clickOnNavMenuSignUpFantasyBasketball(){clickOnElement(signUpFantasyBasketballMenu);}
-    void clickOnNavMenuSignUpFantasyHockey(){clickOnElement(signUpFantasyHockeyMenu);}
-    void clickOnNavMenuBaseBall(){clickOnElement(baseBallMenu);}
-    void clickOnNavMenuFootBall(){clickOnElement(footBallMenu);}
-    void clickOnNavMenuGamesHome(){clickOnElement(gamesHomeMenu);}
-    void clickOnNavMenuBasketBall(){clickOnElement(basketBallMenu);}
-    void clickOnNavMenuHockey(){clickOnElement(hockeyMenu);}
-    void clickOnNavMenuStreak(){clickOnElement(streakMenu);}
-    void clickOnNavMenuEspnApp(){clickOnElement(espnAppMenu);}
+
+    void clickOnNavMenuSignUpFantasyHockey(){clickJScript(signUpFantasyHockeyMenu);}
+
+    void clickOnNavMenuBaseBall(){clickJScript(baseBallMenu);}
+
+    void clickOnNavMenuFootBall(){clickJScript(footBallMenu);}
+
+    void clickOnNavMenuGamesHome(){clickJScript(gamesHomeMenu);}
+
+    void clickOnNavMenuBasketBall(){clickJScript(basketBallMenu);}
+
+    void clickOnNavMenuHockey(){clickJScript(hockeyMenu);}
+
+    void clickOnNavMenuStreak(){clickJScript(streakMenu);}
+
+    void clickOnNavMenuEspnApp(){clickJScript(espnFantasyAppMenu);}
 
 
 
+    public void navigateToEspnAppPage(){
+        clickOnNavMenuEspnApp();
+    }
+
+    public void navigateToStreakPage(){
+        clickOnNavMenuStreak();
+    }
+
+    public void navigateToHockeyPage(){
+        clickOnNavMenuHockey();
+    }
+
+    public void navigateBasketBallPage(){
+        clickOnNavMenuBasketBall();
+    }
+
+    public void navigateToGamesHomePage(){
+        clickOnNavMenuGamesHome();
+    }
+
+    public void navigateToFootballPage(){
+        clickOnNavMenuFootBall();
+    }
+
+    public void navigateToBaseballPage(){
+        clickOnNavMenuBaseBall();
+    }
+
+    public void navigateToSignUpFantasyHokeyPage(){
+        clickOnNavMenuSignUpFantasyHockey();
+        waitForElementToBeVisible(contentFantasyHockeyPage);
+    }
 
     public void navigateToSignUpFantasyBasketballPage(){
         clickOnNavMenuSignUpFantasyBasketball();

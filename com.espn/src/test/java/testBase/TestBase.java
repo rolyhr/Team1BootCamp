@@ -27,4 +27,9 @@ public class TestBase extends Base {
         excelReader = new ExcelReader();
         return excelReader.fileReaderStringListXSSF(path,sheetName);
     }
+
+    public String[] getStringFromExelFile(String sheetName) throws IOException {
+        excelReader = new ExcelReader();
+        return excelReader.fileReaderStringXSSF(path,sheetName);
+    }
 }
