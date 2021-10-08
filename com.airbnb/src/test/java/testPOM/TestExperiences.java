@@ -26,7 +26,7 @@ public class TestExperiences extends TestBase {
     /********************************************* Test Search Experience  With Date and Location **********************************************************/
     @Test(description = "TC001SE",enabled = false,priority = 5)
     public void testSearchExperience() throws IOException, InterruptedException {
-
+        excelReader = new ExcelReader();
         String sheetName = "AirBNBSearchExperience";
         String excelFilePath = filePath();
         String[] expectedText = excelReader.fileReaderStringXSSF(excelFilePath,sheetName);
@@ -54,6 +54,7 @@ public class TestExperiences extends TestBase {
     /********************************************* Test Search Experience Location **********************************************************/
     @Test(description = "TC002SE",enabled = false,priority = 5)
     public void testSearchExperienceWithLocation() throws IOException, InterruptedException {
+        excelReader = new ExcelReader();
 
         String sheetName = "AirBNBSearchExperience";
         String excelFilePath = filePath();
@@ -78,6 +79,7 @@ public class TestExperiences extends TestBase {
     @Test(description = "TC003SE",enabled = false,priority = 5)
     public void testSearchExperienceWithDate() throws IOException, InterruptedException {
 
+        excelReader = new ExcelReader();
 
         String sheetName = "AirBNBSearchExperience";
         String excelFilePath = filePath();
@@ -111,6 +113,7 @@ public class TestExperiences extends TestBase {
 
     @Test (description = "TC004PP",enabled = false,priority = 1)
     public void testCategoryNameInGetExploreLiveAnywhere() throws IOException {
+        excelReader = new ExcelReader();
 
         String excelFilePath = filePath();
         String sheetName = "AirBNB";
@@ -130,6 +133,7 @@ public class TestExperiences extends TestBase {
 
     @Test  (description = "TC005PP",enabled = false,priority = 6)
     public void testCategoryNameInDiscoverThingsTodo() throws IOException {
+        excelReader = new ExcelReader();
 
         String excelFilePath = filePath();
         String sheetName = "GetDicoverThingsToDO";
@@ -156,6 +160,8 @@ public class TestExperiences extends TestBase {
 
     @Test  (description = "TC006PP",enabled = false,priority = 6)
     public void testSelectLanguageFromCheckBox() throws IOException, InterruptedException {
+        excelReader = new ExcelReader();
+
         String sheetName = "AirBNBSearchExperience";
         String excelFilePath = filePath();
         String[] expectedText = excelReader.fileReaderStringXSSF(excelFilePath,sheetName);
@@ -173,6 +179,8 @@ public class TestExperiences extends TestBase {
 
     @Test  (description = "TC007PP",enabled = false,priority = 6)
     public void testSelectAddNumberOfAdultGuest() throws IOException, InterruptedException {
+        excelReader = new ExcelReader();
+
         String sheetName = "AirBNBSearchExperience";
         String excelFilePath = filePath();
         String[] expectedText = excelReader.fileReaderStringXSSF(excelFilePath,sheetName);
@@ -191,6 +199,8 @@ public class TestExperiences extends TestBase {
 
     @Test  (description = "TC008PP",enabled = false,priority = 6)
     public void testSelectRemoveNumberOfAdultGuest() throws IOException, InterruptedException {
+        excelReader = new ExcelReader();
+
         String sheetName = "AirBNBSearchExperience";
         String excelFilePath = filePath();
         String[] expectedText = excelReader.fileReaderStringXSSF(excelFilePath,sheetName);
@@ -209,6 +219,8 @@ public class TestExperiences extends TestBase {
 
     @Test  (description = "TC008PP",enabled = false,priority = 6)
     public void testSelectTimeOfDay() throws IOException, InterruptedException {
+        excelReader = new ExcelReader();
+
         String sheetName = "AirBNBSearchExperience";
         String excelFilePath = filePath();
         String[] expectedText = excelReader.fileReaderStringXSSF(excelFilePath,sheetName);

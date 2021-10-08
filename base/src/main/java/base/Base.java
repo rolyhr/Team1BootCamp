@@ -35,7 +35,7 @@ public class Base {
     public static Wait<WebDriver> fluentWait;
     public static WebDriverWait explicitWait;
     public static ExtentReports extent;
-    public static ExcelReader excelReader = new ExcelReader();;
+    public static ExcelReader excelReader ;
     public static MySqlReader mySqlReader;
     private Properties properties;
     public Statement statement = null;
@@ -292,7 +292,7 @@ public class Base {
     public List<String> getListOfStringElements(List<WebElement> elementList) {
         List<String> arrayList = new ArrayList<>();
         for(int i = 0; i< elementList.size();i++){
-            System.out.println(elementList.get(i).getText());
+            //System.out.println(elementList.get(i).getText());
             arrayList.add(elementList.get(i).getText());
         }
         return arrayList;
