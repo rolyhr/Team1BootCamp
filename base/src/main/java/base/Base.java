@@ -412,4 +412,8 @@ public class Base {
         }
     }
 
+    public void switchToiFrame(String ID){
+        driver.switchTo().frame(ID);
+    }
+
 }

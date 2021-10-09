@@ -1,6 +1,7 @@
 package POM;
 
 import base.Base;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,8 +49,108 @@ public class FantasyPage extends Base {
     @FindBy(xpath = "//*[@id=\"fitt-analytics\"]//span[text() = 'Fantasy Hockey']")
     WebElement contentFantasyHockeyPage;
 
+    @FindBy(css = "#sideLogin-left-rail > button.button.med")
+    WebElement signUpButton;
+
+    @FindBy(css = "#sideLogin-left-rail > button.button-alt.med")
+    WebElement loginButton;
+
+    @FindBy(css = ".ng-scope > div > header > h1")
+    WebElement createAccountWindow;
+
+    @FindBy(css = "#did-ui-view label input[name='firstName']")
+    WebElement firstNameInputField;
+
+    @FindBy(css = "#did-ui-view label input[name='lastName']")
+    WebElement lastNameInputField;
+
+    @FindBy(css = "#did-ui-view label input[name='email']")
+    WebElement emailInputField;
+
+    @FindBy(css = "#did-ui-view label input[name='newPassword']")
+    WebElement passwordInputField;
+
+    @FindBy(css = "#did-ui-view button[type = 'submit']")
+    WebElement createAccountSignUpButton;
+
+    @FindBy(xpath = "//*[@id=\"notification-create-error-firstName\"]/div/div")
+    WebElement errorMsgForFirstName;
+
+    @FindBy(xpath = "//*[@id=\"notification-create-error-lastName\"]/div/div")
+    WebElement errorMsgForLastName;
+
+    @FindBy(xpath = "//*[@id=\"notification-create-error-email\"]/div/div")
+    WebElement errorMsgForEmail;
+
+    @FindBy(xpath = "//*[@id=\"notification-create-error-newPassword\"]/div/div")
+    WebElement errorMsgForPassword;
+
+    @FindBy(css = "#did-ui-view > div > section > section > h2")
+    WebElement msgForSuccessfulAccountCreation;
+
+    @FindBy(css = "#notification-create-error-email > div > div")
+    WebElement msgAccountAlreadyExist;
+
+    @FindBy(css = "#did-ui-view > div > header")
+    WebElement logInAccountWindow;
+
+    @FindBy(xpath = "#did-ui-view div.btn-group.touch-print-btn-group-wrapper > button")
+    WebElement logInButtonToLogIn;
+
+    @FindBy(css = "#did-ui-view div:nth-child(1) > div > label > span.input-wrapper > input")
+    WebElement logInEmailInputField;
+
+    @FindBy(css = "#did-ui-view div:nth-child(2) > div span.input-wrapper > input")
+    WebElement logInPasswordInputField;
+
+    @FindBy(xpath = "//*[@id=\"did-ui-view\"]//div[@ng-repeat = 'item in parsedItems']")
+    WebElement errorMsgForInvalidCredential;
+
+    @FindBy(css = "#global-header ul.account-management > li.display-user")
+    WebElement userNameVisible;
+
+    @FindBy(xpath = "//*[@id=\"global-header\"]//a[text() = 'Log Out']")
+    WebElement LogOutButton;
 
 
+
+    public boolean isLoginButtonPresent(){return isElementPresent(loginButton);}
+
+    public boolean isErrorMsgForInvalidCredentialPresent(){return isElementPresent(errorMsgForInvalidCredential);}
+
+    void clickOnLoginButtonToLogIn(){clickOnElement(logInButtonToLogIn);}
+
+    void sendPasswordToLogInAccount(String password){sendKeysToElement(logInPasswordInputField,password);}
+
+    void sendEmailToLogInAccount(String email){sendKeysToElement(logInEmailInputField,email);}
+
+    public boolean isMsgForAccountAlreadyExistsPresent(){return isElementPresent(msgAccountAlreadyExist);}
+
+    public void successfulAccountCreationWindow(){waitForElementToBeVisibleForStaleElement(msgForSuccessfulAccountCreation);}
+
+    public boolean isMsgForSuccessfulAccountCreationPresent(){return isElementPresent(msgForSuccessfulAccountCreation);}
+
+    public boolean isErrorMsgForInvalidPasswordPresent(){return isElementPresent(errorMsgForPassword);}
+
+    public boolean isErrorMsgForInvalidEmailPresent(){return isElementPresent(errorMsgForEmail);}
+
+    public boolean isErrorMsgForInvalidLastNamePresent(){return isElementPresent(errorMsgForLastName);}
+
+    public boolean isErrorMsgForInvalidFirstNamePresent(){return isElementPresent(errorMsgForFirstName);}
+
+    void clickOnCreateAccountSignUpButton(){clickOnElement(createAccountSignUpButton);}
+
+    void sendPasswordToInputField(String password){sendKeysToElement(passwordInputField,password);}
+
+    void sendEmailToInputField(String email){sendKeysToElement(emailInputField,email);}
+
+    void sendLastNameToInputField(String lastName){sendKeysToElement(lastNameInputField,lastName);}
+
+    void sendFirstNameToInputField(String firstName){sendKeysToElement(firstNameInputField,firstName);}
+
+    void clickOnLoginButton(){clickOnElement(loginButton);}
+
+    void clickOnSignUpButton(){clickOnElement(signUpButton);}
 
     public boolean isContentForFantasyHockeyPagePresent(){return isElementPresent(contentFantasyHockeyPage);}
 
@@ -72,8 +173,6 @@ public class FantasyPage extends Base {
     void clickOnNavMenuStreak(){clickJScript(streakMenu);}
 
     void clickOnNavMenuEspnApp(){clickJScript(espnFantasyAppMenu);}
-
-
 
     public void navigateToEspnAppPage(){
         clickOnNavMenuEspnApp();
@@ -103,6 +202,28 @@ public class FantasyPage extends Base {
         clickOnNavMenuBaseBall();
     }
 
+
+    public void logInToFantasyLeagueAccount(String email, String password){
+
+        clickOnLoginButton();
+        switchToiFrame("disneyid-iframe");
+        waitForElementToBeVisibleForStaleElement(logInAccountWindow);
+        sendEmailToLogInAccount(email);
+        sendPasswordToLogInAccount(password);
+        clickOnLoginButtonToLogIn();
+    }
+
+    public void createAccountForFantasyLeague(String firstName, String lastName, String email, String password){
+        clickOnSignUpButton();
+        switchToiFrame("disneyid-iframe");
+        waitForElementToBeVisibleForStaleElement(createAccountWindow);
+        sendFirstNameToInputField(firstName);
+        sendLastNameToInputField(lastName);
+        sendEmailToInputField(email);
+        sendPasswordToInputField(password);
+        clickOnCreateAccountSignUpButton();
+    }
+
     public void navigateToSignUpFantasyHokeyPage(){
         clickOnNavMenuSignUpFantasyHockey();
         waitForElementToBeVisible(contentFantasyHockeyPage);
@@ -115,7 +236,5 @@ public class FantasyPage extends Base {
 
     public List<String> getNavBarMenuList(){
         return getStringListFromADiv(By.xpath("/*[@class = 'global-nav-container']//li//span[2]"));}
-
-
 
 }
