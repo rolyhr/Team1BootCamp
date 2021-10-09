@@ -4,7 +4,7 @@
     <test name="FantasyPage" >
         <!--        <groups>-->
         <!--            <run>-->
-        <!--                <include name="Regression"/>-->
+        <!--                <include name="Regression"/> -->
         <!--            </run>-->
         <!--        </groups>-->
         <classes>

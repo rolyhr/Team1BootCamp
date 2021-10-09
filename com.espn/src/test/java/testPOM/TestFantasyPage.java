@@ -147,12 +147,39 @@ public class TestFantasyPage extends TestBase {
         Assert.assertTrue(fantasyPage.isMsgForSuccessfulAccountCreationPresent());
     }
 
-    @Test(description = "Case ID: 16", priority = 16, enabled = true)
+    @Test(description = "Case ID: 16", priority = 16, enabled = false)
     public void testCreateFantasyAccountWithExistingAccountInfo() throws IOException {
         fantasyPage = getFantasyPage();
         testData = getString2DDataFromExcelFile("CreateAccount");
         fantasyPage.createAccountForFantasyLeague(testData[4][0],testData[4][1],testData[4][2],testData[4][3]);
         Assert.assertTrue(fantasyPage.isMsgForAccountAlreadyExistsPresent());
     }
+
+    @Test(description = "Case ID: 17", priority = 17, enabled = false)
+    public void testLogInToFantasyLeagueAccountWithValidCredential() throws IOException {
+        fantasyPage = getFantasyPage();
+        testData = getString2DDataFromExcelFile("CreateAccount");
+        fantasyPage.logInToFantasyLeagueAccount(testData[5][2],testData[5][3]);
+        Assert.assertTrue(fantasyPage.isUserNameVisible());
+    }
+
+    @Test(description = "Case ID: 18", priority = 18, enabled = false)
+    public void testLogInToFantasyLeagueAccountWithInValidCredential() throws IOException {
+        fantasyPage = getFantasyPage();
+        testData = getString2DDataFromExcelFile("CreateAccount");
+        fantasyPage.logInToFantasyLeagueAccountWithInvalidCredential(testData[2][0],testData[5][3]);
+        Assert.assertTrue(fantasyPage.isErrorMsgForInvalidCredentialPresent());
+    }
+
+    @Test(description = "Case ID: 19", priority = 19, enabled = true)
+    public void testLogInToFantasyLeagueAccountAndLogOut() throws IOException {
+        fantasyPage = getFantasyPage();
+        testData = getString2DDataFromExcelFile("CreateAccount");
+        fantasyPage.logInToFantasyLeagueAccountAndLogOut(testData[5][2],testData[5][3]);
+        Assert.assertTrue(fantasyPage.isLogInButtonAvailable());
+    }
+
+
+
 
 }

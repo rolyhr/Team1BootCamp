@@ -94,7 +94,7 @@ public class FantasyPage extends Base {
     @FindBy(css = "#did-ui-view > div > header")
     WebElement logInAccountWindow;
 
-    @FindBy(xpath = "#did-ui-view div.btn-group.touch-print-btn-group-wrapper > button")
+    @FindBy(css = "#did-ui-view div.btn-group.touch-print-btn-group-wrapper > button")
     WebElement logInButtonToLogIn;
 
     @FindBy(css = "#did-ui-view div:nth-child(1) > div > label > span.input-wrapper > input")
@@ -110,11 +110,18 @@ public class FantasyPage extends Base {
     WebElement userNameVisible;
 
     @FindBy(xpath = "//*[@id=\"global-header\"]//a[text() = 'Log Out']")
-    WebElement LogOutButton;
+    WebElement logOutButton;
 
+    @FindBy(css = "#global-user-trigger")
+    WebElement globalUserIcon;
 
+    public boolean isLogInButtonAvailable(){return isElementPresent(loginButton);}
 
-    public boolean isLoginButtonPresent(){return isElementPresent(loginButton);}
+    void clickOnLogoutButton(){clickJScript(logOutButton);}
+
+    public boolean isUserNameVisible(){return isElementPresent(userNameVisible);}
+
+    void mouseHoverGlobalUserIcon(){mouseHoverOnAnElement(globalUserIcon);}
 
     public boolean isErrorMsgForInvalidCredentialPresent(){return isElementPresent(errorMsgForInvalidCredential);}
 
@@ -203,6 +210,31 @@ public class FantasyPage extends Base {
     }
 
 
+    public void logInToFantasyLeagueAccountAndLogOut(String email, String password){
+
+        clickOnLoginButton();
+        switchToiFrame("disneyid-iframe");
+        waitForElementToBeVisibleForStaleElement(logInAccountWindow);
+        sendEmailToLogInAccount(email);
+        sendPasswordToLogInAccount(password);
+        clickOnLoginButtonToLogIn();
+        waitForElementToBeVisible(globalUserIcon);
+        mouseHoverGlobalUserIcon();
+        clickOnLogoutButton();
+        waitForElementToBeVisible(loginButton);
+    }
+
+    public void logInToFantasyLeagueAccountWithInvalidCredential(String email, String password){
+
+        clickOnLoginButton();
+        switchToiFrame("disneyid-iframe");
+        waitForElementToBeVisibleForStaleElement(logInAccountWindow);
+        sendEmailToLogInAccount(email);
+        sendPasswordToLogInAccount(password);
+        clickOnLoginButtonToLogIn();
+        waitForElementToBeVisible(errorMsgForInvalidCredential);
+    }
+
     public void logInToFantasyLeagueAccount(String email, String password){
 
         clickOnLoginButton();
@@ -211,6 +243,8 @@ public class FantasyPage extends Base {
         sendEmailToLogInAccount(email);
         sendPasswordToLogInAccount(password);
         clickOnLoginButtonToLogIn();
+        waitForElementToBeVisible(globalUserIcon);
+        mouseHoverGlobalUserIcon();
     }
 
     public void createAccountForFantasyLeague(String firstName, String lastName, String email, String password){
