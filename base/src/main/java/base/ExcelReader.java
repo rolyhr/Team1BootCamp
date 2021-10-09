@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExcelReader {
 
@@ -47,6 +49,27 @@ public class ExcelReader {
         }
         return data;
     }
+
+    public List<String> fileReaderStringListXSSF(String path, String sheetName) throws IOException {
+        List<String> data;
+        File file = new File(path);
+        FileInputStream fis = new FileInputStream(file);
+
+        xssfWorkbook = new XSSFWorkbook(fis);
+        xssfSheet = xssfWorkbook.getSheet(sheetName);
+        numberOfRows = xssfSheet.getLastRowNum();
+
+        data = new ArrayList<>();
+
+        for (int i = 1; i <= numberOfRows; i++) {
+            xssfRows = xssfSheet.getRow(i);
+            xssfCell = xssfRows.getCell(0);
+            String cellData = getCellValue(xssfCell);
+            data.add(i-1, cellData);
+        }
+        return data;
+    }
+
 
     // RETURNS STRING ARRAY (XSSF)
     public String[] fileReaderStringXSSF(String path, String sheetName) throws IOException {

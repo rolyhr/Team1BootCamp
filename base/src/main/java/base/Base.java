@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.*;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 import reporting.ExtentManager;
 import reporting.ExtentTestManager;
 
@@ -24,20 +25,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 public class Base {
 
     public static WebDriver driver;
+    public static WebDriverWait webDriverWait;
     public static Wait<WebDriver> fluentWait;
     public static WebDriverWait explicitWait;
     public static ExtentReports extent;
     public static ExcelReader excelReader;
     public static MySqlReader mySqlReader;
-    private Properties properties;
+//    public  MySQLConnection database;
+    public Properties properties;
     public Statement statement = null;
     public ResultSet resultSet = null;
 
@@ -86,14 +86,15 @@ public class Base {
     }
 
     @Parameters({"browser", "url"})
-    @BeforeMethod (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void driverSetup(@Optional("chrome") String browser, String url) {
         driver = initDriver(browser);
+        driver.get(url);
         explicitWait = new WebDriverWait(driver, 10);
         fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(StaleElementReferenceException.class);
-        driver.get(url);
+
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
     }
@@ -126,7 +127,7 @@ public class Base {
         driver.close();
     }
 
-    @AfterSuite (alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     private void afterSuiteTearDown() {
         driver.quit();
         extent.close();
@@ -204,6 +205,21 @@ public class Base {
         actions.moveToElement(sm).click().build().perform();
     }
 
+    public void mouseHover(WebElement element) {
+        try {
+            Actions hover = new Actions(driver);
+            hover.moveToElement(element).perform();
+        } catch (Exception ex) {
+            driver.navigate().refresh();
+
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            Actions hover = new Actions(driver);
+
+            wait.until(ExpectedConditions.visibilityOf(element));
+            hover.moveToElement(element).perform();
+        }
+    }
+
     public String readFromExcel(String sheetName, int index) {
         String[] excelData = new String[index];
         try {
@@ -241,7 +257,7 @@ public class Base {
     }
 
     public void clickJScript(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", element);
     }
 
@@ -249,4 +265,119 @@ public class Base {
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public boolean isElementPresent(WebElement element) {
+        boolean flag = false;
+        try {
+            explicitWait.until(ExpectedConditions.visibilityOf(element));
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Can't locate the element");
+        }
+        return flag;
+    }
+    public void oneDList(List<WebElement> elements1){
+        List<String> elementCopied1 = new ArrayList<>();
+        getListOfElements(elements1, elementCopied1);
+
+    }
+
+    public void scrollJS(int numOfPixelsToScroll) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0," + numOfPixelsToScroll + ")");
+    }
+
+    public void getListOfhref(List<WebElement> elements, List<String> elementCopied) {
+        try {
+            webDriverWait.until(ExpectedConditions.visibilityOfAllElements(elements));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            for (WebElement element : elements) {
+                //System.out.println(element.getAttribute("href"));
+                elementCopied.add(element.getAttribute("href"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<String> oneDhref(List<WebElement> elements1) {
+        List<String> elementCopied1 = new ArrayList<>();
+        getListOfhref(elements1, elementCopied1);
+        return elementCopied1;
+    }
+
+    public List<String> printOutHrefListOfElements(List<WebElement> elementsCopied1) {
+        List<String> printOut = oneDhref(elementsCopied1);
+        for (String s : printOut) {
+            System.out.println(s);
+        }
+        return printOut;
+    }
+
+    public List<String> getListItems(String cssSelector) {
+        List<WebElement> menuItems = driver.findElements(By.cssSelector(cssSelector));
+        List<String> element = new ArrayList<>();
+        for (WebElement menuItem : menuItems) {
+            element.add(menuItem.getText());
+        }
+        return element;
+    }
+
+    public String getCurrentPageURL() {
+        return driver.getCurrentUrl();
+    }
+
+    public String getCurrentPageTitle() {
+        return driver.getTitle();
+    }
+
+    public List<WebElement> getListOfWebElementsByXpath(WebElement element, String locator) {
+        return element.findElements(By.xpath(locator));
+    }
+    public static List<WebElement> getListOfWebElementsByCss(WebElement element, String locator) {
+        return element.findElements(By.cssSelector(locator));
+    }
+
+
+
+    public void getListOfElements(List<WebElement> elements,List<String> elementCopied) {
+        try {
+            webDriverWait.until(ExpectedConditions.visibilityOfAllElements(elements));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            for (WebElement element : elements) {
+                System.out.println(element.getText());
+                elementCopied.add(element.getText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public List<String> getListItemsByCss(String cssSelector) {
+        List<WebElement> menuItems = driver.findElements(By.cssSelector(cssSelector));
+        List<String> element = new ArrayList<>();
+        for (WebElement menuItem : menuItems) {
+            element.add(menuItem.getText());
+        }
+        return element;
+    }
+
+    public List<String> getListItemsByXpath(String xpath) {
+        List<WebElement> menuItems = driver.findElements(By.cssSelector(xpath));
+        List<String> element = new ArrayList<>();
+        for (WebElement menuItem : menuItems) {
+            element.add(menuItem.getText());
+        }
+        return element;
+    }
+
+
 }
