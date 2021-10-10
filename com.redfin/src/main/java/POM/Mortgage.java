@@ -71,58 +71,47 @@ public class Mortgage extends Base {
         hoverOverElement(mortgageMMButton, mortgageSMPaymentCalButton);
     }
 
+    //TC001MC
     public void calculateMortgageRateWithPercentage() {
         clickOnElement(mortgagePurchaseButton);
-        sendKeysToElement(mortgageLocationInput, "Queens");
+        sendKeysToElement(mortgageLocationInput, readFromExcel2D("CalData", 0, 0));
         clickOnElement(mortgageLocationInputResult);
         driver.findElement(By.cssSelector(MORTGAGE_HOME_PRICE_INPUT)).clear();
-        sendKeysToElement(mortgageHomePriceInput, "550000");
+        sendKeysToElement(mortgageHomePriceInput, readFromExcel2D("CalData", 0, 1));
         driver.findElement(By.cssSelector(MORTGAGE_DOWN_PAYMENT_PERCENTAGE)).clear();
-        sendKeysToElement(mortgageDownPaymentPercentage, "25");
+        sendKeysToElement(mortgageDownPaymentPercentage, readFromExcel2D("CalData", 0, 2));
         clickOnElement(mortgageUpdateRateButton);
     }
 
+    //TC002MC
     public void calculateMortgageRateWithDollarAmount() {
         clickOnElement(mortgagePurchaseButton);
-        sendKeysToElement(mortgageLocationInput, "Queens");
+        sendKeysToElement(mortgageLocationInput, readFromExcel2D("CalData", 1, 0));
         clickOnElement(mortgageLocationInputResult);
         driver.findElement(By.cssSelector(MORTGAGE_HOME_PRICE_INPUT)).clear();
-        sendKeysToElement(mortgageHomePriceInput, "550000");
+        sendKeysToElement(mortgageHomePriceInput, readFromExcel2D("CalData", 1, 1));
         driver.findElement(By.cssSelector(MORTGAGE_DOWN_PAYMENT_DOLLAR)).clear();
-        sendKeysToElement(mortgageDownPaymentDollar, "125000");
+        sendKeysToElement(mortgageDownPaymentDollar, readFromExcel2D("CalData", 1, 2));
         clickOnElement(mortgageUpdateRateButton);
     }
 
+    //TC003MC
     public void calculateMortgageRateWithAdvanceOptions() {
         clickOnElement(mortgagePurchaseButton);
-        sendKeysToElement(mortgageLocationInput, "Queens");
+        sendKeysToElement(mortgageLocationInput, readFromExcel2D("CalData", 2, 0));
         clickOnElement(mortgageLocationInputResult);
         driver.findElement(By.cssSelector(MORTGAGE_HOME_PRICE_INPUT)).clear();
-        sendKeysToElement(mortgageHomePriceInput, "550000");
+        sendKeysToElement(mortgageHomePriceInput, readFromExcel2D("CalData", 2, 1));
         driver.findElement(By.cssSelector(MORTGAGE_DOWN_PAYMENT_DOLLAR)).clear();
-        sendKeysToElement(mortgageDownPaymentDollar, "125000");
+        sendKeysToElement(mortgageDownPaymentDollar, readFromExcel2D("CalData", 2, 2));
         clickOnElement(mortgageMoreOptions);
         Select loanType = new Select(mortgageLoanTypeSelectDP);
-        loanType.selectByValue("20yr");
+        loanType.selectByVisibleText(readFromExcel2D("CalData", 3, 0));
         Select creditScore = new Select(mortgageCreditScoreSelectDP);
-        creditScore.selectByValue("740-759");
+        creditScore.selectByValue(readFromExcel2D("CalData", 3, 1));
         Select military = new Select(mortgageMilitarySelectDP);
-        loanType.selectByValue("NationalGuard");
+        loanType.selectByValue(readFromExcel2D("CalData", 3, 2));
         clickOnElement(mortgageUpdateRateButton);
     }
-
-    public String getLocation(String city) {
-
-        return city;
-    }
-
-//    public ArrayList<String> returnArrayList(String locator)    {
-//        ArrayList<WebElement> lists = (ArrayList<WebElement>) driver.findElements(By.cssSelector(locator));
-//        ArrayList<String> allCity = new ArrayList<>();
-//        for (WebElement location : lists) {
-//            allCity.add(location.getText());
-//        }
-//        return allCity;
-//    }
 
 }

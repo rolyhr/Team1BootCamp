@@ -6,20 +6,18 @@ import testBase.TestBase;
 
 public class TestMortgage extends TestBase {
 
-    @Test (description = "TC001MC", enabled = false)
+    @Test (description = "TC001MC", enabled = true)
     public void testMortgageCalculateWithPercentage() {
         Mortgage mortgage = new Mortgage();
         mortgage.navigateToMortgageRatePage();
         mortgage.calculateMortgageRateWithPercentage();
-        //Do assertion...
     }
 
-    @Test (description = "TC002MC", enabled = false)
+    @Test (description = "TC002MC", enabled = true)
     public void testMortgageCalculateWithDollarAmount() {
         Mortgage mortgage = new Mortgage();
         mortgage.navigateToMortgageRatePage();
         mortgage.calculateMortgageRateWithDollarAmount();
-        //Do assertion...
     }
 
     @Test (description = "TC003MC", enabled = true)
@@ -27,6 +25,5 @@ public class TestMortgage extends TestBase {
         Mortgage mortgage = new Mortgage();
         mortgage.navigateToMortgageRatePage();
         mortgage.calculateMortgageRateWithAdvanceOptions();
-        //Do assertion...
     }
 }
