@@ -36,6 +36,7 @@ public class Base {
     public static ExtentReports extent;
     public static ExcelReader excelReader;
     public static MySqlReader mySqlReader;
+//    public static DataReader dataReader;
 //    public  MySQLConnection database;
     public Properties properties;
     public Statement statement = null;
@@ -45,7 +46,7 @@ public class Base {
     private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
     private final String EXCEL_RELATIVE_PATH = "/src/test/resources/TestData.xlsx";
     private final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
-    private final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
+    public final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuiteExtentSetup(ITestContext context) {
@@ -264,6 +265,28 @@ public class Base {
     //SYNC Methods
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void fluentWaitForElementToBeClickable(WebElement element) {
+        try {
+            fluentWait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void waitForElementToBeClickable(WebElement element) {
+        try {
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void hoverOverElement(WebElement element) {
+        Actions action = new Actions(driver);
+        action.moveToElement(element).build().perform();
+
     }
 
     public boolean isElementPresent(WebElement element) {
