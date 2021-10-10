@@ -5,7 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import static POM.locators.FashionLocators.*;
 
@@ -42,6 +44,26 @@ public class Fashion extends Base {
     @FindBy(css = SEARCH_RESULT)
     public WebElement searchResult;
 
+    //SHOP BY CATEGORY SEE ALL
+    @FindBy(css = SEE_ALL_WOMENSHOES_SH0PBYBRAND)
+    public WebElement seeAllWomenshoesShopByBrand ;
+
+    @FindBy(id = SEE_ALL_CONTAINER)
+    public WebElement seeAllContainer;
+
+    @FindBy(id = DELEIVERY_OPTION)
+    public WebElement DeleiveryOption;
+
+    @FindBy(css = CHECK_BOX_FREE_INTERNATIONAL_SHIPPING)
+    public WebElement checkBoxFreeInternationalShipping;
+
+    @FindBy(css = APPLY_BUTTON)
+    public WebElement applyButton;
+
+    @FindBy(css = FILTER_RESULT)
+    public WebElement filterResult;
+
+
     public void navigateToFashion() {
        clickOnElement(navigateToFashion);
     }
@@ -68,10 +90,54 @@ public class Fashion extends Base {
         return getListOfStringElements(fashionShopByCategoryList);
     }
 
-    public  String searchFashionProduct(String element){
+    //search
+    public void  sendValueInSearchFashion(String element){
         searchBox.sendKeys(element);
-        clickOnElement(searchButton);
-        return searchResult.getText();
     }
+
+    public void  clickOnSearchButton(){
+        clickOnElement(searchButton);
+    }
+
+    public  int searchFashionProduct(String element){
+        sendValueInSearchFashion(element);
+        clickOnSearchButton();
+        String stringSearchResult = searchResult.getText().replaceAll(",","");
+        return Integer.parseInt(stringSearchResult);
+    }
+
+    /*women Fashion
+    public void navigateToWomenShoes(){
+      clickOnElement(fashionShopByCategoryList.get(6));
+    }
+
+    public void clickOnSellWallWomenShoeShopByBrand(){
+        clickOnElement(seeAllWomenshoesShopByBrand);
+        waitForElementToBeVisible(seeAllContainer);
+    }
+
+    public void clickOnDeleiveryOption(){
+        clickOnElement(DeleiveryOption);
+     //   waitForElementToBeVisible(checkBoxFreeInternationalShipping);
+    }
+
+    public void selectCheckBox(){
+        clickOnElement(checkBoxFreeInternationalShipping);
+    }
+
+    public void clickOnApplyButton(){
+        clickOnElement(applyButton);
+    }
+
+    public void filterProductByShopByBradFreeInternationalShipping(){
+        navigateToWomenShoes();
+        String parent_window = getCurrentWindow();
+        clickOnSellWallWomenShoeShopByBrand();
+        windowHandel(parent_window);
+        clickJScript(applyButton);
+        //waitForElementToBeVisible(filterResult);
+    }*/
+
+
 
 }

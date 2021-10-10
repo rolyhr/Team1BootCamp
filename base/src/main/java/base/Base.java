@@ -195,6 +195,14 @@ public class Base {
         actions.moveToElement(sm).click().build().perform();
     }
 
+    public void hoverOverElementWithoutCLick(WebElement mainMenu, WebElement subMenu) {
+        Actions actions = new Actions(driver);
+        WebElement mm = explicitWait.until(ExpectedConditions.visibilityOf(mainMenu));
+        actions.moveToElement(mm).build().perform();
+        WebElement sm = explicitWait.until(ExpectedConditions.visibilityOf(subMenu));
+        actions.moveToElement(sm).perform();
+    }
+
     public String readFromExcel(String sheetName, int index) {
         String[] excelData = new String[index];
         try {
@@ -368,8 +376,27 @@ public class Base {
         WebElement name = (WebElement) js.executeScript("return"+ element);
         js.executeScript("arguments[0].click();", name);
 
-
-
     }
 
+    public String getCurrentWindow(){
+        return driver.getWindowHandle();
+    }
+
+    public void  windowHandel(String parentPage) {
+        Set<String> windows = driver.getWindowHandles();
+        System.out.println(windows.size());
+
+        Iterator iterator = windows.iterator();
+        String currentWindowID;
+
+        while (iterator.hasNext()) {
+            currentWindowID = iterator.next().toString();
+            System.out.println(currentWindowID);
+            if (!currentWindowID.equals(parentPage)) {
+                driver.switchTo().window(currentWindowID);
+                System.out.println("Swtiched");
+                // driver.close();
+            }
+        }
+    }
 }

@@ -6,7 +6,9 @@ import org.testng.asserts.SoftAssert;
 import testBase.TestBase;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class TestFashion extends TestBase {
 
@@ -61,19 +63,45 @@ public class TestFashion extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(description = "TC005FS",enabled = true ,priority = 3)
-    public void testsearchFashionProduct() throws IOException {
+    @Test(description = "TC005FS",enabled = false ,priority = 3)
+    public void testsearchExistingFashionProduct() throws IOException {
 
         String sheetName = "ebayTestData";
         getFashion().navigateToFashion();
-    //    List<String> acutalCategories = getFashion().getFashionShopByCategory();
+        boolean flag =false;
 
         String[] testData = getExcelFile("ShopByCategory");
         String[] expectedResults=getExcelFile("Search");
 
-        String actualResult =  getFashion().searchFashionProduct(testData[1]);
-
-//        Assert.assertTrue(flag,"SEARCH FASHION PRODUCT IS NOT WORKING PROPERLY");
+        int actualResult =  getFashion().searchFashionProduct(testData[1]);
+        if(actualResult >0){
+            flag = true;
+        }
+        Assert.assertTrue(flag,"SEARCH EXISTING FASHION PRODUCT IS NOT WORKING PROPERLY");
 
     }
+
+    @Test(description = "TC006FS",enabled = false ,priority = 3)
+    public void testsearcNonExistingFashionProduct() throws IOException {
+
+        String sheetName = "ebayTestData";
+        getFashion().navigateToFashion();
+        boolean flag =false;
+
+        String[] testData = getExcelFile("Search");
+     //   String[] expectedResults=getExcelFile("Search");
+
+        int actualResult =  getFashion().searchFashionProduct(testData[0]);
+        if(actualResult == 0){
+            flag = true;
+        }
+        Assert.assertTrue(flag,"SEARCH  NON-EXISTING FASHION PRODUCT IS NOT WORKING PROPERLY");
+
+    }
+
+//    @Test(description = "TC006FS",enabled = true ,priority = 3)
+//    public void testModalWiindowShopWomenShoeByBrand() throws IOException {
+//        getFashion().navigateToFashion();
+//        getFashion().filterProductByShopByBradFreeInternationalShipping();
+//    }
 }
