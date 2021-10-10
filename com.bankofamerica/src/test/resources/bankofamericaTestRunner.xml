@@ -8,10 +8,11 @@
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <!--<class name="testPOM.ClassName"/>   UNCOMMENT THIS LINE TO RUN TEST CASES-->
+            <class name="testPOM.TestChecking"/>
         </classes>
     </test>
+    <parameter name="url" value="https://www.bankofamerica.com/online-banking/mobile-and-online-banking-features/"/>
 
-    <parameter name="url" value="https://www.bankofamerica.com"/>
+<!--    <parameter name="url" value="https://www.bankofamerica.com"/>-->
     <parameter name="browser" value="chrome"/>
 </suite>
