@@ -124,8 +124,8 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
-        driver.close();
-        driver.quit();
+//        driver.close();
+//        driver.quit();
     }
 
     @AfterSuite (alwaysRun = true)
@@ -292,7 +292,7 @@ public class Base {
         return dateArray[1].trim() + " " + dateArray[2].trim() + ", " + dateArray[5].trim();
     }
 
-    public void pickCalendarDate(WebElement monthYearElement, WebElement monPickerBtn, String month, int day, String startORend) {
+    public void pickCalendarDate(WebElement monthYearElement, WebElement monPickerBtn, String month, int day) {
         while (true) {
             String extractMonthYear = explicitWait.until(ExpectedConditions.visibilityOf(monthYearElement)).getText().toLowerCase();
             String[] array = extractMonthYear.split(" ");
@@ -303,14 +303,8 @@ public class Base {
                 explicitWait.until(ExpectedConditions.elementToBeClickable(monPickerBtn)).click();
             }
         }
-        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(getCustomLocator(day, startORend))));
+        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(String.valueOf(day))));
         exactDay.click();
-    }
-
-    //NEED TO MODIFY THIS getDay() HELPER METHOD BASED ON THE PROJECT REQUIREMENT
-    //HELPER METHOD FOR pickCalendarDay()
-    public static String getCustomLocator(int day, String startORend) {
-        return "#departureDate-"+startORend+"DateRange > div > div > div:nth-child(4) > table > tbody > tr > td > button[data-day='" + day + "']";
     }
 
     public String getCurrentPageURL() {

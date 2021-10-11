@@ -41,6 +41,23 @@ public class OwnersHowToVideos extends Base {
     @FindBy (css = PLAY_BUTTON)
     public WebElement playButton;
 
+    //TC001VP
+    public String playButton() {
+        navigateToVideo();
+        play();
+        return explicitWait.until(
+                ExpectedConditions.visibilityOf(playButton)).getAttribute("title");
+    }
+
+    //TC002VP
+    public String pauseButton() {
+        navigateToVideo();
+        pause();
+        return explicitWait.until(
+                ExpectedConditions.visibilityOf(playButton)).getAttribute("title");
+    }
+
+    //HELPER METHODS
     public void navigateToVideo() {
         clickOnElement(videoOwnersSupportLink);
         clickOnElement(videoViewVideoButton);
@@ -51,20 +68,33 @@ public class OwnersHowToVideos extends Base {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    public void play() throws ScriptException, NoSuchMethodException {
+    public void play() {
         JavascriptExecutor js = (JavascriptExecutor)driver;
-//        String titleValue = (String) js.executeScript("function getAttributeValue() {\n" +
-//                                                        "    const btn = document.querySelector('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button');\n" +
-//                                                        "    if (btn) {\n" +
-//                                                        "            return btn.getAttribute('title');\n" +
-//                                                        "    }\n" +
-//                                                        "}" +
-//                                                        "getAttributeValue();");
-        String titleValue = driver.findElement(By.cssSelector(PLAY_BUTTON)).getAttribute("title");
-        if (titleValue.equals("Play (k)")){
-            driver.findElement(By.cssSelector(PLAY_BUTTON)).click();
-        }
+        js.executeScript("document.querySelector('button[title=\"Play (k)\"]').click();");
     }
+
+    public void pause() {
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("document.querySelector('button[title=\"Pause (k)\"]').click();");
+    }
+
+
+
+//    public void play() throws ScriptException, NoSuchMethodException {
+////        JavascriptExecutor js = (JavascriptExecutor)driver;
+////        String titleValue = (String) js.executeScript("function getAttributeValue() {\n" +
+////                                                        "    const btn = document.querySelector('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button');\n" +
+////                                                        "    if (btn) {\n" +
+////                                                        "            return btn.getAttribute('title');\n" +
+////                                                        "    }\n" +
+////                                                        "}" +
+////                                                        "getAttributeValue();");
+//        String titleValue = driver.findElement(By.cssSelector(PLAY_BUTTON)).getAttribute("title");
+//        if (titleValue.equals("Play (k)")){
+//            driver.findElement(By.cssSelector(PLAY_BUTTON)).click();
+//        }
+//    }
+
 
 //    public static void main(String[] args) throws ScriptException, NoSuchMethodException, ParseException {
 //        ScriptEngineManager manager = new ScriptEngineManager();

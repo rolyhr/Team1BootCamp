@@ -594,4 +594,22 @@ public class Cruise extends Base {
         return dateArray[2].trim();
     }
 
+    public void pickCalendarDate(WebElement monthYearElement, WebElement monPickerBtn, String month, int day, String startORend) {
+        while (true) {
+            String extractMonthYear = explicitWait.until(ExpectedConditions.visibilityOf(monthYearElement)).getText().toLowerCase();
+            String[] array = extractMonthYear.split(" ");
+            String extractedMonth = array[0].trim();
+            if (extractedMonth.equals(month.toLowerCase())) {
+                break;
+            } else {
+                explicitWait.until(ExpectedConditions.elementToBeClickable(monPickerBtn)).click();
+            }
+        }
+        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(String.valueOf(day))));
+        exactDay.click();
+    }
+
+
+
+
 }

@@ -3,6 +3,7 @@ package testPOM;
 import POM.OwnersHowToVideos;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import testBase.TestBase;
 
@@ -15,25 +16,19 @@ import static ownersVideoLocators.OwnersVideoLocators.*;
 
 public class TestOwnersHowToVideos extends TestBase {
 
-    @Test
-    public void testVideoElements() throws ScriptException, NoSuchMethodException, InterruptedException {
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+    @Test (description = "TC001VP", priority = 1, enabled = false)
+    public void testPlayButton() {
         OwnersHowToVideos ohtv = new OwnersHowToVideos();
-        ohtv.navigateToVideo();
-//        ohtv.play();
+        String actualResult = ohtv.playButton();
+        String expectedResult = readFromExcel("AssertionResult", 0);
+        Assert.assertEquals(actualResult, expectedResult, "FAILED, TC001VP");
+    }
 
-        js.executeScript("arguments[0].onplay;", ohtv.videoID);
-        Thread.sleep(5000);
-        js.executeScript("arguments[0].onpause;", ohtv.videoID);
-        Thread.sleep(3000);
-        js.executeScript("arguments[0].play;", ohtv.videoID);
-        Thread.sleep(5000);
-
-//        js.executeScript("document.getElementById('player').onplay", );
-//        Thread.sleep(5000);
-//        js.executeScript("document.getElementById('player').pause()");
-//        Thread.sleep(3000);
-//        js.executeScript("document.getElementById('player').play()");
-//        Thread.sleep(5000);
+    @Test (description = "TC002VP", priority = 1, enabled = false)
+    public void testPauseButton() {
+        OwnersHowToVideos ohtv = new OwnersHowToVideos();
+        String actualResult = ohtv.pauseButton();
+        String expectedResult = readFromExcel("AssertionResult", 1);
+        Assert.assertEquals(actualResult, expectedResult, "FAILED, TC002VP");
     }
 }
