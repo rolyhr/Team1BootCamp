@@ -66,6 +66,11 @@ public class Checking extends Base {
     @FindBy(css = CONTACTUS_ELEMNT_LIST)
     public WebElement contactUsElementList;
 
+    @FindBy(css = PANEL_SLIDER_RIGH_Result_Security)
+    public WebElement slideRightResult;
+
+    @FindBy(css = PANEL_SLIDER_LEFT_Result_Security)
+    public WebElement slideLeftResult;
 
     public void clickOnChecking(){
         clickOnElement(checking);
@@ -117,5 +122,20 @@ public class Checking extends Base {
 
     public List<String> getListofBreadcrumbelemnts(){
         return getListOfStringElements(breadCrumb);
+    }
+
+    public String scrollRight(){
+        clickOnElement(mobileBankingPrivacyPolicyElementList.get(0));
+        clickOnElement(panelSliderRight);
+        return slideRightResult.getText();
+    }
+
+    public String scrollLeft() throws InterruptedException {
+        clickOnElement(mobileBankingPrivacyPolicyElementList.get(0));
+        clickOnElement(panelSliderRight);
+      Thread.sleep(8000);
+        clickOnElement(panelSliderLeft);
+        waitForElementToBeVisible(slideLeftResult);
+        return slideRightResult.getText();
     }
 }

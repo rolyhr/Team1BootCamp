@@ -18,5 +18,7 @@ public class ChekingLocators {
     public static final String BREADCRUMB = "#globalFooterModule div.footer__breadcrumbs > nav >ol>li span[itemprop]";
     public static final String IMPORTANT_DISCLOSERS = "footerLegalSectionTab";
     public static final String CONTACTUS_ELEMNT_LIST = "#contactUsOlbModule a";
+    public static final String PANEL_SLIDER_RIGH_Result_Security = "#paneSliderSecurityCenter > div > section:nth-child(1) > h3";
+    public static final String PANEL_SLIDER_LEFT_Result_Security = "#paneSliderReplaceCard > div > section:nth-child(1) > h3";
 
 }

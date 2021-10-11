@@ -106,4 +106,24 @@ public class TestChecking extends TestBase {
         softAssert.assertAll();
     }
 
+    @Test(description = "TC008CK", enabled = false, priority = 1)
+    public void testScrollLeft() throws IOException, InterruptedException {
+        String sheetName = "TestResult";
+        //  getCheking().navigateToMobileBanking();
+        String acutalCategories = getCheking().scrollLeft();
+        String[][] expectedCategories =getExcelFileArray(sheetName);
+        SoftAssert softAssert = new SoftAssert();
+        Assert.assertEquals(acutalCategories,expectedCategories[0][1]);
+    }
+
+//    @Test(description = "TC007CK", enabled = true, priority = 1)
+//    public void testScrollRight() throws IOException {
+//        String sheetName = "TestResult";
+//        //  getCheking().navigateToMobileBanking();
+//        String acutalCategories = getCheking().scrollRight();
+//        String[][] expectedCategories =getExcelFileArray(sheetName);
+//        SoftAssert softAssert = new SoftAssert();
+//        Assert.assertEquals(acutalCategories,expectedCategories[1][1]);
+//    }
+
 }
