@@ -47,7 +47,7 @@ public class TestRealEstateAgents extends TestBase {
         Assert.assertEquals(actualResult,expectedResult[1],"SEARCH HOME WITH INVALID PHONE DID NOT WORK PROPERLY");
     }
 
-    @Test(description = "TC005RA", enabled = false, priority = 2)
+    @Test(description = "TC005RA", enabled = true, priority = 2)
     public void testsearchHomeWithoutPhoneEmail() throws IOException, InterruptedException, AWTException {
         String[] testData =getExcelFile("HomeSearch");
         String[] expectedResult =getExcelFile("ErrorMesage");
