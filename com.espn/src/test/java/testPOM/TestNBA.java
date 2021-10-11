@@ -19,7 +19,7 @@ public class TestNBA extends TestBase {
         String [] expectedNBApageTitleArray = excelReader.fileReaderStringXSSF(System.getProperty("user.dir")+ "\\src\\main\\resources\\ESPNnbapageElements.xlsx","ESPNnbaTitle");
         String expectedNBApageTitle = expectedNBApageTitleArray[0];
         System.out.println("Expected Page Title: " + expectedNBApageTitle);
-        Assert.assertEquals(actualTitle,expectedNBApageTitle,"NBApage Title does not match");
+        Assert.assertEquals(actualTitle,expectedNBApageTitle,"Failed, Do not match");
     }
 
     @Test(description = "TC002NBA", priority = 2, enabled = false)
@@ -43,7 +43,7 @@ public class TestNBA extends TestBase {
             String actualText =  nba.getStatsListText(i);
             System.out.println(actualText);
             String expectedStatsList = nba.validateStatsList(i);
-            softAssert.assertEquals(actualText, expectedStatsList, "Stats list at index of " + i + " " + "Does not match");
+            softAssert.assertEquals(actualText, expectedStatsList, "Failed, Do not match");
         }
         softAssert.assertAll();
     }
