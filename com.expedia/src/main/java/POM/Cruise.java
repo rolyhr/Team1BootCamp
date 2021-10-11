@@ -605,11 +605,15 @@ public class Cruise extends Base {
                 explicitWait.until(ExpectedConditions.elementToBeClickable(monPickerBtn)).click();
             }
         }
-        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(String.valueOf(day))));
+        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(getCustomLocator(day, startORend))));
         exactDay.click();
     }
 
-
+    //NEED TO MODIFY THIS getDay() HELPER METHOD BASED ON THE PROJECT REQUIREMENT
+    //HELPER METHOD FOR pickCalendarDay()
+    public String getCustomLocator(int day, String startORend) {
+        return "#departureDate-"+startORend+"DateRange > div > div > div:nth-child(4) > table > tbody > tr > td > button[data-day='" + day + "']";
+    }
 
 
 }
