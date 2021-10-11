@@ -307,6 +307,7 @@ public class Base {
         exactDay.click();
     }
 
+
     //NEED TO MODIFY THIS getDay() HELPER METHOD BASED ON THE PROJECT REQUIREMENT
     //HELPER METHOD FOR pickCalendarDay()
     public String getCustomLocator(int day) {
