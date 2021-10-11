@@ -22,7 +22,7 @@ public class TestBase extends Base {
 
 
     public static String systemPath = System.getProperty("user.dir");
-    public static String EXCEL_RELATIVE_PATH = "src/test/resources/ExpediaTestData.xlsx";
+    public static String EXCEL_RELATIVE_PATH = "/src/test/resources/ExpediaTestData.xlsx";
 
     public static String[] getExcelFile(String sheetName) throws IOException {
         String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
