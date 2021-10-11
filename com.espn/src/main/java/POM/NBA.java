@@ -91,7 +91,7 @@ public class NBA extends Base {
             String actualText = espnLinkListArray.get(i).getText();
             System.out.println(actualText);
             String expectedESPNPlusListArray = expectedESPNPlusList[i];
-            softAssert.assertEquals(actualText, expectedESPNPlusListArray, "ESPN+ List at index of " + i + " " + "Does not match");
+            softAssert.assertEquals(actualText, expectedESPNPlusListArray);
         }
         softAssert.assertAll();
     }
@@ -105,7 +105,7 @@ public class NBA extends Base {
             String actualText = espnQuickLinkArray.get(i).getText();
             System.out.println(actualText);
             String expectedQuickLinks = expectedQuickLinksArray[i];
-            softAssert.assertEquals(actualText, expectedQuickLinks, "Quick Links at index of " + i + " " + "Does not match");
+            softAssert.assertEquals(actualText, expectedQuickLinks);
         }
         softAssert.assertAll();
     }
@@ -133,7 +133,7 @@ public class NBA extends Base {
             String actualText = teamListArray.get(i).getText();
             System.out.println(actualText);
             String expectedTeamList = expectedTeamsArray[i];
-            softAssert.assertEquals(actualText, expectedTeamList, "Team Categories at index of " + i + " " + "Does not match");
+            softAssert.assertEquals(actualText, expectedTeamList);
         }
         softAssert.assertAll();
     }
@@ -147,7 +147,7 @@ public class NBA extends Base {
             String actualText = podcastListArray.get(i).getText();
             System.out.println(actualText);
             String expectedPodcastsList = expectedPodcastArray[i];
-            softAssert.assertEquals(actualText, expectedPodcastsList ,"Podcasts title at index of " + i + " " + "Does not match");
+            softAssert.assertEquals(actualText, expectedPodcastsList);
         }
         softAssert.assertAll();
     }
@@ -161,7 +161,7 @@ public class NBA extends Base {
             String actualText = fantasyListArray.get(i).getText();
             System.out.println(actualText);
             String expectedFantasyList = expectedFantasyArray[i];
-            softAssert.assertEquals(actualText, expectedFantasyList ,"Fantasy title at index of " + i + " " + "Does not match");
+            softAssert.assertEquals(actualText, expectedFantasyList);
         }
         softAssert.assertAll();
     }
@@ -175,7 +175,7 @@ public class NBA extends Base {
             String actualText = espnSitesListArray.get(i).getText();
             System.out.println(actualText);
             String expectedESPNSitesArray = expectedESPNSitesList[i];
-            softAssert.assertEquals(actualText, expectedESPNSitesArray ,"Fantasy title at index of " + i + " " + "Does not match");
+            softAssert.assertEquals(actualText, expectedESPNSitesArray);
         }
         softAssert.assertAll();
     }

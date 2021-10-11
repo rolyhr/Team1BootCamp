@@ -117,7 +117,7 @@ public class ESPNHomepage extends Base {
         Assert.assertEquals(actualListSize, TOP_EVENT_DROPDOWN_COUNT, "FAILED, LIST SIZE DOES NOT MATCH!");
     }
 
-    public boolean scrollHeader() throws Exception {
+    public boolean scrollHeader() {
         WebDriverWait explicitWait = new WebDriverWait(driver, 10);
         try {
             explicitWait.until(ExpectedConditions.elementToBeClickable(headerScrollRight));
@@ -145,7 +145,7 @@ public class ESPNHomepage extends Base {
         return isPresent;
     }
 
-    public void validateScrollHeader() throws Exception {
+    public void validateScrollHeader() {
         boolean actualScroll = scrollHeader();
         System.out.println("Header Scroll: " + actualScroll);
         Assert.assertEquals(actualScroll, true, "FAILED, COULD NOT SCROLL ON HEADER");
@@ -193,10 +193,9 @@ public class ESPNHomepage extends Base {
         String[] actualNFLDropdownMenuLeftPageLinks = getNFLDropdownMenuLeftLinks();
         SoftAssert softAssert = new SoftAssert();
 
-        System.out.println("Total Number of Links (NFL Menu Dropdown - LEFT): " + actualNFLDropdownMenuLeftPageLinks.length);
         for (int i = 0; i < actualNFLDropdownMenuLeftPageLinks.length; i++) {
             System.out.println(actualNFLDropdownMenuLeftPageLinks[i]);
-            softAssert.assertEquals(actualNFLDropdownMenuLeftPageLinks[i], EXPECTED_NFL_DROPDOWN_LEFT_MENU_LINKS[i], "LINK AT POSITION " + i + " (NFL MENU LEFT) DOES NOT MATCH");
+            softAssert.assertEquals(actualNFLDropdownMenuLeftPageLinks[i], EXPECTED_NFL_DROPDOWN_LEFT_MENU_LINKS[i], "DOES NOT MATCH");
         }
         softAssert.assertAll();
     }
@@ -223,8 +222,9 @@ public class ESPNHomepage extends Base {
 
         for (int i = 0; i < getNFLDropdownMenuRightNFLDivisionNames().length; i++) {
             System.out.println(getNFLDropdownMenuRightNFLDivisionNames()[i]);
-            softAssert.assertEquals(getNFLDropdownMenuRightNFLDivisionNames()[i], EXPECTED_NFL_DIVISION[i], "NFL DIVISION AT POSITION" + i + " (NFL MENU RIGHT) DOES NOT MATCH");
+            softAssert.assertEquals(getNFLDropdownMenuRightNFLDivisionNames()[i], EXPECTED_NFL_DIVISION[i], "DOES NOT MATCH");
         }
+        softAssert.assertAll();
     }
 
     public String[] getNFLDropdownMenuRightNFLTeams() {
@@ -247,7 +247,7 @@ public class ESPNHomepage extends Base {
 
     public void validateNFLDropdownMenuRightNFLTeamsCount() {
         int actualNFLTeamsCount = getNFLDropdownMenuRightNFLTeams().length;
-        Assert.assertEquals(actualNFLTeamsCount, NFL_TEAMS_COUNT, "NUMBER OF EXPECTED NFL TEAMS & NUMBER OF COUNTED NFL TEAMS DO NOT MATCH");
+        Assert.assertEquals(actualNFLTeamsCount, NFL_TEAMS_COUNT, "NFL TEAMS DO NOT MATCH");
     }
 
     public void validateNFLDropdownMenuRightNFLTeams() {
@@ -256,7 +256,7 @@ public class ESPNHomepage extends Base {
 
         for (int i = 0; i < actualNFLTeams.length; i++) {
             System.out.println(actualNFLTeams[i]);
-            softAssert.assertEquals(actualNFLTeams[i], EXPECTED_NFL_TEAM_NAMES[i], "TEAM NAME AT INDEX " + i + " DOES NOT MATCH");
+            softAssert.assertEquals(actualNFLTeams[i], EXPECTED_NFL_TEAM_NAMES[i], "TEAM NAME DOES NOT MATCH");
         }
     }
 
@@ -270,7 +270,7 @@ public class ESPNHomepage extends Base {
     public void validateNBADropdownMenuLeftSize() {
         int actualSize = getNBADropdownMenuLeft().size();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(actualSize, HEADER_DROPDOWN_LIST_SIZE, "SIZE OF LIST (NBA MENU LEFT) DOES NOT MATCH");
+        softAssert.assertEquals(actualSize, HEADER_DROPDOWN_LIST_SIZE, "SIZE OF LIST DOES NOT MATCH");
         softAssert.assertAll();
     }
 
@@ -281,7 +281,7 @@ public class ESPNHomepage extends Base {
         for (int i = 0; i < nbaDropdownElementsLeftList.size(); i++) {
             String actualText = nbaDropdownElementsLeftList.get(i).getAttribute("innerHTML");
             System.out.println(nbaDropdownElementsLeftList.get(i).getAttribute("innerHTML"));
-            softAssert.assertEquals(actualText, EXPECTED_NBA_DROPDOWN_MENU_ITEMS_LEFT[i], "ELEMENT OF LIST AT POSITION " + i + " (NBA MENU LEFT) DOES NOT MATCH");
+            softAssert.assertEquals(actualText, EXPECTED_NBA_DROPDOWN_MENU_ITEMS_LEFT[i], "ELEMENT DOES NOT MATCH");
         }
         softAssert.assertAll();
     }
@@ -303,7 +303,7 @@ public class ESPNHomepage extends Base {
         SoftAssert softAssert = new SoftAssert();
         for (int i = 0; i < actualNBADropdownMenuLeftPageLinks.length; i++) {
             System.out.println(actualNBADropdownMenuLeftPageLinks[i]);
-            softAssert.assertEquals(actualNBADropdownMenuLeftPageLinks[i], EXPECTED_NBA_DROPDOWN_MENU_LEFT_LINKS[i], "LINK AT POSITION " + i + " (NBA MENU LEFT) DOES NOT MATCH");
+            softAssert.assertEquals(actualNBADropdownMenuLeftPageLinks[i], EXPECTED_NBA_DROPDOWN_MENU_LEFT_LINKS[i], "LINK DOES NOT MATCH");
         }
         softAssert.assertAll();
     }
@@ -325,7 +325,7 @@ public class ESPNHomepage extends Base {
 
         for (int i = 0; i < getNBADropdownMenuRightNBADivisionNames().length; i++) {
             System.out.println(getNBADropdownMenuRightNBADivisionNames()[i]);
-            softAssert.assertEquals(getNBADropdownMenuRightNBADivisionNames()[i], NBA_DIVISIONS[i], "NBA DIVISION AT POSITION" + i + " (NBA MENU RIGHT) DOES NOT MATCH");
+            softAssert.assertEquals(getNBADropdownMenuRightNBADivisionNames()[i], NBA_DIVISIONS[i], "NBA DIVISION DOES NOT MATCH");
         }
     }
 
@@ -343,7 +343,7 @@ public class ESPNHomepage extends Base {
 
     public void validateNBADropdownMenuRightNBATeamsCount() {
         int actualNBATeamsCount = getNBADropdownMenuRightNBATeams().length;
-        Assert.assertEquals(actualNBATeamsCount, EXPECTED_NBA_TEAMS_COUNT, "NUMBER OF EXPECTED NBA TEAMS & NUMBER OF COUNTED NBA TEAMS DO NOT MATCH");
+        Assert.assertEquals(actualNBATeamsCount, EXPECTED_NBA_TEAMS_COUNT, "DO NOT MATCH");
     }
 
     public void validateNBADropdownMenuRightNBATeams() {
@@ -352,7 +352,7 @@ public class ESPNHomepage extends Base {
 
         for (int i = 0; i < actualNBATeams.length; i++) {
             System.out.println(actualNBATeams[i]);
-            softAssert.assertEquals(actualNBATeams[i], EXPECTED_NBA_TEAM_NAMES[i], "TEAM NAME AT INDEX " + i + " DOES NOT MATCH");
+            softAssert.assertEquals(actualNBATeams[i], EXPECTED_NBA_TEAM_NAMES[i], "TEAM NAME DOES NOT MATCH");
         }
     }
 
@@ -366,7 +366,7 @@ public class ESPNHomepage extends Base {
     public void validateMLBDropdownMenuLeftSize() {
         int actualSize = getMLBDropdownMenuLeft().size();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(actualSize, HEADER_DROPDOWN_LIST_SIZE, "SIZE OF LIST (MLB MENU LEFT) DOES NOT MATCH");
+        softAssert.assertEquals(actualSize, HEADER_DROPDOWN_LIST_SIZE, "SIZE DOES NOT MATCH");
         softAssert.assertAll();
     }
 
@@ -377,7 +377,7 @@ public class ESPNHomepage extends Base {
         for (int i = 0; i < mlbDropdownElementsLeftList.size(); i++) {
             String actualText = mlbDropdownElementsLeftList.get(i).getAttribute("innerHTML");
             System.out.println(mlbDropdownElementsLeftList.get(i).getAttribute("innerHTML"));
-            softAssert.assertEquals(actualText, MLB_DROPDOWN_MENU_ITEMS_LEFT[i], "ELEMENT OF LIST AT POSITION " + i + " (MLB MENU LEFT) DOES NOT MATCH");
+            softAssert.assertEquals(actualText, MLB_DROPDOWN_MENU_ITEMS_LEFT[i], "ELEMENT DOES NOT MATCH");
         }
         softAssert.assertAll();
     }
@@ -439,7 +439,7 @@ public class ESPNHomepage extends Base {
 
     public void validateMLBDropdownMenuRightMLBTeamsCount() {
         int actualMLBTeamsCount = getMLBDropdownMenuRightMLBTeams().length;
-        Assert.assertEquals(actualMLBTeamsCount, EXPECTED_MLB_TEAMS_COUNT, "NUMBER OF EXPECTED MLB TEAMS & NUMBER OF COUNTED MLB TEAMS DO NOT MATCH");
+        Assert.assertEquals(actualMLBTeamsCount, EXPECTED_MLB_TEAMS_COUNT, "NUMBER OF MLB TEAMS DO NOT MATCH");
     }
 
     public void validateMLBDropdownMenuRightMLBTeams() {
@@ -448,7 +448,7 @@ public class ESPNHomepage extends Base {
 
         for (int i = 0; i < actualMLBTeams.length; i++) {
             System.out.println(actualMLBTeams[i]);
-            softAssert.assertEquals(actualMLBTeams[i], EXPECTED_MLB_TEAM_NAMES[i], "TEAM NAME AT INDEX " + i + " DOES NOT MATCH");
+            softAssert.assertEquals(actualMLBTeams[i], EXPECTED_MLB_TEAM_NAMES[i], "TEAM NAME DOES NOT MATCH");
         }
     }
 
@@ -471,8 +471,8 @@ public class ESPNHomepage extends Base {
         String actualHeaderTitle = containerESPNSitesHeader.getText();
         List<WebElement> listESPNSitesList = containerESPNSitesList.findElements(By.cssSelector(ESPN_SITE_LIST_ITEMS));
         int actualESPNSitesListCount = listESPNSitesList.size();
-        softAssert.assertEquals(actualHeaderTitle, ESPN_SITES_HEADER_TITLE, "'ESPN SITES' CONTAINER HEADER TITLE (LEFT BODY) DOES NOT MATCH");
-        softAssert.assertEquals(actualESPNSitesListCount, ESPN_SITES_LIST_COUNT, "'ESPN SITES' CONTAINER LIST COUNT (LEFT BODY) DOES NOT MATCH");
+        softAssert.assertEquals(actualHeaderTitle, ESPN_SITES_HEADER_TITLE);
+        softAssert.assertEquals(actualESPNSitesListCount, ESPN_SITES_LIST_COUNT);
     }
 
     public void validateESPNSitesContainerListItemNames(){
@@ -481,7 +481,7 @@ public class ESPNHomepage extends Base {
         List<WebElement> listESPNSitesList = containerESPNSitesList.findElements(By.cssSelector(ESPN_SITE_LIST_ITEMS));
         int i=0;
         for(WebElement element : listESPNSitesList){
-            softAssert.assertEquals(element.getAttribute("innerHTML"), ESPN_SITES_LIST_ITEM_NAMES[i], "LIST ITEM (ESPN SITES CONTAINER) AT INDEX "+i+" DOES NOT MATCH");
+            softAssert.assertEquals(element.getAttribute("innerHTML"), ESPN_SITES_LIST_ITEM_NAMES[i], "LIST ITEM DOES NOT MATCH");
             i++;
         }
     }
@@ -492,8 +492,8 @@ public class ESPNHomepage extends Base {
         String actualHeaderTitle = containerFollowESPNHeader.getText();
         List<WebElement> listESPNSitesList = containerFollowESPNList.findElements(By.cssSelector(ESPN_FOLLOW_LIST_ITEMS));
         int actualESPNSitesListCount = listESPNSitesList.size();
-        softAssert.assertEquals(actualHeaderTitle, ESPN_FOLLOW_HEADER_TITLE, "'FOLLOW ESPN' CONTAINER HEADER TITLE (LEFT BODY) DOES NOT MATCH");
-        softAssert.assertEquals(actualESPNSitesListCount, ESPN_FOLLOW_LIST_COUNT, "'FOLLOW ESPN' CONTAINER LIST COUNT (LEFT BODY) DOES NOT MATCH");
+        softAssert.assertEquals(actualHeaderTitle, ESPN_FOLLOW_HEADER_TITLE);
+        softAssert.assertEquals(actualESPNSitesListCount, ESPN_FOLLOW_LIST_COUNT);
     }
 
     public void validateFollowESPNContainerListItemNames(){
@@ -502,7 +502,7 @@ public class ESPNHomepage extends Base {
         List<WebElement> listESPNSitesList = containerFollowESPNList.findElements(By.cssSelector(ESPN_FOLLOW_LIST_ITEMS));
         int i=0;
         for(WebElement element : listESPNSitesList){
-            softAssert.assertEquals(element.getAttribute("innerHTML"), ESPN_FOLLOW_LIST_ITEM_NAMES[i], "LIST ITEM (FOLLOW ESPN) AT INDEX "+i+" DOES NOT MATCH");
+            softAssert.assertEquals(element.getAttribute("innerHTML"), ESPN_FOLLOW_LIST_ITEM_NAMES[i], "LIST ITEM DOES NOT MATCH");
             i++;
         }
     }

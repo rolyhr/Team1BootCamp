@@ -1,8 +1,6 @@
 package testPOM;
 
 import POM.ESPNHomepage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import testBase.TestBase;
 

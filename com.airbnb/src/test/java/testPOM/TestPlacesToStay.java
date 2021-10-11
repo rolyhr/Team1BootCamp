@@ -10,6 +10,7 @@ public class TestPlacesToStay extends TestBase {
 
     @Test (description = "TC001PTS", priority = 1, enabled = true)
     public void testCalendar() {
-
+        pts = new PlacesToStay();
+        pts.calendar();
     }
 }

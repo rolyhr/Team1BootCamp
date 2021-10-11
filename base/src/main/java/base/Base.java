@@ -124,8 +124,8 @@ public class Base {
 
     @AfterMethod
     public void driverClose() {
-//        driver.close();
-//        driver.quit();
+        driver.close();
+        driver.quit();
     }
 
     @AfterSuite (alwaysRun = true)
@@ -303,8 +303,15 @@ public class Base {
                 explicitWait.until(ExpectedConditions.elementToBeClickable(monPickerBtn)).click();
             }
         }
-        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(String.valueOf(day))));
+        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(getCustomLocator(day))));
         exactDay.click();
+    }
+
+    //NEED TO MODIFY THIS getDay() HELPER METHOD BASED ON THE PROJECT REQUIREMENT
+    //HELPER METHOD FOR pickCalendarDay()
+    public String getCustomLocator(int day) {
+        String locator = "";
+        return locator;
     }
 
     public String getCurrentPageURL() {
