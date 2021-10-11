@@ -306,7 +306,16 @@ public class Base {
         return arrayList;
     }
 
-
+    public List<String> getListOfStringElementsWithScroll(List<WebElement> elementList) {
+        List<String> arrayList = new ArrayList<>();
+        for(int i = 0; i< elementList.size();i++){
+            //System.out.println(elementList.get(i).getText());
+            arrayList.add(elementList.get(i).getText());
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,1000)");
+        }
+        return arrayList;
+    }
 
     //select month
 
@@ -398,5 +407,13 @@ public class Base {
                 // driver.close();
             }
         }
+
+
     }
+
+    public void switchTab(){
+        String parentWindow = getCurrentWindow();
+        windowHandel(parentWindow);
+    }
+
 }
