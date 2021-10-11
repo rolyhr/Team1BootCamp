@@ -416,4 +416,10 @@ public class Base {
         windowHandel(parentWindow);
     }
 
+    //scroll
+    public void scroll(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,1000)");
+    }
+
 }
