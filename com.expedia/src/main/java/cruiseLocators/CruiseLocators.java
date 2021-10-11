@@ -27,7 +27,7 @@ public class CruiseLocators {
     public final static String BS_BEFORE_SEARCH_BUTTON = "//*[@id=\"wizard-cruise-pwa-1\"]/div[3]/div[2]/button";
     public final static String BS_WARNING_MSG_FOR_MAX_CHILDREN_OR_ADULTS = "#adaptive-menu > div > div > div.all-x-padding-one.all-t-padding-two > div > div > h3";
     public final static String BS_CRUISE_EXPERT_PH_NUM = "#wizard-cruise-pwa-1 > div div:nth-child(1) > p";
-    public final static String BS_SEARCH_RESULT_OF_NUM_OF_CRUISES = "#ember452 > h1 > span:nth-child(1)";
+    public final static String BS_SEARCH_RESULT_OF_NUM_OF_CRUISES = "#main-content div#cruise-search-display > div:nth-child(2) h1 span:nth-child(1)";
 
     //AFTER SEARCH LOCATORS
     public final static String AS_MODIFY_SEARCH = "#change-search-toggle";
@@ -39,6 +39,9 @@ public class CruiseLocators {
     public final static String AS_NEXT_MONTH_BUTTON_AS_EARLY = "#departureDate-startDateRange > div > div > button.datepicker-next.next";
     public final static String AS_NEXT_MONTH_BUTTON_AS_LATE = "#departureDate-endDateRange> div > div > button.datepicker-next.next";
     public final static String AS_NUM_OF_CHILDREN_ADDED = "#travelers-select";
+    public final static String AS_MODAL_WINDOW = "#paxModalContainer > div > div.modal-body";
+    public final static String AS_MODAL_WINDOW_CLOSE_BUTTON = "#modalCloseButton";
+    public final static String AS_DATE_CHANGE_VERIFY = "#month-toggle > span.month-select-full";
     //HARD CODED IN THE METHOD BUT LOCATOR IS DYNAMIC
     public final static String AS_SEARCH_DAY = "#departureDate-startDateRange > div > div > div:nth-child(4) > table > tbody > tr > td > button[data-day=\"6\"]";
 

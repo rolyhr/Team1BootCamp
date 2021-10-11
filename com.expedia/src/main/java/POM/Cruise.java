@@ -125,13 +125,25 @@ public class Cruise extends Base {
 
     @FindBy (css = AS_NUM_OF_CHILDREN_ADDED)
     public WebElement asNumOfChildrenAdded;
+
+    @FindBy (css = AS_MODAL_WINDOW)
+    public WebElement asModalWindow;
+
+    @FindBy (css = AS_MODAL_WINDOW_CLOSE_BUTTON)
+    public WebElement asModalWindowCloseButton;
+
+    @FindBy (css = AS_DATE_CHANGE_VERIFY)
+    public WebElement asDateChangeVerify;
     //END - AFTER SEARCH
 
     //TC001C
     public String searchCruiseWithAllValidData() {
-        selectBSDestination("Bahamas");
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -144,11 +156,13 @@ public class Cruise extends Base {
     }
 
     //TC002C
-    //need to figure out how to check with invalid data on line 146
-    public void searchCruiseWithAllInvalidData() {
+    public String searchCruiseWithAllInvalidData() {
         explicitWait.until(ExpectedConditions.elementToBeClickable(bsCruiseMMButton)).click();
         try {
-            selectDate("hiss", 0, "buzz", 0);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -156,13 +170,22 @@ public class Cruise extends Base {
         addAdults(0);
         clickNumOfTravelersDoneButton();
         searchForCruise();
+        boolean isModalDisplayed = explicitWait.until(ExpectedConditions.visibilityOf(asModalWindow)).isDisplayed();
+        System.out.println(isModalDisplayed);
+        if (isModalDisplayed) {
+            explicitWait.until(ExpectedConditions.visibilityOf(asModalWindowCloseButton)).click();
+        }
+        return explicitWait.until(ExpectedConditions.visibilityOf(bsSearchResultOfNumOfCruises)).getText();
     }
 
     //TC003C
     public String searchCruiseWithNoDestination() {
         explicitWait.until(ExpectedConditions.elementToBeClickable(bsCruiseMMButton)).click();
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -174,11 +197,13 @@ public class Cruise extends Base {
     }
 
     //TC004C
-    //need to figure out how to check with no data
-    public void searchCruiseWithNoDate() {
-        selectBSDestination("Bahamas");
+    public String searchCruiseWithNoDate() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("", 0, "", 0);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -186,13 +211,17 @@ public class Cruise extends Base {
         addAdults(4);
         clickNumOfTravelersDoneButton();
         searchForCruise();
+        return explicitWait.until(ExpectedConditions.visibilityOf(bsSearchResultOfNumOfCruises)).getText();
     }
 
     //TC005C
     public String searchCruiseWithAddingChildren() {
-        selectBSDestination("Bahamas");
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -207,22 +236,36 @@ public class Cruise extends Base {
     }
 
     //TC006C
-    public void numOfMaxAdultsCanBeAdded() {
-        selectBSDestination("Bahamas");
+    public String numOfMaxAdultsCanBeAdded() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
         clickOnAddTravelersMenu();
         addAdults(7);
+        boolean buttonEnabled = explicitWait.until(ExpectedConditions.visibilityOf(bsIncreaseNumOfAdult)).isEnabled();
+        int maxNumOfAdultAllowed = 0;
+        if (!buttonEnabled){
+            maxNumOfAdultAllowed = Integer.parseInt(explicitWait.until
+                    (ExpectedConditions.visibilityOf(bsNumberOfAdultSelected)).getAttribute("value"));
+        }
+        clickNumOfTravelersDoneButton();
+        return String.valueOf(maxNumOfAdultAllowed);
     }
 
     //TC007C
-    public void numOfMinAdultsCanBeAdded() {
-        selectBSDestination("Bahamas");
+    public String numOfMinAdultsCanBeAdded() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -232,36 +275,69 @@ public class Cruise extends Base {
             explicitWait.until(ExpectedConditions.elementToBeClickable(bsDecreaseNumOfAdult)).click();
             defaultTravelers = Integer.parseInt(explicitWait.until(ExpectedConditions.visibilityOf(bsNumberOfAdultSelected)).getAttribute("value"));
         }
+        boolean buttonEnabled = explicitWait.until(ExpectedConditions.visibilityOf(bsDecreaseNumOfAdult)).isEnabled();
+        int minNumOfAdultAllowed = 0;
+        if (!buttonEnabled){
+            minNumOfAdultAllowed = Integer.parseInt(explicitWait.until
+                    (ExpectedConditions.visibilityOf(bsNumberOfAdultSelected)).getAttribute("value"));
+        }
+        clickNumOfTravelersDoneButton();
+        return String.valueOf(minNumOfAdultAllowed);
     }
 
     //TC008C
-    public void numOfMaxChildrenCanBeAdded() {
-        selectBSDestination("Bahamas");
+    public String numOfMaxChildrenCanBeAdded() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
         clickOnAddTravelersMenu();
         addChildren(6);
+        boolean buttonEnabled = explicitWait.until(ExpectedConditions.visibilityOf(bsIncreaseNumOfChildren)).isEnabled();
+        int maxNumOfChildrenAllowed = 0;
+        if (!buttonEnabled){
+            maxNumOfChildrenAllowed = Integer.parseInt(explicitWait.until
+                    (ExpectedConditions.visibilityOf(bsNumberOfChildSelected)).getAttribute("value"));
+        }
+        clickNumOfTravelersDoneButton();
+        return String.valueOf(maxNumOfChildrenAllowed);
     }
 
     //TC009C
-    public void numOfMinChildrenCanBeAdded() {
-        selectBSDestination("Bahamas");
+    public String  numOfMinChildrenCanBeAdded() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
         clickOnAddTravelersMenu();
+        boolean buttonEnabled = explicitWait.until(ExpectedConditions.visibilityOf(bsDecreaseNumOfChildren)).isEnabled();
+        int minNumOfChildrenAllowed = 0;
+        if (!buttonEnabled) {
+            minNumOfChildrenAllowed = Integer.parseInt(explicitWait.until
+                    (ExpectedConditions.visibilityOf(bsNumberOfChildSelected)).getAttribute("value"));
+        }
+        clickNumOfTravelersDoneButton();
+        return String.valueOf(minNumOfChildrenAllowed);
     }
 
     //TC010C
-    public void maxAgeOfChildrenAllowed() {
-        selectBSDestination("Bahamas");
+    public String maxAgeOfChildrenAllowed() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -275,45 +351,61 @@ public class Cruise extends Base {
         for (WebElement age : childAges) {
             ages.add(age.getAttribute("innerHTML"));
         }
-        System.out.println("Max age of children allowed: " + ages.get(ages.size() -1));
+        clickNumOfTravelersDoneButton();
+        return ages.get(ages.size() -1);
     }
 
     //TC011C
-    public void warningMessageIfChildAgeNotProvided() {
-        selectBSDestination("Bahamas");
+    public String warningMessageIfChildAgeNotProvided() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
         clickOnAddTravelersMenu();
         explicitWait.until(ExpectedConditions.elementToBeClickable(bsIncreaseNumOfChildren)).click();
+        String warningMsg = explicitWait.until(ExpectedConditions.visibilityOf(bsWarningMsgForMaxChildrenOrAdults)).getText();
+        clickNumOfTravelersDoneButton();
+        return warningMsg;
     }
 
     //TC012C
-    public void warningMessageIfMaxNumOfTravelersAllowed() {
-        selectBSDestination("Bahamas");
+    public String warningMessageIfMaxNumOfTravelersAllowed() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
         clickOnAddTravelersMenu();
         addAdults(5);
         addChildren(1);
+        String warningMsg = explicitWait.until(ExpectedConditions.visibilityOf(bsWarningMsgForMaxChildrenOrAdults)).getText();
+        clickNumOfTravelersDoneButton();
+        return warningMsg;
     }
 
     //TC013C
     public String phoneNumDisplayedForCruiseExpert() {
-        selectBSDestination("Bahamas");
+        selectBSDestination(readFromExcel("REGExpected", 0));
         return explicitWait.until(ExpectedConditions.visibilityOf(bsCruiseExpertPhNum)).getText();
     }
 
     //TC014C
     public String checkCruiseResult() {
-        selectBSDestination("Bahamas");
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -326,10 +418,13 @@ public class Cruise extends Base {
     }
 
     //TC015C
-    public void afterSearchDateChange() {
-        selectBSDestination("Bahamas");
+    public String afterSearchDateChange() {
+        selectBSDestination(readFromExcel("REGExpected", 0));
         try {
-            selectDate("September", 15, "November", 22);
+            selectDate(readFromExcel("REGExpected", 1),
+                    Integer.parseInt(readFromExcel("REGExpected", 2)),
+                    readFromExcel("REGExpected", 3),
+                    Integer.parseInt(readFromExcel("REGExpected", 4)));
         } catch (ParseException parseException) {
             parseException.printStackTrace();
         }
@@ -341,15 +436,16 @@ public class Cruise extends Base {
         navigateToModifySearchPanel();
         modifyAsEarlyDate(asCalendarMonthYearAsEarly,
                           asNextMonthButtonAsEarly,
-                          "November",
-                          19,
+                readFromExcel("REGExpected", 5),
+                Integer.parseInt(readFromExcel("REGExpected", 6)),
                           "start");
         modifyAsLateDate(asCalendarMonthYearAsLate,
                          asNextMonthButtonAsLate,
-                         "April",
-                         27,
+                readFromExcel("REGExpected", 7),
+                Integer.parseInt(readFromExcel("REGExpected", 8)),
                          "end");
         modifySearchForCruise();
+        return explicitWait.until(ExpectedConditions.visibilityOf(asDateChangeVerify)).getText();
     }
 
     public void selectBSDestination(String location) {
