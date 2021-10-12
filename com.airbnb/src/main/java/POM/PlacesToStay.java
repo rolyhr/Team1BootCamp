@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 import static ptsLocators.PTSLocators.*;
 
@@ -15,6 +18,7 @@ public class PlacesToStay extends Base {
         PageFactory.initElements(driver, this);
     }
 
+    //PLACE TO STAY SEARCH LOCATORS
     @FindBy (css = MM_PLACES_TO_STAY)
     public WebElement mmPlacesToStay;
 
@@ -33,11 +37,141 @@ public class PlacesToStay extends Base {
     @FindBy (css = FIRST_ITEM_FROM_SEARCH_DD_OPTIONS)
     public WebElement firstItemFromSearchDD;
 
-    //TC001PTS
-    public void calendar() {
-        enterLocation("Niagara Falls, NY");
-        pickCalendarDate(monthYearText, nextMonthButton, "december", 25);
+    //HOMEPAGE LOCATORS
+    @FindBy (css = FOOTER_LIST_TITLE)
+    public WebElement footerListTitle;
 
+    @FindBy (css = ABOUT_LIST)
+    public WebElement aboutList;
+
+    @FindBy (css = COMMUNITY_LIST)
+    public WebElement communityList;
+
+    @FindBy (css = HOST_LIST)
+    public WebElement hostList;
+
+    @FindBy (css = SUPPORT_LIST)
+    public WebElement supportList;
+
+    @FindBy (css = FUTURE_GATEWAY_TABS)
+    public WebElement futureGatewayTabs;
+
+    @FindBy (css = TABS_ARTS_AND_CULTURE)
+    public WebElement tabsArtsAndCulture;
+
+    @FindBy (css = TABS_OUTDOOR_ADVENTURE)
+    public WebElement tabsOutdoorAdventure;
+
+    //TC001PTS
+    public void validateFooterListTitleText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> footerTitle = getListItemsByCss(FOOTER_LIST_TITLE);
+
+        for (int i = 0; i < footerTitle.size(); i++) {
+            String actualText = footerTitle.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("FooterTitle", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
+    }
+
+    //TC002PTS
+    public void validateAboutListText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> aboutList = getListItemsByCss(ABOUT_LIST);
+
+        for (int i = 0; i < aboutList.size(); i++) {
+            String actualText = aboutList.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("About", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
+    }
+
+    //TC003PTS
+    public void validateCommunityListText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> communityList = getListItemsByCss(COMMUNITY_LIST);
+
+        for (int i = 0; i < communityList.size(); i++) {
+            String actualText = communityList.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("Community", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
+    }
+
+    //TC004PTS
+    public void validateHostListText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> hostList = getListItemsByCss(HOST_LIST);
+
+        for (int i = 0; i < hostList.size(); i++) {
+            String actualText = hostList.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("Host", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
+    }
+
+    //TC005PTS
+    public void validateSupportListText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> supportList = getListItemsByCss(SUPPORT_LIST);
+
+        for (int i = 0; i < supportList.size(); i++) {
+            String actualText = supportList.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("Support", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
+    }
+
+    //TC006PTS
+    public void validateFutureGatewayTabsText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> futureGatewayList = getListItemsByCss(FUTURE_GATEWAY_TABS);
+
+        for (int i = 0; i < futureGatewayList.size(); i++) {
+            String actualText = futureGatewayList.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("FutureGateway", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
+    }
+
+    //TC007PTS
+    public void validateTabsArtsAndCultureText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> artsCultureList = getListItemsByCss(TABS_ARTS_AND_CULTURE);
+
+        for (int i = 0; i < artsCultureList.size(); i++) {
+            String actualText = artsCultureList.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("ArtsCulture", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
+    }
+
+    //TC008PTS
+    public void validateTabsOutdoorAdventureText() {
+        SoftAssert softAssert = new SoftAssert();
+        List<String> outdoorAdventureList = getListItemsByCss(TABS_OUTDOOR_ADVENTURE);
+
+        for (int i = 0; i < outdoorAdventureList.size(); i++) {
+            String actualText = outdoorAdventureList.get(i);
+            System.out.println(actualText);
+            String expectedText = readFromExcel("OutdoorAdventure", i);
+            softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
+        }
+        softAssert.assertAll();
     }
 
     //HELPER METHODS
