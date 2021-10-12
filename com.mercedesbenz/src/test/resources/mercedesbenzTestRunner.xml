@@ -1,14 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Functional" verbose="1" >
-    <test name="Homepage" >
+    <test name="MercedesBenzMyAccountPage" >
         <!--        <groups>-->
         <!--            <run>-->
         <!--                <include name="Regression"/>-->
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <!--<class name="testPOM.ClassName"/>   UNCOMMENT THIS LINE TO RUN TEST CASES-->
+            <class name="testPOM.TestMercedesBenzMyAccountPage"/>
         </classes>
     </test>
 

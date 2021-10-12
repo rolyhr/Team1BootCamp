@@ -19,7 +19,7 @@ public class TestCreditCardHomepage extends TestBase {
 
 
     @Test(description = "Tc002", priority=2,enabled = false)
-    public void testVeryfycreditCardsButton(){
+    public void testVeryfyCreditCardsButton(){
         Homepage homepage = getHomepage();
         CreditCardHomePage credit = homepage.navigateToCreditCard();
         clickOnElement(credit.btnCompareCreditCards);
@@ -68,7 +68,7 @@ public class TestCreditCardHomepage extends TestBase {
     }
 
     @Test(description = "Tc006", priority=6, enabled = false)
-    public void verifyCreditCardTest6() {
+    public void verifyCreditCardAccountInfo() {
         Homepage homepage = getHomepage();
         CreditCardHomePage credit = homepage.navigateToCreditCard();
         clickOnElement(credit.pointsRewardsCards);

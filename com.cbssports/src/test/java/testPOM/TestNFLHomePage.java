@@ -17,11 +17,11 @@ public class TestNFLHomePage extends TestBase {
 
     String[][] stingValue;
 
-    @Test(description = "Case ID: 01", priority = 1, enabled = false)
+    @Test(description = "Case ID: 01", priority = 1, enabled = true)
     public void testNavigateToNFLPage() throws IOException {
         Homepage homepage = getHomepage();
         NFLHomePage nflHomePage = homepage.navigateToNFLHomePage();
-        waitForElementToBeVisible(nflHomePage.navNFLBarMenuList);
+//        waitForElementToBeVisible(nflHomePage.navNFLBarMenuList);
         List<String> expectedList = getExpectedList("CBSSports");
         String actualText = nflHomePage.navNFLBarMenuList.getText();
         String expectedText = "";

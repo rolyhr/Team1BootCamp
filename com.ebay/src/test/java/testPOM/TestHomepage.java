@@ -9,7 +9,7 @@ public class TestHomepage extends TestBase {
     Homepage homepage;
     private String SearchPCDesktopAllInOnesLink;
 
-    @Test(enabled = true)
+    @Test(description = "Case ID: 01", priority = 1, enabled = false)
     public void testDoSearch() throws Exception {
         homepage = getHomepage();
 
@@ -19,8 +19,7 @@ public class TestHomepage extends TestBase {
 
         waitForElementToBeVisible(homepage.searchResultPageElement);
         scrollJS(1000);
-        scrollJS(-500);
-        scrollJS(6000);
+
 
     }
 }

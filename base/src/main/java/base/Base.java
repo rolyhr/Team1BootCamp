@@ -221,6 +221,26 @@ public class Base {
         }
     }
 
+    public void hoverAction(WebElement element) {
+        Actions a = new Actions(driver);
+        try {
+            waitForElementToBeVisible(element);
+        } catch (StaleElementReferenceException e) {
+            e.printStackTrace();
+        }
+        a.moveToElement(element).build().perform();
+    }
+
+
+
+    public void foundIframe(WebElement element) {
+        try {
+            driver.switchTo().frame(element);
+        } catch (StaleElementReferenceException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String readFromExcel(String sheetName, int index) {
         String[] excelData = new String[index];
         try {
@@ -250,6 +270,8 @@ public class Base {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(keys);
     }
+
+
 
     public void dropdownSelectByVisibleText(WebElement element, String visibleText) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
@@ -300,11 +322,30 @@ public class Base {
         }
         return flag;
     }
-    public void oneDList(List<WebElement> elements1){
+    public List<String> oneDList(List<WebElement> elements1){
         List<String> elementCopied1 = new ArrayList<>();
         getListOfElements(elements1, elementCopied1);
 
+        return elementCopied1;
     }
+
+    public List<String> getRangeFromList(List<WebElement> elements1, int start, int end) {
+        List<String> elementCopied1 = new ArrayList<>();
+        List<String> elementCopied2 = new ArrayList<>();
+        getListOfElements(elements1, elementCopied1);
+        if (end < elementCopied1.size()) {
+            for (int i = start; i <= end; i++) {
+                elementCopied2.add(elementCopied1.get(i));
+            }
+        }
+        return elementCopied2;
+    }
+
+    public void clearInputText(WebElement element) {
+        element.sendKeys(Keys.COMMAND + "a");
+        element.sendKeys(Keys.DELETE);
+    }
+
 
     public void scrollJS(int numOfPixelsToScroll) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -383,6 +424,15 @@ public class Base {
         }
 
     }
+
+    public List<String> printOutListOfElements(List<WebElement> elementsCopied1) {
+        List<String> printOut = oneDList(elementsCopied1);
+        for (String s : printOut) {
+            System.out.println(s);
+        }
+        return printOut;
+    }
+
 
     public List<String> getListItemsByCss(String cssSelector) {
         List<WebElement> menuItems = driver.findElements(By.cssSelector(cssSelector));

@@ -16,7 +16,7 @@ public class TestHomepage extends TestBase {
         String actualText = credit.creditInfo.getText();
         String expectedText = "Find the perfect credit card from among our most popular options";
         Assert.assertEquals(expectedText, actualText);
-        System.out.println("FOUND CREDIT WEBSITE");
+        System.out.println("FOUND BOA WEBSITE");
     }
 
 }

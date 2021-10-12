@@ -11,6 +11,19 @@ public class Homepage extends Base {
         PageFactory.initElements(driver, this);
     }
 
+
+    @FindBy (xpath = "//*[@id=\"gh-shop-a\"]")
+    public WebElement shopByCategoryButton;
+
+    @FindBy (xpath = "//*[@id=\"gh-sbc\"]/tbody/tr/td[2]/h3[3]/a")
+    public WebElement shopByCategoryMotorTab;
+
+
+    @FindBy(xpath="//*[@id=\"mainContent\"]/div[1]/ul/li[3]")
+    public WebElement hoverMotorsTab;
+
+
+
     @FindBy (xpath = "//input[@type='text']")
     public WebElement searchInput;
 
@@ -48,6 +61,18 @@ public class Homepage extends Base {
     private void clickOnAuctionTab(){
         clickOnElement(clickOnAuctionTab);
     }
+
+    public MotorsHomePage navigateToShopByCategoryMotorsTab(){
+        clickOnElement(shopByCategoryButton);
+        clickOnElement(shopByCategoryMotorTab);
+        return new MotorsHomePage();
+    }
+
+    public MotorsHomePage navigateToHoverToMotorsTab(){
+        hoverAction(hoverMotorsTab);
+        return new MotorsHomePage();
+    }
+
 
 
 

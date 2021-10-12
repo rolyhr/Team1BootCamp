@@ -21,11 +21,11 @@ public class TestHomepage extends TestBase {
     public static Object[][] ProductsDataProvider() {
         return new Object[][]{};
     }
-
+//not complete
     @Test(enabled = false)
     public void testRegisterAccountWithValidData() throws IOException {
 
-        String path = System.getProperty("user.dir") + "/src/test/resources/testData/registerPageTestData.xlsx";
+        String path = System.getProperty("user.dir") + "/src/test/resources/TestData.xlsx";
         String sheetName = "testRegister";
 
         excelReader= new ExcelReader();
@@ -42,11 +42,11 @@ public class TestHomepage extends TestBase {
 
     }
 
-
+//not complete
     @Test (enabled = false)
     public void testSignInWithValidData() throws IOException {
 
-        String path = System.getProperty("user.dir") + "/src/test/resources/testData/signInPageTestData.xlsx";
+        String path = System.getProperty("user.dir") + "/src/test/resources/TestData.xlsx";
         String sheetName = "testRegister";
 
         excelReader = new ExcelReader();
@@ -60,8 +60,8 @@ public class TestHomepage extends TestBase {
         Assert.assertTrue(loggedInConfirmation.isDisplayed());
 
     }
-
-    @Test(dataProvider = "ProductsDataProvider",  enabled = true)
+//not complete
+    @Test(dataProvider = "ProductsDataProvider",  enabled = false)
     public void testSearchForProductOnSearchBar(String products, String title) {
         getHomepage().searchForProductOnSearchBar(products);
 
@@ -73,10 +73,10 @@ public class TestHomepage extends TestBase {
 
     }
 
-
+//not complete
     @Test (enabled = false)
     public void testNavigateToYoutubeChannelOnAnotherTab() throws IOException {
-        String path = System.getProperty("user.dir") + "/src/test/resources/testData/expectedConditionsTestData.xlsx";
+        String path = System.getProperty("user.dir") + "/src/test/resources/TestData.xlsx";
         String sheetName = "expected_conditions";
 
         getHomepage().navigateToYoutubeChannel();
