@@ -1,14 +1,25 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Functional" verbose="1" >
-    <test name="Homepage" >
+<!--    <test name="Registration" >-->
+<!--        &lt;!&ndash;        <groups>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <run>&ndash;&gt;-->
+<!--        &lt;!&ndash;                <include name="Regression"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </run>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </groups>&ndash;&gt;-->
+<!--        <classes>-->
+<!--            <class name="testPOM.TestRegister"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="Cart" >
         <!--        <groups>-->
         <!--            <run>-->
         <!--                <include name="Regression"/>-->
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <class name="testPOM.TestRegister"/>
+            <class name="testPOM.TestCart"/>
         </classes>
     </test>
 
