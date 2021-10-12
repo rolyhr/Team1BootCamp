@@ -50,10 +50,58 @@ public class TestPlacesToStay extends TestBase {
         pts.validateTabsArtsAndCultureText();
     }
 
-    @Test (description = "TC008PTS", priority = 8, enabled = true)
+    @Test (description = "TC008PTS", priority = 8, enabled = false)
     public void testValidateTabsOutdoorAdventureText() {
         pts = new PlacesToStay();
         pts.validateTabsOutdoorAdventureText();
+    }
+
+    @Test (description = "TC009PTS", priority = 9, enabled = false)
+    public void testFooterListTitleTextCount() {
+        pts = new PlacesToStay();
+        pts.footerListTitleTextCount();
+    }
+
+    @Test (description = "TC010PTS", priority = 10, enabled = false)
+    public void testAboutListTextCount() {
+        pts = new PlacesToStay();
+        pts.aboutListTextCount();
+    }
+
+    @Test (description = "TC011PTS", priority = 11, enabled = false)
+    public void testCommunityListTextCount() {
+        pts = new PlacesToStay();
+        pts.communityListTextCount();
+    }
+
+    @Test (description = "TC012PTS", priority = 12, enabled = false)
+    public void testHostListTextCount() {
+        pts = new PlacesToStay();
+        pts.hostListTextCount();
+    }
+
+    @Test (description = "TC013PTS", priority = 13, enabled = false)
+    public void testSupportListTextCount() {
+        pts = new PlacesToStay();
+        pts.supportListTextCount();
+    }
+
+    @Test (description = "TC014PTS", priority = 14, enabled = false)
+    public void testFutureGatewayTabsListTextCount() {
+        pts = new PlacesToStay();
+        pts.futureGatewayTabsListTextCount();
+    }
+
+    @Test (description = "TC015PTS", priority = 15, enabled = false)
+    public void testTabsArtsAndCultureTextCount() {
+        pts = new PlacesToStay();
+        pts.tabsArtsAndCultureTextCount();
+    }
+
+    @Test (description = "TC016PTS", priority = 16, enabled = true)
+    public void testTabsOutdoorAdventureListTextCount() {
+        pts = new PlacesToStay();
+        pts.tabsOutdoorAdventureListTextCount();
     }
 
 }

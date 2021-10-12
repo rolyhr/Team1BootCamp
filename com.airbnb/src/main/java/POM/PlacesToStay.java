@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
@@ -172,6 +173,70 @@ public class PlacesToStay extends Base {
             softAssert.assertEquals(actualText, expectedText, "FAILED, TEXT DOES NOT MATCH");
         }
         softAssert.assertAll();
+    }
+
+    //TC009PTS
+    public void footerListTitleTextCount() {
+        List<String> footerList = getListItemsByCss(FOOTER_LIST_TITLE);
+        String actualResult = String.valueOf(footerList.size());
+        String expectedResult = readFromExcel("Counts", 0);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC009PTS");
+    }
+
+    //TC010PTS
+    public void aboutListTextCount() {
+        List<String> aboutList = getListItemsByCss(ABOUT_LIST);
+        String actualResult = String.valueOf(aboutList.size());
+        String expectedResult = readFromExcel("Counts", 1);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC010PTS");
+    }
+
+    //TC011PTS
+    public void communityListTextCount() {
+        List<String> communityList = getListItemsByCss(COMMUNITY_LIST);
+        String actualResult = String.valueOf(communityList.size());
+        String expectedResult = readFromExcel("Counts", 2);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC011PTS");
+    }
+
+    //TC012PTS
+    public void hostListTextCount() {
+        List<String> hostList = getListItemsByCss(HOST_LIST);
+        String actualResult = String.valueOf(hostList.size());
+        String expectedResult = readFromExcel("Counts", 3);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC012PTS");
+    }
+
+    //TC013PTS
+    public void supportListTextCount() {
+        List<String> supportList = getListItemsByCss(SUPPORT_LIST);
+        String actualResult = String.valueOf(supportList.size());
+        String expectedResult = readFromExcel("Counts", 4);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC013PTS");
+    }
+
+    //TC014PTS
+    public void futureGatewayTabsListTextCount() {
+        List<String> futureGateway = getListItemsByCss(FUTURE_GATEWAY_TABS);
+        String actualResult = String.valueOf(futureGateway.size());
+        String expectedResult = readFromExcel("Counts", 5);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC014PTS");
+    }
+
+    //TC015PTS
+    public void tabsArtsAndCultureTextCount() {
+        List<String> artsAdventure = getListItemsByCss(TABS_ARTS_AND_CULTURE);
+        String actualResult = String.valueOf(artsAdventure.size());
+        String expectedResult = readFromExcel("Counts", 6);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC015PTS");
+    }
+
+    //TC016PTS
+    public void tabsOutdoorAdventureListTextCount() {
+        List<String> outdoorAdventure = getListItemsByCss(TABS_OUTDOOR_ADVENTURE);
+        String actualResult = String.valueOf(outdoorAdventure.size());
+        String expectedResult = readFromExcel("Counts", 7);
+        Assert.assertEquals(actualResult, expectedResult, "Failed, TC016PTS");
     }
 
     //HELPER METHODS
