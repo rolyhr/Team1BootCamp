@@ -9,7 +9,7 @@ public class ChekingLocators {
     public static final String MOBILE_BANKING_ACCOUNT_MANAGEMENT_ELEMENT_LIST ="#tilesList > li[data-cat='Account Management'] p";
     public static final String MOBILE_BANKING_DIGITAL_SERVICES_ELEMENT_LIST = "#tilesList > li[data-cat='Digital Services'] p";
     public static final String MOBILE_BANKING_PAYMENT_TRANSFER_ELEMENT_LIST =  "#tilesList > li[data-cat='Payments & Transfers'] p";
-    public static final String PANEL_SLIDER_RIGH = "#paneSliderSecurityPrivacy  a.spa-arrow-btn--right";
+    public static final String PANEL_SLIDER_RIGH = "set_up_custom_alerts_modal_next";
     public static final String PANEL_SLIDER_LEFT = "#paneSliderSecurityPrivacy  a.spa-arrow-btn--left";
     public static final String SEARCH_SUB_CONTAINER = "#searchStub > div > div > div";
     public static final String SEARCH_RESULT = "#searchStub  p.results-heading > span";

@@ -162,7 +162,6 @@ public class Experiences extends Base {
         location.sendKeys(searchLocation);
         clickJScript(searchButton);
         waitForElementToBeVisible(searchResultLocation);
-
         return searchResultLocation.getText();
     }
 
@@ -170,7 +169,6 @@ public class Experiences extends Base {
     public String searchDate(String startMonth, String endMonth, String startDate, String endDate){
         clickJScript(date);
         waitForElementToBeVisible(datePickerPanel);
-
         selectMonthByNextPrevious(dateStartMonth,nextMonth,startMonth);
         List<WebElement> datesFirst = getListOfWebElements(By.xpath(DATE_PICKER_FIRST_MONTH));
         selectDate( datesFirst ,dateStartMonth,startDate);
@@ -227,7 +225,6 @@ public class Experiences extends Base {
         clickJScript(date);
         crossButtonDate.click();
     }
-
 
     /************************************************/
 
@@ -287,19 +284,16 @@ public class Experiences extends Base {
         clickOnElement(buttonExploreJobs);
         clickOnElement(technicalAccountingJobs);
         clickOnElement(buttonApplyNow);
-
-
     }
 
     public String uploadResume(String filePath){
-
         navigateToApplyJobsPage();
         switchToIframe(iframeApplyNow);
         waitForElementToBeVisible(buttonAttachResume);
         clickOnElement(buttonAttachResume);
         waitForElementToBeVisible(fileUploadResume);
         fileUploadResume.sendKeys(filePath);
-        return  fileUploadResume.getAttribute("value");
+        return fileUploadResume.getAttribute("value");
     }
 
 }

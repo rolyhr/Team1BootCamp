@@ -39,7 +39,7 @@ public class Checking extends Base {
     public List<WebElement> mobileBankingPaymentTransferElementList;
 
 
-    @FindBy(css = PANEL_SLIDER_RIGH)
+    @FindBy(id = PANEL_SLIDER_RIGH)
     public WebElement panelSliderRight;
 
     @FindBy(css = PANEL_SLIDER_LEFT )
@@ -120,22 +120,34 @@ public class Checking extends Base {
         return getListOfStringElements(mobileBankingPaymentTransferElementList);
     }
 
+    public List<String> getListofMobileBankingContantUSElements(){
+        return getListOfStringElements(mobileBankingPaymentTransferElementList);
+    }
+
     public List<String> getListofBreadcrumbelemnts(){
         return getListOfStringElements(breadCrumb);
     }
 
-    public String scrollRight(){
+    public String scrollRight() throws InterruptedException {
         clickOnElement(mobileBankingPrivacyPolicyElementList.get(0));
         clickOnElement(panelSliderRight);
+        Thread.sleep(8000);
         return slideRightResult.getText();
     }
 
     public String scrollLeft() throws InterruptedException {
         clickOnElement(mobileBankingPrivacyPolicyElementList.get(0));
         clickOnElement(panelSliderRight);
-      Thread.sleep(8000);
+        Thread.sleep(8000);
         clickOnElement(panelSliderLeft);
         waitForElementToBeVisible(slideLeftResult);
         return slideRightResult.getText();
+    }
+
+    public String searchService(String element){
+        searchBox.sendKeys(element);
+//        waitForElementToBeVisible(searchSubContainer);
+//        clickOnElement(searchButton);
+        return searchResult.getText();
     }
 }

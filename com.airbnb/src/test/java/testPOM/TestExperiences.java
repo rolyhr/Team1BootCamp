@@ -91,7 +91,6 @@ public class TestExperiences extends TestBase {
         searchResult = getExperiences().searchDate("March 2022","June 2022","1","22");
         getExperiences().clickLittleSearchBox();
         getExperiences().clearSearchBarDate();
-
 //        SoftAssert softAssert = new SoftAssert();
 //        for(int i = 0;i<expectedText.length;i++){
 //            searchResult = getExperiences().searchDate("March 2022","June 2022","1","22");
@@ -144,12 +143,9 @@ public class TestExperiences extends TestBase {
         String[] expectedPlaces =excelReader.fileReaderStringXSSF(excelFilePath,sheetName);
         System.out.println(acutalPlaces.size());
 
-
         SoftAssert softAssert = new SoftAssert();
 
         for (int i = 0; i< acutalPlaces.size();i++){
-            System.out.println(acutalPlaces.get(i));
-            System.out.println(expectedPlaces[i]);
             softAssert.assertEquals(acutalPlaces.get(i),expectedPlaces[i],"LIVE ANYWHERE CATEGORYY DID NOT MATCH");
         }
         softAssert.assertAll();
@@ -215,7 +211,7 @@ public class TestExperiences extends TestBase {
 
     }
 
-    /********************************************* Test Select T  From Drop-down Menu **********************************************************/
+    /********************************************* Test Select From Drop-down Menu **********************************************************/
 
     @Test  (description = "TC008PP",enabled = false,priority = 6)
     public void testSelectTimeOfDay() throws IOException, InterruptedException {
@@ -246,14 +242,13 @@ public class TestExperiences extends TestBase {
 
     @Test(description = "TC009SE",enabled = true, priority = 5)
     public void testFileUploadCV(){
-
         String systemPath = System.getProperty("user.dir");
         String FILE_RELATIVE_PATH = "/src/test/resources/cvJT.docx";
         String FILE_PATH = systemPath + FILE_RELATIVE_PATH;
 
-       String actualResult = getExperiences().uploadResume(FILE_PATH);
-       String expectedResult = "cvJT.docx";
-       String[] actualList = actualResult.split("\\\\");
-       Assert.assertEquals(actualList[actualList.length-1],expectedResult,"UNABLE TO UPLOAD RESUME");
+        String actualResult = getExperiences().uploadResume(FILE_PATH);
+        String expectedResult = "cvJT.docx";
+        String[] actualList = actualResult.split("\\\\");
+        Assert.assertEquals(actualList[actualList.length-1],expectedResult,"UNABLE TO UPLOAD RESUME");
     }
 }

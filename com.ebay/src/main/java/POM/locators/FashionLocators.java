@@ -25,4 +25,20 @@ public class FashionLocators {
    public static final String CHECK_BOX_FREE_INTERNATIONAL_SHIPPING = "c3-subPanel-LH_FS_Free%20International%20Shipping_cbx";//ID
    public static final String APPLY_BUTTON = "#x-overlay__form > div.x-overlay__container > button > svg";
    public static final String FILTER_RESULT = "span.brm-pill__item-label";
+
+   //breadcrumb
+    public static final String BREAD_CRUMB_LIST = "div.pagecontainer.srp-main--isLarge > div.pagecontainer__top > nav > ol > li";
+
+    //filter buying format radio button
+    public static final String BUYING_FORMAT_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[7\\]-flyout > button > span";
+    public static final String BUYING_FORMAT_FILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[7\\]-flyout > div";
+    public static final String BUYING_FORMAT_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[7\\]-flyout > div li";
+    public static final String BUYING_FORMAT_FILTER_RESULT = "#s0-27_1-9-0-1\\[0\\]-0-1 > section  a > span.brm-pill__item-label";
+
+    //fiter condition checkbox
+    public static final String CONDITION_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[5\\]-flyout > button > span";
+    public static final String CONDITION_FILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[5\\]-flyout > div";
+    public static final String CONDITION_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[5\\]-flyout > div li";
+    public static final String CONDITION_FILTER_RESULT = "#s0-27_1-9-0-1\\[0\\]-0-1 > section  a > span.brm-pill__item-label";
+
 }

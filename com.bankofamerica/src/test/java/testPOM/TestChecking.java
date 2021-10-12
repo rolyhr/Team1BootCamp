@@ -106,24 +106,45 @@ public class TestChecking extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(description = "TC008CK", enabled = false, priority = 1)
-    public void testScrollLeft() throws IOException, InterruptedException {
-        String sheetName = "TestResult";
-        //  getCheking().navigateToMobileBanking();
-        String acutalCategories = getCheking().scrollLeft();
-        String[][] expectedCategories =getExcelFileArray(sheetName);
-        SoftAssert softAssert = new SoftAssert();
-        Assert.assertEquals(acutalCategories,expectedCategories[0][1]);
-    }
-
 //    @Test(description = "TC007CK", enabled = true, priority = 1)
-//    public void testScrollRight() throws IOException {
+//    public void testgetListofMobileBankingContantUSElements() throws IOException {
+//        String sheetName = "CardManagement";
+//       // getCheking().navigateToMobileBanking();
+//        List<String> acutalCategories = getCheking().getListofMobileBankingContantUSElements();
+//        System.out.println(acutalCategories);
+//        String[] expectedCategories =getExcelFile(sheetName);
+////        SoftAssert softAssert = new SoftAssert();
+////        for (int i = 0; i< acutalCategories.size();i++){
+////            softAssert.assertEquals(acutalCategories.get(i),expectedCategories[i],"MOBILE BAKING CARD MANAGEMENT ELEMENTS DID NOT MATCH");
+////        }
+////        softAssert.assertAll();
+//    }
+//        @Test(description = "TC008CK", enabled = true, priority = 1)
+//       public void testSEARCHsERVICE() throws IOException, InterruptedException {
+//        String sheetName = "TestResult";
+//        getCheking().navigateToMobileBanking();
+//        String acutalCategories = getCheking().searchService("Card Managment");
+//        String[][] expectedCategories =getExcelFileArray(sheetName);
+//        System.out.println(acutalCategories);
+//        //Assert.assertEquals(acutalCategories,expectedCategories[0][1]);
+//    }
+
+//    @Test(description = "TC008CK", enabled = false, priority = 1)
+//    public void testScrollLeft() throws IOException, InterruptedException {
+//        String sheetName = "TestResult";
+//        //  getCheking().navigateToMobileBanking();
+//        String acutalCategories = getCheking().scrollLeft();
+//        String[][] expectedCategories =getExcelFileArray(sheetName);
+//        Assert.assertEquals(acutalCategories,expectedCategories[0][1]);
+//    }
+//
+//    @Test(description = "TC007CK", enabled = true, priority = 1)
+//    public void testScrollRight() throws IOException, InterruptedException {
 //        String sheetName = "TestResult";
 //        //  getCheking().navigateToMobileBanking();
 //        String acutalCategories = getCheking().scrollRight();
 //        String[][] expectedCategories =getExcelFileArray(sheetName);
-//        SoftAssert softAssert = new SoftAssert();
-//        Assert.assertEquals(acutalCategories,expectedCategories[1][1]);
+//      //  Assert.assertEquals(acutalCategories,expectedCategories[1][1]);
 //    }
 
 }

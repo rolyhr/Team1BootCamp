@@ -72,6 +72,13 @@ public class Football extends Base {
     @FindBy(css = TEAM_POSITION_LIST)
     public List<WebElement> teamPositionList;
 
+    @FindBy(css = TEAMS)
+    public WebElement teams;
+
+    @FindBy(css = TEAMS_LIST)
+    public List<WebElement> teamsList;
+
+
     public void clickOnFootball() {
         clickOnElement(football);
     }
@@ -94,6 +101,17 @@ public class Football extends Base {
     public void navigateToESPNFantasyFootball(){
         clickOnElement(footBallfantasyFootball);
         switchTab();
+    }
+
+    public void navigateToFootballTeam() throws InterruptedException {
+        clickOnFootball();
+        clickOnElement(teams);
+        waitForElementToBeVisible(teamsList.get(0));
+        System.out.println(teamsList.get(0));
+    }
+
+    public List<String> getListOfTeamlist(){
+        return getListOfStringElements(teamsList);
     }
 
     public void switchTab(){

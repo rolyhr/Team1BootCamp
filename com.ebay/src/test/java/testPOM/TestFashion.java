@@ -1,5 +1,6 @@
 package testPOM;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -35,7 +36,7 @@ public class TestFashion extends TestBase {
     }
 
     @Test(description = "TC003FS",enabled = false ,priority = 2)
-    public void testFashionMorerCategoryList() throws IOException {
+    public void testFashionMoreCategoryList() throws IOException {
 
         String sheetName = "ebayTestData";
         getFashion().hoverFashionFromNavBar();
@@ -96,9 +97,95 @@ public class TestFashion extends TestBase {
             flag = true;
         }
         Assert.assertTrue(flag,"SEARCH  NON-EXISTING FASHION PRODUCT IS NOT WORKING PROPERLY");
+    }
+
+    @Test(description = "TC007FS",enabled = false,priority = 3)
+    public void testsearchExistingFashionProductWithKeyBoard() throws IOException {
+
+        String sheetName = "ebayTestData";
+        getFashion().navigateToFashion();
+        boolean flag =false;
+
+        String[] testData = getExcelFile("ShopByCategory");
+        String[] expectedResults=getExcelFile("Search");
+
+        int actualResult =  getFashion().searchFashionProductWithKeyboard(testData[1]);
+        if(actualResult >0){
+            flag = true;
+        }
+        Assert.assertTrue(flag,"SEARCH EXISTING FASHION PRODUCT WITH KEYBOARD IS NOT WORKING PROPERLY");
 
     }
 
+    @Test(description = "TC008FS",enabled = false ,priority = 3)
+    public void testsearcNonExistingFashionProducWithKeyboard() throws IOException {
+
+        String sheetName = "ebayTestData";
+        getFashion().navigateToFashion();
+        boolean flag =false;
+
+        String[] testData = getExcelFile("Search");
+        //   String[] expectedResults=getExcelFile("Search");
+
+        int actualResult =  getFashion().searchFashionProduct(testData[0]);
+        if(actualResult == 0){
+            flag = true;
+        }
+        Assert.assertTrue(flag,"SEARCH  NON-EXISTING FASHION PRODUCT WITH KEYBOARD IS NOT WORKING PROPERLY");
+    }
+
+
+    @Test(description = "TC009FS",enabled = false ,priority = 3)
+    public void testgetBreadcrumFashion() throws IOException {
+        getFashion().navigateToFashion();
+        String[] expectedCategories =getExcelFile("Breadcrum");
+        List<String> acutalCategories = getFashion().getBreadcrumbList();
+        System.out.println(acutalCategories);
+        compareStringList(acutalCategories,expectedCategories);
+    }
+
+    @Test(description = "TC0010FS",enabled = false ,priority = 3)
+    public void testgetBreadcrumFashionWomenShoe() throws IOException {
+        getFashion().navigateToFashion();
+        String[] expectedCategories =getExcelFile("fashionshoeBreadcrumb");
+        List<String> acutalCategories = getFashion().getBreadcrumFashionWomenShoe();
+        System.out.println(acutalCategories);
+        compareStringList(acutalCategories,expectedCategories);
+    }
+
+    @Test(description = "TC0011FS",enabled = false ,priority = 3)
+    public void testListofBuyingformats() throws IOException {
+        String[] expectedCategories =getExcelFile("BuyingFormatList");
+        List<String> acutalCategories = getFashion().getBuyingformats();
+        System.out.println(acutalCategories);
+        Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
+    }
+
+    @Test(description = "TC0012FS",enabled = false ,priority = 3)
+    public void testSelectBuyingformats() throws IOException {
+        String[] expectedCategories =getExcelFile("BuyingFormatList");
+        getFashion().getBuyingformats();
+        String acutalCategories =  getFashion().selectbuyingFormatContainerRadioButton(expectedCategories[2]);
+        System.out.println(acutalCategories);
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
+    }
+
+    @Test(description = "TC0011FS",enabled = false ,priority = 3)
+    public void testListofConditionFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Condtion");
+        List<String> acutalCategories = getFashion().getConditonfilter();
+        System.out.println(acutalCategories);
+        Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
+    }
+
+    @Test(description = "TC0012FS",enabled = true ,priority = 3)
+    public void testSelectConditionFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Condtion");
+        getFashion().getConditonfilter();
+        String acutalCategories =  getFashion().selectCconditonFilterCheckBox(expectedCategories[2]);
+        System.out.println(acutalCategories);
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
+    }
 //    @Test(description = "TC006FS",enabled = true ,priority = 3)
 //    public void testModalWiindowShopWomenShoeByBrand() throws IOException {
 //        getFashion().navigateToFashion();
