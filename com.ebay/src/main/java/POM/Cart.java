@@ -33,10 +33,18 @@ public class Cart extends Base {
         sendKeysToElement(searchButton, "Playstation 5");
         clickOnElement(searchButton);
         clickOnElement(firstItemOfSearchResult);
-
+        switchToTabAndAddToCart();
+        System.out.println("Successfully added item to cart and switch back to parent window");
     }
 
     //HELPER METHODS
-
+    public void switchToTabAndAddToCart() {
+        java.util.Iterator<String> iterate = driver.getWindowHandles().iterator();
+        String parentWindow = iterate.next();
+        String childWindow = iterate.next();
+        clickOnElement(addToCart);
+        clickOnElement(declineProtectionPlanButton);
+        driver.switchTo().window(parentWindow);
+    }
 
 }
