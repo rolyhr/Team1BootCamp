@@ -41,4 +41,37 @@ public class FashionLocators {
     public static final String CONDITION_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[5\\]-flyout > div li";
     public static final String CONDITION_FILTER_RESULT = "#s0-27_1-9-0-1\\[0\\]-0-1 > section  a > span.brm-pill__item-label";
 
+    //fiter us shoe size checkbox
+    public static final String SHOE_SIZE_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[0\\]-flyout > button > span";
+    public static final String SHOE_SIZE_FILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[0\\]-flyout > div";
+    public static final String SHOE_SIZE_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[0\\]-flyout > div > ul li";
+    public static final String ALL_FILTER_RESULT = "#s0-27_1-9-0-1\\[0\\]-0-1 > section  a > span.brm-pill__item-label";
+
+    //fiter color checkbox
+    public static final String COLOR_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[1\\]-flyout > button > span";
+    public static final String COLOR_FILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[1\\]-flyout > div";
+    public static final String COLOR_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[1\\]-flyout > div >ul li";
+
+    //fiter Brand checkbox
+    public static final String BRAND_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[2\\]-flyout > button > span";
+    public static final String BRAND_FILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[2\\]-flyout > div";
+    public static final String BRAND_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[2\\]-flyout > div >ul >li";
+
+    //fiter Upper Material  checkbox
+    public static final String UPPER_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[4\\]-flyout > button > span";
+    public static final String UPPER_FILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[4\\]-flyout > div";
+    public static final String UPPER_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[4\\]-flyout > div > ul li";
+
+    //fiter Heel Height checkbox
+    public static final String HEEL_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[3\\]-flyout > button";
+    public static final String HEEL_FILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[3\\]-flyout > div";
+    public static final String HEEL_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[3\\]-flyout > div >ul > li";
+
+    //fiter Heel Height checkbox
+    public static final String PRICE_FILTER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[6\\]-flyout > button > span";
+    public static final String PRICEFILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[6\\]-flyout > div";
+    public static final String PRICE_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[6\\]-flyout > div>ul>li";
+
+
+
 }

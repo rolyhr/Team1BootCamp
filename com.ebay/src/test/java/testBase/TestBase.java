@@ -66,12 +66,35 @@ public class TestBase extends Base {
         System.out.println(actual.size());
         System.out.println(expected.length);
         for (int i = 0; i< actual.size();i++){
-            System.out.println(actual.get(i));
+           //System.out.println(actual.get(i));
             if(!actual.get(i).contains(expected[i])){
                 flagCount += 1 ;
-//                System.out.println("Actual:"+  actual.get(i));
-//                System.out.println("Expected:"+expected[i]);
-//                System.out.println("*****");
+                System.out.println("Actual:"+  actual.get(i));
+                System.out.println("Expected:"+expected[i]);
+                System.out.println("*****");
+            }
+        }
+
+        if(flagCount== 0) {
+            flag = true;
+        }else {
+            flag = false;
+        }
+        return flag;
+    }
+
+    public boolean compareStringListContainsNumbers(List<String> actual, String[]  expected){
+        int flagCount = 0;
+        boolean flag;
+        System.out.println(actual.size());
+        System.out.println(expected.length);
+        for (int i = 0; i< actual.size();i++){
+            //  System.out.println(actual.get(i));
+            if(!actual.get(i).contains(expected[i].substring(0,1))){
+                flagCount += 1 ;
+                System.out.println("Actual:"+  actual.get(i));
+                System.out.println("Expected:"+expected[i]);
+                System.out.println("*****");
             }
         }
 

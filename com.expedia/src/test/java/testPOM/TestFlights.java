@@ -35,21 +35,19 @@ public class TestFlights extends TestBase {
         Assert.assertEquals(actualResult,expectedResult[1],"DID NOT RECEIVE EXPECTED SEARCH RESULT");
     }
 
-    @Test(description = "TC004PE", enabled = true,dataProvider = "SearchLocationDataProvider",dataProviderClass = FlightsDataProvider.class,priority = 2)
+    @Test(description = "TC004PE", enabled = false,dataProvider = "SearchLocationDataProvider",dataProviderClass = FlightsDataProvider.class,priority = 2)
     public void testgetSearchWitoutGoingToLocation(String startlocation,String endlocation) throws IOException, InterruptedException {
         String actualResult = getFlights().searchFlightWithoutGoingToLocation(startlocation);
         String[] expectedResult =getExcelFile("Error");
         Assert.assertEquals(actualResult,expectedResult[1],"DID NOT RECEIVE EXPECTED SEARCH RESULT");
     }
-    @Test(description = "TC005PE", enabled = false, priority = 2)
+    @Test(description = "TC005PE", enabled = true, priority = 2)
     public void testClickTravelerDropDown() throws AWTException, InterruptedException {
         flights = getFlights();
         clickOnPage();
         flights.navigateToFlights();
-        Thread.sleep(8000);
         String actualAriaExpanded = flights.clickOnTravelerDropDown();
         String expectedAriaExpanded = "true";
-        Thread.sleep(8000);
         Assert.assertEquals(actualAriaExpanded,expectedAriaExpanded,"TRAVELER DROP DOWN IS NOT EXPANDED");
     }
     }

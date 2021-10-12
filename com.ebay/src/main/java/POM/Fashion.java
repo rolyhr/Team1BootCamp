@@ -90,7 +90,63 @@ public class Fashion extends Base {
 
     @FindBy(css = CONDITION_FILTER_RESULT)
     public  WebElement conditionFilterResult;
+/*******/
+    @FindBy(css = SHOE_SIZE_FILTER)
+    public WebElement shoeSizeFilter;
 
+    @FindBy(css = SHOE_SIZE_FILTER_DROP_DOWN_CONTAINER)
+    public WebElement shoeSizeFIlterDropDownContainer;
+
+    @FindBy(css = SHOE_SIZE_FILTER_LIST)
+    public List<WebElement> shoeSizeFilterList;
+
+    @FindBy(css = COLOR_FILTER)
+    public WebElement colorFilter;
+
+    @FindBy(css = COLOR_FILTER_DROP_DOWN_CONTAINER)
+    public WebElement colorFIlterDropDownContainer;
+
+    @FindBy(css = COLOR_FILTER_LIST)
+    public List<WebElement> colorFilterList;
+
+    @FindBy(css = BRAND_FILTER)
+    public WebElement brandFilter;
+
+    @FindBy(css = BRAND_FILTER_DROP_DOWN_CONTAINER)
+    public WebElement brandFIlterDropDownContainer;
+
+    @FindBy(css = BRAND_FILTER_LIST)
+    public List<WebElement> brandFilterList;
+
+    @FindBy(css = UPPER_FILTER)
+    public WebElement upperFilter;
+
+    @FindBy(css = UPPER_FILTER_DROP_DOWN_CONTAINER)
+    public WebElement upperDropDownContainer;
+
+    @FindBy(css = UPPER_FILTER_LIST)
+    public List<WebElement> upperFilterList;
+
+    @FindBy(css = HEEL_FILTER)
+    public WebElement heelHeighteFilter;
+
+    @FindBy(css = HEEL_FILTER_DROP_DOWN_CONTAINER)
+    public WebElement heelHeightFIlterDropDownContainer;
+
+    @FindBy(css = HEEL_FILTER_LIST)
+    public List<WebElement> heelHeightFilterList;
+
+    @FindBy(css = PRICE_FILTER)
+    public WebElement priceFilterFilter;
+
+    @FindBy(css = PRICEFILTER_DROP_DOWN_CONTAINER)
+    public WebElement priceFilterDropDownContainer;
+
+    @FindBy(css = PRICE_FILTER_LIST)
+    public List<WebElement> priceFilterFilterList;
+
+    @FindBy(css = ALL_FILTER_RESULT)
+    public WebElement allFilterResult;
 
     public void navigateToFashion() {
        clickOnElement(navigateToFashion);
@@ -231,12 +287,69 @@ public class Fashion extends Base {
     public String selectCconditonFilterCheckBox(String selectTerm){
         for(int i = 0; i<getListofCconditonFilter().size();i++){
             if(getListofCconditonFilter().get(i).equals(selectTerm)){
-                System.out.println("***************************");
                 clickOnElement(conditionFilterList.get(i));
                 waitForElementToBeVisible(conditionFilterResult);
             }
         }
         return conditionFilterResult.getText();
+    }
+
+    // shoe size
+    public void clickOnShoeSizeFilter(){
+        clickOnElement(shoeSizeFilter);
+        waitForElementToBeVisible(shoeSizeFIlterDropDownContainer);
+    }
+
+    public List<String> getListofShoeSizeFilter(){
+        return getListOfStringElements(shoeSizeFilterList);
+    }
+
+    public List<String> getShoeSizefilter(){
+        navigateToFashion();
+        navigateToWomenShoes();
+        clickOnShoeSizeFilter();
+        return getListofShoeSizeFilter();
+    }
+
+    public String selectShoeSizeFilterCheckBox(String selectTerm){
+        getShoeSizefilter();
+        selectCheckBox(selectTerm,getListofShoeSizeFilter(),shoeSizeFilterList);
+        return allFilterResult.getText();
+    }
+
+
+    // Brand
+    public void clickOnBrandFilter(){
+        clickOnElement(brandFilter);
+        waitForElementToBeVisible(brandFIlterDropDownContainer);
+    }
+
+    public List<String> getListofBrandFilter(){
+        return getListOfStringElements(brandFilterList);
+    }
+
+    public List<String> getBrandfilter(){
+        navigateToFashion();
+        navigateToWomenShoes();
+        clickOnBrandFilter();
+        return getListofBrandFilter();
+    }
+
+    public String selectBrandCheckBox(String selectTerm){
+        getBrandfilter();
+        selectCheckBox(selectTerm,getListofBrandFilter(),brandFilterList);
+        return allFilterResult.getText();
+    }
+
+
+    public String selectCheckBox(String selectTerm, List<String> listElemnts,List<WebElement> webelementList){
+        for(int i = 0; i<listElemnts.size();i++){
+            if(listElemnts.get(i).equals(selectTerm)){
+                clickOnElement(webelementList.get(i));
+                waitForElementToBeVisible(allFilterResult);
+            }
+        }
+        return allFilterResult.getText();
     }
 
 

@@ -140,7 +140,6 @@ public class TestFashion extends TestBase {
         getFashion().navigateToFashion();
         String[] expectedCategories =getExcelFile("Breadcrum");
         List<String> acutalCategories = getFashion().getBreadcrumbList();
-        System.out.println(acutalCategories);
         compareStringList(acutalCategories,expectedCategories);
     }
 
@@ -149,7 +148,6 @@ public class TestFashion extends TestBase {
         getFashion().navigateToFashion();
         String[] expectedCategories =getExcelFile("fashionshoeBreadcrumb");
         List<String> acutalCategories = getFashion().getBreadcrumFashionWomenShoe();
-        System.out.println(acutalCategories);
         compareStringList(acutalCategories,expectedCategories);
     }
 
@@ -157,7 +155,6 @@ public class TestFashion extends TestBase {
     public void testListofBuyingformats() throws IOException {
         String[] expectedCategories =getExcelFile("BuyingFormatList");
         List<String> acutalCategories = getFashion().getBuyingformats();
-        System.out.println(acutalCategories);
         Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
     }
 
@@ -166,7 +163,6 @@ public class TestFashion extends TestBase {
         String[] expectedCategories =getExcelFile("BuyingFormatList");
         getFashion().getBuyingformats();
         String acutalCategories =  getFashion().selectbuyingFormatContainerRadioButton(expectedCategories[2]);
-        System.out.println(acutalCategories);
         Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
     }
 
@@ -178,11 +174,38 @@ public class TestFashion extends TestBase {
         Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
     }
 
-    @Test(description = "TC0012FS",enabled = true ,priority = 3)
+    @Test(description = "TC0012FS",enabled = false ,priority = 3)
     public void testSelectConditionFilters() throws IOException {
         String[] expectedCategories =getExcelFile("Condtion");
         getFashion().getConditonfilter();
         String acutalCategories =  getFashion().selectCconditonFilterCheckBox(expectedCategories[2]);
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
+    }
+
+    @Test(description = "TC0013FS",enabled = false ,priority = 3)
+    public void testListofShoeFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("shoeSize");
+        List<String> acutalCategories = getFashion().getShoeSizefilter();
+        Assert.assertTrue(compareStringListContainsNumbers(acutalCategories,expectedCategories));
+    }
+    @Test(description = "TC0014FS",enabled = false ,priority = 3)
+    public void testSelectShoeFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("shoeSize");
+        String acutalCategories =  getFashion().selectShoeSizeFilterCheckBox(expectedCategories[2].substring(0,1));
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2].substring(0,1)));
+    }
+
+    @Test(description = "TC0013FS",enabled = false ,priority = 3)
+    public void testListofBrandFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Brand");
+        List<String> acutalCategories = getFashion().getBrandfilter();
+        System.out.println(acutalCategories);
+        Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
+    }
+    @Test(description = "TC0014FS",enabled = false ,priority = 3)
+    public void testSelectBrandFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Brand");
+        String acutalCategories =  getFashion().selectBrandCheckBox(expectedCategories[2]);
         System.out.println(acutalCategories);
         Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
     }
