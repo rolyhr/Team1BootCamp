@@ -42,7 +42,7 @@ public class Base {
     public ResultSet resultSet = null;
 
     public final String systemPath = System.getProperty("user.dir");
-    private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
+    private final String PROP_RELATIVE_PATH = "src/main/resources/credentials.properties";
     private final String EXCEL_RELATIVE_PATH = "/src/main/resources/TestData.xlsx";
     private final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
     public final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
@@ -222,6 +222,25 @@ public class Base {
         resultSet = statement.executeQuery(query);
         resultSet.next();
         return resultSet.getString(columnLabel);
+    }
+
+    public List<String> getAllDataFromMySQL(String query,String columnLabel) throws SQLException, IOException, ClassNotFoundException {
+        mySqlReader = new MySqlReader();
+        MySqlReader.loadProperties();
+        statement = MySqlReader.connectToSqlDatabase().createStatement();
+        resultSet = statement.executeQuery(query);
+        resultSet.next();
+
+        ArrayList<String> str = new ArrayList<String>();
+
+        // iterate through the java resultset
+        while (resultSet.next()) {
+            String value = resultSet.getString(columnLabel);
+            str.add(value);
+            // System.out.println(idDB+ " " + firstNameDB+ " " + lastNameDB + " " + scoreDB );
+
+        }
+        return str;
     }
 
     public WebElement safeFindElement(By by) {

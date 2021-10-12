@@ -4,6 +4,7 @@ import POM.Fashion;
 import POM.Homepage;
 import base.Base;
 import base.ExcelReader;
+import base.MySqlReader;
 import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class TestBase extends Base {
     public Fashion getFashion() {
         return new Fashion();
     }
+
+
 
     public static String systemPath = System.getProperty("user.dir");
     public static String EXCEL_RELATIVE_PATH = "/src/test/resources/ebayTestData.xlsx";

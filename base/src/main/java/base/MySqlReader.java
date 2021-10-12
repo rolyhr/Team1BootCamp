@@ -18,7 +18,9 @@ public class MySqlReader {
 
     public static Properties loadProperties() throws IOException {
         Properties prop = new Properties();
-        InputStream ism = new FileInputStream("src/main/resources/credentials.properties");
+        String systemPath = System.getProperty("user.dir");
+        String PROP_RELATIVE_PATH = "/src/test/resources/credentials.properties";
+        InputStream ism = new FileInputStream(systemPath+PROP_RELATIVE_PATH);
         prop.load(ism);
         ism.close();
         return prop;

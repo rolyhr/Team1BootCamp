@@ -1,5 +1,6 @@
 package testPOM;
 
+import base.MySqlReader;
 import org.apache.poi.ss.formula.functions.T;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -7,6 +8,7 @@ import org.testng.asserts.SoftAssert;
 import testBase.TestBase;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -195,23 +197,27 @@ public class TestFashion extends TestBase {
         Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2].substring(0,1)));
     }
 
-    @Test(description = "TC0013FS",enabled = false ,priority = 3)
+    @Test(description = "TC0015FS",enabled = false ,priority = 3)
     public void testListofBrandFilters() throws IOException {
         String[] expectedCategories =getExcelFile("Brand");
         List<String> acutalCategories = getFashion().getBrandfilter();
         System.out.println(acutalCategories);
         Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
     }
-    @Test(description = "TC0014FS",enabled = false ,priority = 3)
-    public void testSelectBrandFilters() throws IOException {
-        String[] expectedCategories =getExcelFile("Brand");
-        String acutalCategories =  getFashion().selectBrandCheckBox(expectedCategories[2]);
+    @Test(description = "TC0016FS",enabled = true ,priority = 3)
+    public void testSelectBrandFilters() throws IOException, SQLException, ClassNotFoundException {
+        List<String> expectedCategories =  getAllDataFromMySQL("SELECT BrandName FROM test_schema_1.brand","BrandName");
+        //String[] expectedCategories =getExcelFile("Brand");
+        String acutalCategories =  getFashion().selectBrandCheckBox();
         System.out.println(acutalCategories);
-        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
+        Assert.assertTrue(compareStringContains(acutalCategories, expectedCategories.get(2)));
+
     }
 //    @Test(description = "TC006FS",enabled = true ,priority = 3)
 //    public void testModalWiindowShopWomenShoeByBrand() throws IOException {
 //        getFashion().navigateToFashion();
 //        getFashion().filterProductByShopByBradFreeInternationalShipping();
 //    }
+
+
 }

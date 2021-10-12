@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -335,9 +337,10 @@ public class Fashion extends Base {
         return getListofBrandFilter();
     }
 
-    public String selectBrandCheckBox(String selectTerm){
+    public String selectBrandCheckBox() throws SQLException, IOException, ClassNotFoundException {
         getBrandfilter();
-        selectCheckBox(selectTerm,getListofBrandFilter(),brandFilterList);
+        List<String> selectTermS =  getAllDataFromMySQL("SELECT BrandName FROM test_schema_1.brand","BrandName");
+        selectCheckBox(selectTermS.get(2),getListofBrandFilter(),brandFilterList);
         return allFilterResult.getText();
     }
 
@@ -351,6 +354,5 @@ public class Fashion extends Base {
         }
         return allFilterResult.getText();
     }
-
 
 }
