@@ -345,8 +345,51 @@ public class Fashion extends Base {
         selectCheckBox(selectTermS.get(2),getListofBrandFilter(),brandFilterList);
         return allFilterResult.getText();
     }
+//color
+    public void clickColorFilter(){
+        clickOnElement(colorFilter);
+        waitForElementToBeVisible(colorFIlterDropDownContainer);
+    }
 
+    public List<String> getListofColorFilter(){
+        return getListOfStringElements(colorFilterList);
+    }
 
+    public List<String> getColorfilter(){
+        navigateToFashion();
+        navigateToWomenShoes();
+        clickColorFilter();
+        return getListofColorFilter();
+    }
+
+    public String selectColorCheckBox(String selectTerm){
+        getColorfilter();
+        selectCheckBox(selectTerm,getListofColorFilter(),colorFilterList);
+        return allFilterResult.getText();
+    }
+
+    //upper material
+    public void clickUpperMaterialFilter(){
+        clickOnElement(upperFilter);
+        waitForElementToBeVisible(upperDropDownContainer);
+    }
+
+    public List<String> getListofUpperMaterialFilter(){
+        return getListOfStringElements(upperFilterList);
+    }
+
+    public List<String> getUpperMaterialfilter(){
+        navigateToFashion();
+        navigateToWomenShoes();
+        clickUpperMaterialFilter();
+        return getListofUpperMaterialFilter();
+    }
+
+    public String selectUpperMaterialCheckBox(String selectTerm){
+        getUpperMaterialfilter();
+        selectCheckBox(selectTerm,getListofUpperMaterialFilter(),upperFilterList);
+        return allFilterResult.getText();
+    }
     public String selectCheckBox(String selectTerm, List<String> listElemnts,List<WebElement> webelementList){
         for(int i = 0; i<listElemnts.size();i++){
             if(listElemnts.get(i).equals(selectTerm)){

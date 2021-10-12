@@ -214,11 +214,36 @@ public class TestFashion extends TestBase {
 
     }
 
-    @Test(description = "TC0017FS",enabled = true ,priority = 3)
+    @Test(description = "TC0017FS",enabled = false ,priority = 3)
     public void testDragAndDrop() throws IOException, SQLException, ClassNotFoundException, InterruptedException {
         getFashion().navigateToFashion();
         getFashion().dragAndDrop();
+    }
 
+    @Test(description = "TC0018FS",enabled = false ,priority = 3)
+    public void testListofColorFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("color");
+        List<String> acutalCategories = getFashion().getColorfilter();
+        Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
+    }
+    @Test(description = "TC0019FS",enabled = false ,priority = 3)
+    public void testSelectColorFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("color");
+        String acutalCategories =  getFashion().selectColorCheckBox(expectedCategories[2]);
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
+    }
+
+    @Test(description = "TC0018FS",enabled = false ,priority = 3)
+    public void testListofUpperMaterialFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("UpperMaterial");
+        List<String> acutalCategories = getFashion().getUpperMaterialfilter();
+        Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
+    }
+    @Test(description = "TC0019FS",enabled = false ,priority = 3)
+    public void testSelectUpperMaterialFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("UpperMaterial");
+        String acutalCategories =  getFashion().selectUpperMaterialCheckBox(expectedCategories[2]);
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
     }
 //    @Test(description = "TC006FS",enabled = true ,priority = 3)
 //    public void testModalWiindowShopWomenShoeByBrand() throws IOException {
