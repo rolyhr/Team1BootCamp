@@ -49,10 +49,10 @@ public class CarsPage extends Base {
     @FindBy(xpath = "//*[@class = \"uitk-date-picker-menu-months-container\"]//div[2]//tr//button[@data-day=20]")
     WebElement dropOffDaySameCalender;
 
-    @FindBy(xpath = "")
+    @FindBy(css = "#Rental-cars-transportation select[aria-label = 'Pick-up time']")
     WebElement pickUpTimeComboBox;
 
-    @FindBy(xpath = "")
+    @FindBy(css = "#Rental-cars-transportation select[aria-label = 'Drop-off time']")
     WebElement dropOffTimeComboBox;
 
     @FindBy(xpath = "")
@@ -73,7 +73,7 @@ public class CarsPage extends Base {
     @FindBy(xpath = "//button[@type = \"submit\" and text() = \"Search\"]")
     WebElement searchButton;
 
-    @FindBy(xpath = "//*[@id=\"app-layer-base\"]//div[@class = 'uitk-flex-item']/span")
+    @FindBy(xpath = "//*[@id=\"app-layer-base\"]//label[contains(text(), 'Add a different')]")
     WebElement searchResultTitle;
 
     @FindBy(xpath = "//label[@for='diff-loc']")
@@ -101,14 +101,31 @@ public class CarsPage extends Base {
     WebElement messageForUnsuccessfulSubmit;
 
     void sendPhoneNumberToPhoneNumberInputField(String phoneNumber){sendKeysToInput(phoneNumberInputField,phoneNumber);}
+
     void clickOnSubmitButton(){clickOnElement(submitButton);}
+
     void clickOnCountryCode(){clickOnElement(countryCodeDropDown);}
+
+    void clickDropOffTimeComboBox(){clickOnElement(dropOffTimeComboBox);}
+
+    void selectDropOffTime(String time){dropdownSelectByVisibleText(dropOffTimeComboBox,time);}
+
+    void clickPickUpTimeComboBox(){clickOnElement(pickUpTimeComboBox);}
+
+    void selectPickUpTime(String time){dropdownSelectByVisibleText(pickUpTimeComboBox,time);}
+
     void clickPickingLocationButton(){ clickOnElement(pickingLocationButton);}
+
     void clickDropOffLocationButton(){ clickOnElement(dropOffLocationButton);}
+
     void selectPickUpLocation(){ clickOnElement(selectALocationFromPickupDropDown);}
+
     void selectDropOffLocation(){clickOnElement(selectALocationFromDropOffDropDown);}
+
     void clickPickUpDateButton(){ clickOnElement(pickUpDateButton);}
+
     void clickDropOffDateButton(){ clickOnElement(dropOffDateButton);}
+
 
     void selectPickUpDay(String expDay){
         try {
@@ -117,6 +134,7 @@ public class CarsPage extends Base {
             System.out.println("Invalid Date Selection");
         }
     }
+
     void selectDropOffDay(String expDay){
         driver.findElement(By.xpath("//*[@class = \"uitk-date-picker-menu-months-container\"]//div[1]//tr//button[@data-day='"+expDay+"']")).click();
     }
@@ -156,6 +174,53 @@ public class CarsPage extends Base {
     public boolean hasMessageAppearForValidSubmission(){return isElementPresent(messageForSuccessfulSubmit);}
 
     public boolean hasMessageAppearForInvalidSubmission(){return isElementPresent(messageForUnsuccessfulSubmit);}
+
+
+
+    public void doSearchCarBySelectSamePickUpAndDropOffTime(String location, String pickTime, String dropOffTime,String picDay,String pickMonth,String pickYear,String dropDay,String dropMonth,String dropYear){
+        clickPickingLocationButton();
+        waitForElementToBeVisible(pickupLocationInput);
+
+        sendLocationToPickupInputField(location);
+        selectPickUpLocation();
+
+        clickPickUpTimeComboBox();
+        selectPickUpTime(pickTime);
+
+        clickDropOffTimeComboBox();
+        selectDropOffTime(dropOffTime);
+
+        clickPickUpDateButton();
+        calenderToVisible();
+
+        datePicker(picDay,pickMonth,pickYear);
+        datePicker(dropDay,dropMonth,dropYear);
+
+        clickOnDoneButton();
+        clickOnSearchButton();
+        waitForSearchResultPageToBeVisible();
+    }
+
+    public void doSearchCarBySelectPickUpTime(String time,String location,String picDay,String pickMonth,String pickYear,String dropDay,String dropMonth,String dropYear){
+        clickPickingLocationButton();
+        waitForElementToBeVisible(pickupLocationInput);
+
+        sendLocationToPickupInputField(location);
+        selectPickUpLocation();
+
+        clickPickUpTimeComboBox();
+        selectPickUpTime(time);
+
+        clickPickUpDateButton();
+        calenderToVisible();
+
+        datePicker(picDay,pickMonth,pickYear);
+        datePicker(dropDay,dropMonth,dropYear);
+
+        clickOnDoneButton();
+        clickOnSearchButton();
+        waitForSearchResultPageToBeVisible();
+    }
 
     public void doDownloadAppByInvalidPhoneNumber(String countryCode, String phoneNumber){
         clickOnCountryCode();

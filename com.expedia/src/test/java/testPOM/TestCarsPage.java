@@ -14,7 +14,7 @@ public class TestCarsPage extends TestBase {
     CarsPage carsPage;
     String[][] testData;
 
-    @Test(description = "ID: 001",priority = 1, enabled = true)
+    @Test(description = "ID: 001",priority = 1, enabled = false)
     public void testPickUpDate() throws InterruptedException, IOException {
         homepage = new Homepage();
         carsPage = homepage.navigateToCarsPage();
@@ -65,5 +65,32 @@ public class TestCarsPage extends TestBase {
         testData = getTestDataFromExcelFile("ExpediaAppData");
         carsPage.doDownLoadAppForDifferentCountry(testData[2][0],testData[2][1]);
         Assert.assertTrue(carsPage.hasMessageAppearForValidSubmission());
+    }
+
+    @Test(description = "Case ID: 007", priority = 7, enabled = false)
+    public void testDoSearchForCarBySelectPickUpTime() throws IOException, InterruptedException {
+        homepage = new Homepage();
+        carsPage = homepage.navigateToCarsPage();
+        testData = getTestDataFromExcelFile("ExpediaTestData");
+        carsPage.doSearchCarBySelectPickUpTime(testData[0][7],testData[0][0],testData[0][2],testData[0][3],testData[0][4],testData[0][5],testData[0][6],testData[1][4]);
+        Assert.assertTrue(carsPage.isSearchResultTitlePresent());
+    }
+
+    @Test(description = "Case ID: 008", priority = 8, enabled = false)
+    public void testDoSearchCarBySelectSamePickUpAndDropOffTime() throws IOException, InterruptedException {
+        homepage = new Homepage();
+        carsPage = homepage.navigateToCarsPage();
+        testData = getTestDataFromExcelFile("ExpediaTestData");
+        carsPage.doSearchCarBySelectSamePickUpAndDropOffTime(testData[0][0],testData[0][7],testData[0][7],testData[0][2],testData[0][3],testData[0][4],testData[0][5],testData[0][6],testData[1][4]);
+        Assert.assertTrue(carsPage.isSearchResultTitlePresent());
+    }
+
+    @Test(description = "Case ID: 009", priority = 9, enabled = true)
+    public void testDoSearchCarBySelectDifferentPickUpAndDropOffTime() throws IOException, InterruptedException {
+        homepage = new Homepage();
+        carsPage = homepage.navigateToCarsPage();
+        testData = getTestDataFromExcelFile("ExpediaTestData");
+        carsPage.doSearchCarBySelectSamePickUpAndDropOffTime(testData[0][0],testData[0][7],testData[1][7],testData[0][2],testData[0][3],testData[0][4],testData[0][5],testData[0][6],testData[1][4]);
+        Assert.assertTrue(carsPage.isSearchResultTitlePresent());
     }
 }
