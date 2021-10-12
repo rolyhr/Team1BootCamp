@@ -204,13 +204,20 @@ public class TestFashion extends TestBase {
         System.out.println(acutalCategories);
         Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
     }
-    @Test(description = "TC0016FS",enabled = true ,priority = 3)
+    @Test(description = "TC0016FS",enabled = false ,priority = 3)
     public void testSelectBrandFilters() throws IOException, SQLException, ClassNotFoundException {
         List<String> expectedCategories =  getAllDataFromMySQL("SELECT BrandName FROM test_schema_1.brand","BrandName");
         //String[] expectedCategories =getExcelFile("Brand");
         String acutalCategories =  getFashion().selectBrandCheckBox();
         System.out.println(acutalCategories);
         Assert.assertTrue(compareStringContains(acutalCategories, expectedCategories.get(2)));
+
+    }
+
+    @Test(description = "TC0017FS",enabled = true ,priority = 3)
+    public void testDragAndDrop() throws IOException, SQLException, ClassNotFoundException, InterruptedException {
+        getFashion().navigateToFashion();
+        getFashion().dragAndDrop();
 
     }
 //    @Test(description = "TC006FS",enabled = true ,priority = 3)

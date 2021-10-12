@@ -3,9 +3,11 @@ package POM;
 import base.Base;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -355,4 +357,9 @@ public class Fashion extends Base {
         return allFilterResult.getText();
     }
 
+    public void dragAndDrop() throws InterruptedException {
+        Actions action  = new Actions(driver);
+        action.dragAndDrop(fashionShopByCategoryList.get(2),searchBox).perform();
+        clickOnSearchButton();
+    }
 }
