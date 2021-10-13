@@ -141,7 +141,7 @@ public class Fashion extends Base {
     public List<WebElement> heelHeightFilterList;
 
     @FindBy(css = PRICE_FILTER)
-    public WebElement priceFilterFilter;
+    public WebElement priceFilter;
 
     @FindBy(css = PRICEFILTER_DROP_DOWN_CONTAINER)
     public WebElement priceFilterDropDownContainer;
@@ -151,6 +151,9 @@ public class Fashion extends Base {
 
     @FindBy(css = ALL_FILTER_RESULT)
     public WebElement allFilterResult;
+
+    @FindBy(css = LIST_GRID_VIEW)
+    public WebElement listGridView;
 
     public void navigateToFashion() {
        clickOnElement(navigateToFashion);
@@ -400,9 +403,72 @@ public class Fashion extends Base {
         return allFilterResult.getText();
     }
 
+    //price -filter
+
+    public void clickPriceFilter(){
+        clickOnElement(priceFilter);
+        waitForElementToBeVisible(priceFilterDropDownContainer);
+    }
+
+    public List<String> getListofPriceFilter(){
+        return getListOfStringElements(priceFilterFilterList);
+    }
+
+    public List<String> getPricefilter(){
+        navigateToFashion();
+        navigateToWomenShoes();
+        clickPriceFilter();
+        return getListofPriceFilter();
+    }
+
+    public String selectPriceCheckBox(String selectTerm){
+        getPricefilter();
+        selectCheckBox(selectTerm,getListofPriceFilter(),priceFilterFilterList);
+        return allFilterResult.getText();
+    }
+
+    //heel Height
+    public void clickHeelHeightFilter(){
+        clickOnElement(heelHeighteFilter);
+        waitForElementToBeVisible(heelHeightFIlterDropDownContainer);
+    }
+
+    public List<String> getListofHeelHeightFilter(){
+        return getListOfStringElements(heelHeightFilterList);
+    }
+
+    public List<String> getHeelHeightfilter(){
+        navigateToFashion();
+        navigateToWomenShoes();
+        clickHeelHeightFilter();
+        return getListofHeelHeightFilter();
+    }
+
+    public String selectHeelHeightCheckBox(String selectTerm){
+        getHeelHeightfilter();
+        selectCheckBox(selectTerm,getListofHeelHeightFilter(),heelHeightFilterList);
+        return allFilterResult.getText();
+    }
+    //drag and drop
+
     public void dragAndDrop() throws InterruptedException {
         Actions action  = new Actions(driver);
         action.dragAndDrop(fashionShopByCategoryList.get(2),searchBox).perform();
         clickOnSearchButton();
+    }
+
+    //list grid view
+    public String getListView(){
+        getDefaultView();
+        clickOnElement(listGridView);
+        return listGridView.getAttribute("aria-label");
+    }
+
+    public String getDefaultView(){
+        navigateToFashion();
+        navigateToWomenShoes();
+        clickOnElement(listGridView);
+        waitForElementToBeVisible(listGridView);
+        return listGridView.getAttribute("aria-label");
     }
 }

@@ -72,6 +72,8 @@ public class FashionLocators {
     public static final String PRICEFILTER_DROP_DOWN_CONTAINER = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[6\\]-flyout > div";
     public static final String PRICE_FILTER_LIST = "#s0-27_3-9-0-1\\[0\\]-0-1-6-6-4\\[6\\]-flyout > div>ul>li";
 
+    //List grid view
+    public static final String LIST_GRID_VIEW = "span[id*=nid] button[aria-label*=View]";
 
 
 }

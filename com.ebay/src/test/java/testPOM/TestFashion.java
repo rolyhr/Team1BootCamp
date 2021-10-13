@@ -245,6 +245,44 @@ public class TestFashion extends TestBase {
         String acutalCategories =  getFashion().selectUpperMaterialCheckBox(expectedCategories[2]);
         Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
     }
+
+    @Test(description = "TC0020FS",enabled = false ,priority = 3)
+    public void testListofPriceFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Price");
+        List<String> acutalCategories = getFashion().getPricefilter();
+        Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
+    }
+    @Test(description = "TC0021FS",enabled = false ,priority = 3)
+    public void testSelectPriceFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Price");
+        String acutalCategories =  getFashion().selectPriceCheckBox(expectedCategories[2]);
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
+    }
+    @Test(description = "TC0020FS",enabled = false ,priority = 3)
+    public void testListofHeelHeightFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Heel");
+        List<String> acutalCategories = getFashion().getHeelHeightfilter();
+        Assert.assertTrue(compareStringListContains(acutalCategories,expectedCategories));
+    }
+    @Test(description = "TC0021FS",enabled = false ,priority = 3)
+    public void testSelectHeelHeightFilters() throws IOException {
+        String[] expectedCategories =getExcelFile("Heel");
+        String acutalCategories =  getFashion().selectHeelHeightCheckBox(expectedCategories[2]);
+        Assert.assertTrue(compareStringContains(acutalCategories,expectedCategories[2]));
+    }
+    @Test(description = "TC0022FS",enabled = false ,priority = 3)
+    public void testDefaultView() throws IOException {
+        String[][] expectedCategories =getExcelFileArray("TestCases");
+        String acutalCategories =  getFashion().getDefaultView();
+        Assert.assertEquals(acutalCategories,expectedCategories[1][1],"NOT WORKING PROPERLY");
+    }
+
+//    @Test(description = "TC0019FS",enabled = false ,priority = 3)
+//    public void testListView() throws IOException {
+//        String[][] expectedCategories =getExcelFileArray("TestCases");
+//        String acutalCategories =  getFashion().getListView();
+//        Assert.assertEquals(acutalCategories,expectedCategories[0][1],"NOT WORKING PROPERLY");
+    //}
 //    @Test(description = "TC006FS",enabled = true ,priority = 3)
 //    public void testModalWiindowShopWomenShoeByBrand() throws IOException {
 //        getFashion().navigateToFashion();
