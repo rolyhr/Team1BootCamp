@@ -191,7 +191,7 @@ public class TestExperiences extends TestBase {
 
     }
 
-    /********************************************* Test Select Number of Adult Guest  From Drop-down Menu **********************************************************/
+    /********************************************* Test Remove Number of Adult Guest  From Drop-down Menu **********************************************************/
 
     @Test  (description = "TC008PP",enabled = false,priority = 6)
     public void testSelectRemoveNumberOfAdultGuest() throws IOException, InterruptedException {
@@ -240,7 +240,7 @@ public class TestExperiences extends TestBase {
 
     }
 
-    @Test(description = "TC009SE",enabled = true, priority = 5)
+    @Test(description = "TC009SE",enabled = false, priority = 5)
     public void testFileUploadCV(){
         String systemPath = System.getProperty("user.dir");
         String FILE_RELATIVE_PATH = "/src/test/resources/cvJT.docx";

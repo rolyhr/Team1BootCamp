@@ -64,7 +64,7 @@ public class Football extends Base {
     public WebElement yearDropDown;
 
     @FindBy(css = Year_DROPDOWN_CONTAINER)
-    public WebElement hoverDropdownContainer;
+    public WebElement yearDropdownContainer;
 
     @FindBy(css = YEAR_DROPDOWN_LIST)
     public List<WebElement> yearDropDownList;
@@ -77,6 +77,9 @@ public class Football extends Base {
 
     @FindBy(css = TEAMS_LIST)
     public List<WebElement> teamsList;
+
+    @FindBy(css = YEAR_RESULT)
+    public WebElement result;
 
 
     public void clickOnFootball() {
@@ -211,5 +214,31 @@ public class Football extends Base {
     public List<String> getListOfTeamPosition(){
         return getListOfStringElements(teamPositionList);
     }
+    public List<String> getListOfYear(){
+        return getListOfStringElements(yearDropDownList);
+    }
+
+    public void clickOnYearDropDown(){
+        navigateToFootballTable();
+        hoverOverElement(yearDropDown,yearDropdownContainer);
+        System.out.println( getListOfYear().size());
+    }
+
+    public ArrayList<String> selectAYear() throws InterruptedException {
+        ArrayList<String> resultList = new ArrayList<String>();
+        navigateToFootballTable();
+        clickOnElement(yearDropDown);
+        for(int i = 0; i<yearDropDownList.size();i++){
+            waitForElementToBeVisible(yearDropdownContainer);
+            clickOnElement(yearDropDownList.get(i));
+            waitForElementToBeVisible(yearDropDown);
+            resultList.add(yearDropDown.getText());
+            clickOnElement(yearDropDown);
+        }
+        System.out.println(resultList);
+        return  resultList;
+    }
+
+
 
 }

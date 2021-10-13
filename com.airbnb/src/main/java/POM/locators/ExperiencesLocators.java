@@ -3,7 +3,7 @@ package POM.locators;
 import org.openqa.selenium.support.PageFactory;
 
 public class ExperiencesLocators {
-    public static  final String EXPERIENCES_TAB = "search-block-tab-false-EXPERIENCES";//ID
+    public static  final String EXPERIENCES_TAB = "search-block-tab-true-EXPERIENCES";//ID
     public static  final String LIVE_ANYWHERE = "#site-content > div > div > div:nth-child(2)  ul li span";//css #site-content > div:nth-child(3) div:nth-child(2)  ul li  span
     public static  final String DISCOVER_THINGS_TO_DO = "#site-content div:nth-child(5) ul li div._mm89b9  span";//css
 

@@ -127,6 +127,15 @@ public class TestFootball extends TestBase {
         softAssert.assertAll();
     }
 
+    @Test(description = "TC0010FS",enabled = true,priority = 5)
+    public void testSelectYearFilter() throws IOException, InterruptedException {
+        String sheetName = "YearResult";
+        List<String> actualResult =   getFootball().selectAYear();
+        String [] expectedResult = getExcelFile(sheetName);
+        SoftAssert softAssert = new SoftAssert();
+        compareStringList(actualResult,expectedResult);
+    }
+
 //    @Test(description = "TC0010FS",enabled = true,priority = 5)
 //    public void testTeamList() throws IOException, InterruptedException {
 //       // String sheetName = "EnglishPremiumLeaguePosition";

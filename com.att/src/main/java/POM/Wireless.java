@@ -1,13 +1,11 @@
 package POM;
 
 import base.Base;
-import base.ExcelReader;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.io.IOException;
 import java.util.List;
 
 import static POM.locators.WirelessLocators.*;
@@ -19,6 +17,9 @@ public class Wireless extends Base {
 
     @FindBy(css = WIRELESS )
     public WebElement wireless;
+
+    @FindBy(id = IFRAME3)
+    public WebElement iframe;
 
     @FindBy(css = WIRELESS_NAVBAR_LIST)
     public List<WebElement> wirelessNavBarList;
@@ -75,6 +76,7 @@ public class Wireless extends Base {
     public void searchProductWithMouse(String element){
         searchBox.sendKeys(element);
     }
+
     public String getContainerTitle(String element){
         return containerTitle.getText();
     }
@@ -84,8 +86,11 @@ public class Wireless extends Base {
     }
 
     public int getNumberofRows(){
+        scroll();
+        waitForElementToBeVisible(tableRowList.get(1));
         return getListOfTableRowList().size();
     }
+
     public int getNumberofColumns(){
         return getListOfTableColumnList().size();
     }

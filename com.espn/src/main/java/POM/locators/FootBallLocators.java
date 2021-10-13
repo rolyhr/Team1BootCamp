@@ -17,11 +17,11 @@ public class FootBallLocators {
 
     public static final String TABLE = "#global-nav-secondary  li>[name*='&lpos=subnav+subnav_soccer_tables']";
     public static final String TABLE_ROWS_ENGLISH_PREMIUM_LEAGUE   = "#main-container  table > tbody > tr";
-    public static final String TABLE_COLUMNS_ENGLISH_PREMIUM_LEAGUE  = " table > thead > tr > th";
+    public static final String TABLE_COLUMNS_ENGLISH_PREMIUM_LEAGUE  = "table > thead > tr > th";
     public static final String YEAR_DROPDOWN = "#main-container  div.dropdown-wrapper.hoverable.width-auto.display-desktop >button";
     public static final String Year_DROPDOWN_CONTAINER = "#main-container > div > section > div.tab-content > div > div.filters > div.dropdown-wrapper.hoverable.width-auto.display-desktop > ul";
     public static final String YEAR_DROPDOWN_LIST = "#main-container > div > section > div.tab-content > div > div.filters > div.dropdown-wrapper.hoverable.width-auto.display-desktop > ul > li> a";
-
+    public static final String YEAR_RESULT = "table > thead > tr > th>[title*='English']";
     public static final String TEAM_POSITION_LIST = "   #main-container > div > section > footer > div.glossary > p";
     public static final String TEAMS = "#global-nav-secondary  li>[name*='&lpos=subnav+subnav_soccer_teams']";
     public static final String TEAMS_LIST = "#fittPageContainer > div:nth-child(4) > div > div.layout__column div.layout__column div.ContentList__Item";

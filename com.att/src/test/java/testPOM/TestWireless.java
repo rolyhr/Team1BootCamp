@@ -39,7 +39,7 @@ public class TestWireless extends TestBase {
         compareStringList(acutalCategories,expectedCategories);
     }
 
-    @Test(description = "TC004CK", enabled = true, priority = 5)
+    @Test(description = "TC004CK", enabled = false, priority = 5)
     public void testfHamburgerMenuList() throws IOException {
         String sheetName = "HamburgerMenu";
         String[] expectedCategories =getExcelFile(sheetName);
@@ -50,15 +50,15 @@ public class TestWireless extends TestBase {
         compareStringList(acutalCategories,expectedCategories);
     }
 
-//    @Test(description = "TC005CK", enabled = true, priority = 6)
-//    public void testTableNumberOfRows() throws IOException {
-////        String sheetName = "Table";
-////        String[] expectedCategories =getExcelFile(sheetName);
-//        getWireless().navigateToWireless();
-//        int actual = getWireless().getNumberofRows();
-//        int expected = 7;
-//        Assert.assertEquals(actual,expected,"Table Row Number Did Not Match");
-//    }
+    @Test(description = "TC005CK", enabled = true, priority = 6)
+    public void testTableNumberOfRows() throws IOException {
+//        String sheetName = "Table";
+//        String[] expectedCategories =getExcelFile(sheetName);
+        getWireless().navigateToWireless();
+        int actual = getWireless().getNumberofRows();
+        int expected = 7;
+        Assert.assertEquals(actual,expected,"Table Row Number Did Not Match");
+    }
 //
 //    @Test(description = "TC006CK", enabled = false, priority = 1)
 //    public void testTableNumberOfColumns() throws IOException {
