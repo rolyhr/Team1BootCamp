@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Functional" verbose="1" >
-    <test name="Homepage" >
+    <test name="MortgagePage" >
         <!--        <groups>-->
         <!--            <run>-->
         <!--                <include name="Regression"/>-->

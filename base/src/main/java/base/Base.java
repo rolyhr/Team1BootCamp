@@ -255,6 +255,7 @@ public class Base {
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
+
     //Synchronization method for Stale Element error.
     public void waitForElementToBeVisibleForStaleElement(WebElement element){
         boolean staleElement = true;
@@ -353,7 +354,7 @@ public class Base {
     }
 
     /* Synchronization method */
-    public void pageUpDown(int pixel){
+    public void pageScroll(int pixel){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,"+pixel+")");
     }
@@ -401,19 +402,34 @@ public class Base {
     public void sendKeysToElementAndClearDefaultValue(WebElement element, String value){
         try {
             String s = Keys.chord(Keys.COMMAND, "a");
+            element.click();
             element.sendKeys(s);
             element.sendKeys(Keys.DELETE);
-            element.clear();
-            Thread.sleep(2000);
+            //element.clear();
             element.sendKeys(value);
-        }catch (TimeoutException | InterruptedException e) {
-
-            element.sendKeys(value);
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    public void sendKeysToElementThatHasDefaultValue(WebElement element, String attValue){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].setAttribute('value', arguments[1]);",element, attValue);
+    }
+
+    //Helper method
     public void switchToiFrame(String ID){
         driver.switchTo().frame(ID);
+    }
+
+    public void switchToiFrame(WebElement webElement){
+        driver.switchTo().frame(webElement);
+    }
+
+    public void dropdownSelectByVisibleTextHasDefaultValueSelected(WebElement element, String visibleText) {
+        //explicitWait.until(ExpectedConditions.elementToBeClickable(element));
+        Select select = new Select(element);
+        select.selectByVisibleText(visibleText);
     }
 
 }

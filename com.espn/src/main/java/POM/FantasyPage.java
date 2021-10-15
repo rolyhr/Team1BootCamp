@@ -115,6 +115,10 @@ public class FantasyPage extends Base {
     @FindBy(css = "#global-user-trigger")
     WebElement globalUserIcon;
 
+    @FindBy(id = "disneyid-iframe")
+    WebElement loginIFrame;
+
+
     public boolean isLogInButtonAvailable(){return isElementPresent(loginButton);}
 
     void clickOnLogoutButton(){clickJScript(logOutButton);}
@@ -213,7 +217,7 @@ public class FantasyPage extends Base {
     public void logInToFantasyLeagueAccountAndLogOut(String email, String password){
 
         clickOnLoginButton();
-        switchToiFrame("disneyid-iframe");
+        switchToiFrame(loginIFrame);
         waitForElementToBeVisibleForStaleElement(logInAccountWindow);
         sendEmailToLogInAccount(email);
         sendPasswordToLogInAccount(password);

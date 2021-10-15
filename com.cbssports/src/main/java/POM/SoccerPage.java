@@ -91,6 +91,8 @@ public class SoccerPage extends Base {
         mouseHoverOnAnElement(watchNavBarMenu);
     }
 
+
+
     public void doSelectALanguageFromLanguageComboBox(String language){
         ((JavascriptExecutor) driver)
                 .executeScript("window.scrollTo(0, document.body.scrollHeight)");
@@ -134,13 +136,13 @@ public class SoccerPage extends Base {
     }
 
     public void doSignUpForNewsLetterWithoutEmail(){
-        pageUpDown(400);
+        pageScroll(400);
         clickOnOptInCheckBox();
         clickOnSignUpButton();
     }
 
     public void doSignUpForNewsLetterWithoutEmailAndOptInBox(){
-        pageUpDown(500);
+        pageScroll(500);
         clickOnSignUpButton();
     }
 

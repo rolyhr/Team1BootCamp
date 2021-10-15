@@ -71,7 +71,7 @@ public class TestSoccerPage extends TestBase {
         Assert.assertTrue(soccerPage.isMessageForEmailRequiredPresent());
     }
 
-    @Test(description = "CaseID: 8",priority = 8, enabled = false)
+    @Test(description = "CaseID: 8",priority = 8, enabled = true)
     public void testDoNotSellMyLink() throws IOException {
         soccerPage=getSoccerPage();
         soccerPage.openDoNotSellMyInfoIntoNewTab();

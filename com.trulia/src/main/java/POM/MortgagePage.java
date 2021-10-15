@@ -67,13 +67,13 @@ public class MortgagePage extends Base {
     @FindBy(id = "RightSplitFinancialInput")
     WebElement downPaymentPercentageInput;
 
-    @FindBy(xpath= "//*[@id=\"main-content\"]/div[2]/div[3]/div[2]/div/div/div[4]/div/div[2]/div/div[2]")
+    @FindBy(xpath= "//*[@id=\"main-content\"]/div[2]/div[3]/div[2]//div[4]/div/div[2]")
     WebElement loanTypeSelectionButton;
 
     @FindBy(xpath = "//*[@id=\"LoanTypeInput\"]//option")
     WebElement loanTypeDiv;
 
-    @FindBy(xpath = "//*[@id=\"LoanTypeInput\"]")
+    @FindBy(id = "LoanTypeInput")
     WebElement loanTypeList;
 
     @FindBy(xpath= "//*[@id=\"main-content\"]/div[2]/div[3]/div[4]/div[1]/div/div[2]/div/div[1]")
@@ -82,9 +82,11 @@ public class MortgagePage extends Base {
 
     public String getMortgagePaymentAmount(){return mortgagePaymentAmount.getText();}
 
-    public void selectLoanTypeFromList(String loanType){dropdownSelectByVisibleText(loanTypeList,loanType);}
+    public void selectLoanTypeFromList(String loanType){dropdownSelectByVisibleTextHasDefaultValueSelected(loanTypeList,loanType);}
 
-    void clickOnLoanTypeDropDown(){clickOnElement(loanTypeSelectionButton);}
+    void clickOnLoanTypeDropDown(){clickOnElement(loanTypeDiv);}
+
+    //void clickOnLoanTypeDropDown(){clickJScript(loanTypeList);}
 
     void sendPercentageOfDownPayment(String downPayment){sendKeysToElementAndClearDefaultValue(downPaymentPercentageInput,downPayment);}
 
@@ -126,18 +128,20 @@ public class MortgagePage extends Base {
     public List<String> getListOfDropDownOfMortgageNavMenu(){
         return getStringListFromADiv(By.xpath("//*[@id=\"__next\"]//header//li[3]//ul//div"));}
 
-    void mouseHoverOnMortgageNavMenu(){mouseHoverOnAnElement(mortgageNavMenu);}
 
+
+    void mouseHoverOnMortgageNavMenu(){mouseHoverOnAnElement(mortgageNavMenu);}
 
     public void mortgagePaymentCalculation(String homePrice, String percentageDownPayment, String loanType) throws InterruptedException {
 
         clickMortgageCalculatorButton();
-        pageUpDown(800);
         waitForElementToBeVisibleForStaleElement(homePriceInput);
         sendHomePrice(homePrice);
         sendPercentageOfDownPayment(percentageDownPayment);
+        pageScroll(300);
         clickOnLoanTypeDropDown();
-        selectLoanType(loanType);
+        selectLoanTypeFromList(loanType);
+        //selectLoanType(loanType);
     }
 
     public void doNavigateToRefinanceCalculatorPage(){

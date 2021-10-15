@@ -100,7 +100,7 @@ public class TestMortgagePage extends TestBase {
 
     }
 
-    @Test(description = "ID:10", priority = 10, enabled = false)
+    @Test(description = "ID:10", priority = 10, enabled = true)
     public void testMortgagePaymentCalculationLoanType20Year() throws IOException, InterruptedException {
 
         mortgagePage = getMortgagePage();
