@@ -1,17 +1,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Functional" verbose="1" >
-    <test name="Homepage" >
+    <test name="FantasyPage" >
         <!--        <groups>-->
         <!--            <run>-->
-        <!--                <include name="Regression"/>-->
+        <!--                <include name="Regression"/> -->
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <!--<class name="testPOM.ClassName"/>   UNCOMMENT THIS LINE TO RUN TEST CASES-->
+            <class name="testPOM.TestFantasyPage"/>
         </classes>
     </test>
 
-    <parameter name="url" value="https://www.espn.com"/>
+    <parameter name="url" value="https://www.espn.com/fantasy/"/>
     <parameter name="browser" value="chrome"/>
 </suite>

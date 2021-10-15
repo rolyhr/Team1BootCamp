@@ -3,16 +3,19 @@ package base;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.LogStatus;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.math3.analysis.function.Exp;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 import reporting.ExtentManager;
 import reporting.ExtentTestManager;
 
@@ -24,10 +27,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 public class Base {
 
@@ -89,7 +91,8 @@ public class Base {
     @BeforeMethod (alwaysRun = true)
     public void driverSetup(@Optional("chrome") String browser, String url) {
         driver = initDriver(browser);
-        explicitWait = new WebDriverWait(driver, 10);
+
+        explicitWait = new WebDriverWait(driver, 20);
         fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(StaleElementReferenceException.class);
@@ -146,6 +149,9 @@ public class Base {
                 WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
                 break;
+            case "safari":
+                driver = new SafariDriver();
+                break;
         }
         return driver;
     }
@@ -196,15 +202,15 @@ public class Base {
         }
     }
 
-    public void hoverOverElement(WebElement mainMenu, WebElement subMenu) {
+    public void hoverOverSubElement(WebElement mainMenu, WebElement subMenu) {
         Actions actions = new Actions(driver);
         WebElement mm = explicitWait.until(ExpectedConditions.visibilityOf(mainMenu));
         actions.moveToElement(mm).build().perform();
         WebElement sm = explicitWait.until(ExpectedConditions.visibilityOf(subMenu));
         actions.moveToElement(sm).click().build().perform();
     }
-
-    public String readFromExcel(String sheetName, int index) {
+    //
+    public String getStringFromExelSheet(String sheetName, int index) {
         String[] excelData = new String[index];
         try {
             excelData = excelReader.fileReaderStringXSSF(EXCEL_FILE_PATH, sheetName);
@@ -249,4 +255,181 @@ public class Base {
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    //Synchronization method for Stale Element error.
+    public void waitForElementToBeVisibleForStaleElement(WebElement element){
+        boolean staleElement = true;
+
+        while(staleElement){
+            try{
+                explicitWait.until(ExpectedConditions.visibilityOf(element));
+                staleElement = false;
+            } catch(StaleElementReferenceException e){
+                staleElement = true;
+            }
+        }
+    }
+
+    //Helper Method: Check if an element is existed.
+    public boolean isElementPresent(WebElement element){
+        boolean flag = false;
+        try{
+            //explicitWait.until(ExpectedConditions.visibilityOf(element));
+            fluentWait.until(ExpectedConditions.visibilityOf(element));
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Can't locate the element");
+        }
+        return flag;
+    }
+
+    public List<WebElement> getListOfADropDownMenu(By by){
+
+        try {
+            explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return driver.findElements(by);
+    }
+
+    //Helper Method: Create a list of WebElements of a drop_down menu and test an element of
+    //that list by truth of source then select that element.
+    public void selectASubCategoryOfADropDownMenuByPassingTestData(By by, String category) {
+        List<WebElement> listOfADropDownMenu = getListOfADropDownMenu(by);
+        List<String > listOfTextOfSubCategory = new ArrayList<>();
+
+        for(WebElement e : listOfADropDownMenu){
+            listOfTextOfSubCategory.add(e.getText());
+        }
+        for(int i = 0; i < listOfTextOfSubCategory.size(); i++) {
+            try {
+                if (category.equalsIgnoreCase(listOfTextOfSubCategory.get(i))) {
+                    listOfADropDownMenu.get(i).click();
+                    break;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println("Unable to find the element");
+            }
+        }
+    }
+
+    //Helper Method:
+    public boolean compareListsOfString(List<String> actual, List<String> expected) {
+        boolean flag;
+
+        int length = actual.size();
+        int count = 0;
+
+        for (int i = 0; i < length; i++) {
+            String actualString = actual.get(i);
+            String expString = expected.get(i);
+
+            if (!actualString.trim().equalsIgnoreCase(expString)) {
+                count++;
+                System.out.println("***MISMATCH***");
+                System.out.println("ACTUAL: " + actualString);
+                System.out.println("EXPECTED: " + expString);
+            }
+        }
+        if (count > 0) {
+            flag = false;
+        } else {
+            flag = true;
+        }
+        return flag;
+    }
+
+    //Create List of String from a Div or Category
+    public List<String> getStringListFromADiv(By by) {
+        List<String> list = new ArrayList<>();
+        List<WebElement> webElementList = driver.findElements(by);
+
+        for (int i = 0; i < webElementList.size(); i++){
+            list.add(i, webElementList.get(i).getText());
+        }
+        return list;
+    }
+
+    /* Synchronization method */
+    public void pageScroll(int pixel){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,"+pixel+")");
+    }
+
+    //Helper Method
+    public void mouseHoverOnAnElement(WebElement element){
+        Actions action = new Actions(driver);
+        action.moveToElement(element).perform();
+    }
+    //Helper Method
+    public void mouseHoverOnAnElementAndClick(WebElement element){
+        Actions action = new Actions(driver);
+
+        try {
+            action.moveToElement(element).click().build().perform();
+        }catch(NoSuchElementException e){
+            System.out.println("Element Couldn't Found");
+        }
+    }
+
+    //Helper Method
+    public void switchToANewTabAndCloseParentTab(){
+
+        String parentTab = driver.getWindowHandle();
+
+        explicitWait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        Set<String> all = driver.getWindowHandles();
+
+        for(String winHandle : driver.getWindowHandles())
+        {
+            if(winHandle.equals(parentTab))
+            {
+                //Condition satisfied. Switching to the parent tab and closing it
+                driver.switchTo().window(winHandle);
+                driver.close();
+            }
+        }
+        all.remove(parentTab);
+
+        for(String winHandle : all) {
+            driver.switchTo().window(winHandle);
+        }
+    }
+    //Helper Method
+    public void sendKeysToElementAndClearDefaultValue(WebElement element, String value){
+        try {
+            String s = Keys.chord(Keys.COMMAND, "a");
+            element.click();
+            element.sendKeys(s);
+            element.sendKeys(Keys.DELETE);
+            //element.clear();
+            element.sendKeys(value);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendKeysToElementThatHasDefaultValue(WebElement element, String attValue){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].setAttribute('value', arguments[1]);",element, attValue);
+    }
+
+    //Helper method
+    public void switchToiFrame(String ID){
+        driver.switchTo().frame(ID);
+    }
+
+    public void switchToiFrame(WebElement webElement){
+        driver.switchTo().frame(webElement);
+    }
+
+    public void dropdownSelectByVisibleTextHasDefaultValueSelected(WebElement element, String visibleText) {
+        //explicitWait.until(ExpectedConditions.elementToBeClickable(element));
+        Select select = new Select(element);
+        select.selectByVisibleText(visibleText);
+    }
+
 }
