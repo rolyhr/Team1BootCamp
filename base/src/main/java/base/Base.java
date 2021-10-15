@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.*;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 import reporting.ExtentManager;
 import reporting.ExtentTestManager;
 
@@ -23,11 +24,11 @@ import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 public class Base {
 
@@ -42,10 +43,10 @@ public class Base {
     public ResultSet resultSet = null;
 
     public final String systemPath = System.getProperty("user.dir");
-    private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
-    private final String EXCEL_RELATIVE_PATH = "/src/test/resources/TestData.xlsx";
-    private final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
-    private final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
+    public final String PROP_RELATIVE_PATH = "\\src\\main\\resources\\credentials.properties";
+    public final String EXCEL_RELATIVE_PATH = "\\src\\test\\resources\\TestData.xlsx";
+    public final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
+    public final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuiteExtentSetup(ITestContext context) {
@@ -124,11 +125,11 @@ public class Base {
     @AfterMethod
     public void driverClose() {
         driver.close();
+        driver.quit();
     }
 
     @AfterSuite (alwaysRun = true)
     private void afterSuiteTearDown() {
-        driver.quit();
         extent.close();
     }
 
@@ -156,7 +157,6 @@ public class Base {
         return calendar.getTime();
     }
 
-    //captureScreenshot() Method Needs To Be Debugged
     private static void captureScreenshot(WebDriver driver, String testName) {
         String fileName = testName + ".png";
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -175,17 +175,26 @@ public class Base {
         try {
             explicitWait.until(ExpectedConditions.elementToBeClickable(element)).click();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("UNABLE TO CLICK ON ELEMENT");
+            clickJScript(element);
         }
+    }
+
+    public void clickJScript(WebElement element) { //helper method for clickOnElement()
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();", element);
     }
 
     public void sendKeysToElement(WebElement element, String value) {
         try {
-            element.sendKeys(value);
+            explicitWait.until(ExpectedConditions.elementToBeClickable(element)).sendKeys(value);
         } catch (TimeoutException e) {
-            element.sendKeys(value);
+            explicitWait.until(ExpectedConditions.elementToBeClickable(element)).sendKeys(value);
         }
+    }
+
+    public boolean isButtonEnabled(WebElement element) {
+        WebElement button = fluentWait.until(ExpectedConditions.visibilityOf(element));
+        return button.isEnabled();
     }
 
     public void waitForElementToContainText(WebElement element, String text) {
@@ -198,10 +207,27 @@ public class Base {
 
     public void hoverOverElement(WebElement mainMenu, WebElement subMenu) {
         Actions actions = new Actions(driver);
+
         WebElement mm = explicitWait.until(ExpectedConditions.visibilityOf(mainMenu));
         actions.moveToElement(mm).build().perform();
+
         WebElement sm = explicitWait.until(ExpectedConditions.visibilityOf(subMenu));
         actions.moveToElement(sm).click().build().perform();
+    }
+
+    public void mouseHover(WebElement element) {
+        try {
+            Actions hover = new Actions(driver);
+            hover.moveToElement(element).perform();
+        } catch (Exception ex) {
+            driver.navigate().refresh();
+
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            Actions hover = new Actions(driver);
+
+            wait.until(ExpectedConditions.visibilityOf(element));
+            hover.moveToElement(element).perform();
+        }
     }
 
     public String readFromExcel(String sheetName, int index) {
@@ -212,6 +238,18 @@ public class Base {
             System.out.println("UNABLE TO READ FROM EXCEL FILE!");
         }
         return Arrays.toString(new String[]{excelData[index]})
+                     .replace("[", "")
+                     .replace("]", "");
+    }
+
+    public String readFromExcel2D(String sheetName, int index1, int index2) {
+        String[][] excelData = new String[index1][index2];
+        try {
+            excelData = excelReader.fileReaderArrayStringArraysXSSF(EXCEL_FILE_PATH, sheetName);
+        } catch (IOException e) {
+            System.out.println("UNABLE TO READ FROM EXCEL FILE!");
+        }
+        return Arrays.toString(new String[]{excelData[index1][index2]})
                 .replace("[", "")
                 .replace("]", "");
     }
@@ -229,24 +267,91 @@ public class Base {
         return driver.findElement(by);
     }
 
-    public void sendKeysToInput(WebElement element, String keys) {
-        explicitWait.until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(keys);
-    }
-
     public void dropdownSelectByVisibleText(WebElement element, String visibleText) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
         Select select = new Select(element);
         select.selectByVisibleText(visibleText);
     }
 
-    public void clickJScript(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("arguments[0].click();", element);
-    }
-
-    //SYNC Methods
+    //SYNC Method
     public void waitForElementToBeVisible(WebElement element) {
         explicitWait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    //GET CURRENT DATE - FORMAT: September 12, 2020
+    public String getDate() {
+        String[] dateArray = new String[6];
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date today = new Date();
+            Date todayWithZeroTime = formatter.parse(formatter.format(today));
+            dateArray = todayWithZeroTime.toString().split(" ");
+        } catch (ParseException parseException) {
+            parseException.printStackTrace();
+        }
+        return dateArray[1].trim() + " " + dateArray[2].trim() + ", " + dateArray[5].trim();
+    }
+
+    public void pickCalendarDate(WebElement monthYearElement, WebElement monPickerBtn, String month, int day) {
+        while (true) {
+            String extractMonthYear = explicitWait.until(ExpectedConditions.visibilityOf(monthYearElement)).getText().toLowerCase();
+            String[] array = extractMonthYear.split(" ");
+            String extractedMonth = array[0].trim();
+            if (extractedMonth.equals(month.toLowerCase())) {
+                break;
+            } else {
+                explicitWait.until(ExpectedConditions.elementToBeClickable(monPickerBtn)).click();
+            }
+        }
+        WebElement exactDay = explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(getCustomLocator(day))));
+        exactDay.click();
+    }
+
+
+    //NEED TO MODIFY THIS getDay() HELPER METHOD BASED ON THE PROJECT REQUIREMENT
+    //HELPER METHOD FOR pickCalendarDay()
+    public String getCustomLocator(int day) {
+        String locator = "";
+        return locator;
+    }
+
+    public String getCurrentPageURL() {
+        return driver.getCurrentUrl();
+    }
+
+    public String getCurrentPageTitle() {
+        return driver.getTitle();
+    }
+
+    public List<WebElement> getListOfWebElementsByXpath(WebElement element, String locator) {
+        return element.findElements(By.xpath(locator));
+    } //DELETE THIS METHOD
+
+    public static List<WebElement> getListOfWebElementsByCss(WebElement element, String locator) {
+        return element.findElements(By.cssSelector(locator));
+    } //DELETE THIS METHOD
+
+    public void scrollToElementJScript(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    public List<String> getListItemsByCss(String cssSelector) {
+        List<WebElement> menuItems = driver.findElements(By.cssSelector(cssSelector));
+        List<String> element = new ArrayList<>();
+        for (WebElement menuItem : menuItems) {
+            element.add(menuItem.getText());
+        }
+        return element;
+    }
+
+    public List<String> getListItemsByXpath(String xpath) {
+        List<WebElement> menuItems = driver.findElements(By.cssSelector(xpath));
+        List<String> element = new ArrayList<>();
+        for (WebElement menuItem : menuItems) {
+            element.add(menuItem.getText());
+        }
+        return element;
+    }
+
 }

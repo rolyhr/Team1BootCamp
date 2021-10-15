@@ -8,10 +8,10 @@
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <!--<class name="testPOM.ClassName"/>   UNCOMMENT THIS LINE TO RUN TEST CASES-->
+            <class name="testPOM.TestCreditCards"/>
         </classes>
     </test>
 
-    <parameter name="url" value="https://www.chase.com"/>
+    <parameter name="url" value="https://personal.chase.com/personal/checking"/>
     <parameter name="browser" value="chrome"/>
 </suite>

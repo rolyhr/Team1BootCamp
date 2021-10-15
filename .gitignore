@@ -1,8 +1,11 @@
 ### Java template
+
+# Project files
 *.iml
 *.html
-\.idea
-\target
+*.png
+*\.idea
+*\target
 
 # Compiled class file
 *.class

@@ -8,10 +8,11 @@
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
-            <!--<class name="testPOM.ClassName"/>   UNCOMMENT THIS LINE TO RUN TEST CASES-->
+            <class name="testPOM.TestOwnersHowToVideos"/>
         </classes>
     </test>
 
     <parameter name="url" value="https://www.mbusa.com"/>
     <parameter name="browser" value="chrome"/>
+
 </suite>

@@ -1,11 +1,11 @@
 package testBase;
 
-import POM.Homepage;
+import POM.PlacesToStay;
 import base.Base;
 
 public class TestBase extends Base {
 
-    public Homepage getHomepage() {
-        return new Homepage();
+    public PlacesToStay getHomepage() {
+        return new PlacesToStay();
     }
 }

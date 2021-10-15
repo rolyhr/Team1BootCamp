@@ -1,11 +1,11 @@
 package testBase;
 
-import POM.Homepage;
+import POM.BMWLogin;
 import base.Base;
 
 public class TestBase extends Base {
 
-    public Homepage getHomepage() {
-        return new Homepage();
+    public BMWLogin getHomepage() {
+        return new BMWLogin();
     }
 }

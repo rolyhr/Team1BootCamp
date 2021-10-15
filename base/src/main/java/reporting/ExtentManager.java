@@ -19,7 +19,7 @@ public class ExtentManager {
 
             Date date = new Date();
             String strFormattedDate = date.toString().replace(" ", "_").replace(":", "-");
-            String fileName = "TestReport_" + strFormattedDate + ".html";
+            String fileName = "TestReport" + ".html";
 
             extent = new ExtentReports(System.getProperty("user.dir")+"/src/main/java/reporting/testReports/" + fileName,true);
             Reporter.log("Extent Report Directory" + resultDirectory, true);
