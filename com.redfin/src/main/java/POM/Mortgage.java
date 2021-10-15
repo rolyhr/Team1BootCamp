@@ -105,7 +105,7 @@ public class Mortgage extends Base {
         driver.findElement(By.cssSelector(MORTGAGE_DOWN_PAYMENT_DOLLAR)).clear();
         sendKeysToElement(mortgageDownPaymentDollar, readFromExcel2D("CalData", 2, 2));
         clickOnElement(mortgageMoreOptions);
-        Select loanType = new Select(mortgageLoanTypeSelectDP);
+        Select loanType = new Select(mortgageLoanTypeSelectDP); //tabIndex -1 does not work
         loanType.selectByVisibleText(readFromExcel2D("CalData", 3, 0));
         Select creditScore = new Select(mortgageCreditScoreSelectDP);
         creditScore.selectByValue(readFromExcel2D("CalData", 3, 1));

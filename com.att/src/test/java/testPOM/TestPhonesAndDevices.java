@@ -1,6 +1,8 @@
 package testPOM;
 
 import POM.PhonesAndDevices;
+import attLocators.ATTLocators;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import testBase.TestBase;
 
@@ -11,7 +13,11 @@ public class TestPhonesAndDevices extends TestBase {
     @Test (description = "TC001PD", priority = 1, enabled = false)
     public void testValidateTopLeftMenuBarText() {
         pd = new PhonesAndDevices();
-        pd.validateTopLeftMenuBarText();
+        pd.navigateToPhonesAndDevicesPage();
+
+        String locator = ATTLocators.TOP_LEFT_MENU_BAR;
+        String sheetName = "TopLeftMenu";
+        Assert.assertTrue(doListsMatch(locator, sheetName));
     }
 
     @Test (description = "TC002PD", priority = 2, enabled = false)

@@ -30,7 +30,7 @@ public class TestCruise extends TestBase {
     @Test (description = "TC003C", priority = 3, enabled = false)
     public void testSearchCruiseWithNoDestination() {
         cruise = new Cruise();
-        String actualResult = cruise.searchCruiseWithAllInvalidData();
+        String actualResult = cruise.searchCruiseWithNoDestination();
         String expectedResult = readFromExcel("REGAssertionResult", 2);
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC002C");
     }
