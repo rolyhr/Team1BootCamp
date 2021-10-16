@@ -1,17 +1,22 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Functional" verbose="1" >
-    <test name="Homepage" >
+    <test name="PrepaidPage" >
         <!--        <groups>-->
         <!--            <run>-->
         <!--                <include name="Regression"/>-->
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
+<<<<<<< HEAD
             <class name="testPOM.TestPhonesAndDevices"/>
+=======
+            <class name="testPOM.TestPrepaidPage"/>
+            <class name="testPOM.testPrepaidLoginPage.TestPrepaidLoginPage"/>
+>>>>>>> 02591dc3b88a0272a76144e9d5109a19c585a095
         </classes>
     </test>
 
-    <parameter name="url" value="https://www.att.com"/>
+    <parameter name="url" value="https://www.att.com/prepaid/"/>
     <parameter name="browser" value="chrome"/>
 </suite>

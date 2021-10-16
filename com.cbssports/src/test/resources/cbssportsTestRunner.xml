@@ -8,6 +8,7 @@
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
+<<<<<<< HEAD
             <class name="testPOM.TestCBSLogin"/>
         </classes>
     </test>
@@ -20,9 +21,12 @@
         <!--        </groups>-->
         <classes>
             <class name="testPOM.TestCBSSignUp"/>
+=======
+            <class name="testPOM.TestSoccerPage"/>
+>>>>>>> 02591dc3b88a0272a76144e9d5109a19c585a095
         </classes>
     </test>
 
-    <parameter name="url" value="https://www.cbssports.com/"/>
+    <parameter name="url" value="https://www.cbssports.com/soccer/"/>
     <parameter name="browser" value="chrome"/>
 </suite>

@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Functional" verbose="1" >
+<<<<<<< HEAD
 <!--    <test name="Registration" >-->
 <!--        &lt;!&ndash;        <groups>&ndash;&gt;-->
 <!--        &lt;!&ndash;            <run>&ndash;&gt;-->
@@ -13,13 +14,20 @@
 <!--    </test>-->
 
     <test name="Cart" >
+=======
+    <test name="ElectronicsPage" >
+>>>>>>> 02591dc3b88a0272a76144e9d5109a19c585a095
         <!--        <groups>-->
         <!--            <run>-->
         <!--                <include name="Regression"/>-->
         <!--            </run>-->
         <!--        </groups>-->
         <classes>
+<<<<<<< HEAD
             <class name="testPOM.TestCart"/>
+=======
+        <class name="testPOM.TestElectronicsPage"/>
+>>>>>>> 02591dc3b88a0272a76144e9d5109a19c585a095
         </classes>
     </test>
 
