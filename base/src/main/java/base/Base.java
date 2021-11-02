@@ -416,8 +416,9 @@ public class Base {
     }
 
 
+
+
     // ########################################################################################
-    // Sami's Helper Methods
 
 
     public static String convertToString(String st) {
@@ -727,12 +728,7 @@ public class Base {
         return flag;
     }
 
-    /**
-     * Helper Methods To Use in Asserts
-     *
-     * @author Sami Sheikh
-     */
-    // Hover over dropdown and make sure it is visible (built-in page refresh)
+
     public void hoverOverDropdown(WebElement elementToHover) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOf(elementToHover));
