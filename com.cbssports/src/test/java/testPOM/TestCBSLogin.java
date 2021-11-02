@@ -1,15 +1,21 @@
 package testPOM;
 
 import POM.CBSLogin;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import testBase.TestBase;
+
+import java.util.Set;
 
 public class TestCBSLogin extends TestBase {
 
     CBSLogin login;
 
-    @Test (description = "TC001LI", priority = 1, enabled = true)
+    @Test (description = "TC001LI", priority = 1, enabled = false)
     public void testLoginFunctionalityWithValidData() {
         login = new CBSLogin();
         String actualResult = login.loginFunctionalityWithValidData();
@@ -17,7 +23,7 @@ public class TestCBSLogin extends TestBase {
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC001LI");
     }
 
-    @Test (description = "TC002LI", priority = 2, enabled = true)
+    @Test (description = "TC002LI", priority = 2, enabled = false)
     public void testLoginFunctionalityWithInvalidData() {
         login = new CBSLogin();
         String actualResult = login.loginFunctionalityWithInvalidData();
@@ -25,7 +31,7 @@ public class TestCBSLogin extends TestBase {
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC002LI");
     }
 
-    @Test (description = "TC003LI", priority = 3, enabled = true)
+    @Test (description = "TC003LI", priority = 3, enabled = false)
     public void testLoginFunctionalityWithNoData() {
         login = new CBSLogin();
         String actualResult = login.loginFunctionalityWithNoData();
@@ -33,7 +39,7 @@ public class TestCBSLogin extends TestBase {
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC003LI");
     }
 
-    @Test (description = "TC004LI", priority = 4, enabled = true)
+    @Test (description = "TC004LI", priority = 4, enabled = false)
     public void testLoginFunctionalityWithInvalidEmailOnly() {
         login = new CBSLogin();
         String actualResult = login.loginFunctionalityWithInvalidEmailOnly();
@@ -41,7 +47,7 @@ public class TestCBSLogin extends TestBase {
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC004LI");
     }
 
-    @Test (description = "TC005LI", priority = 5, enabled = true)
+    @Test (description = "TC005LI", priority = 5, enabled = false)
     public void testLoginFunctionalityWithInvalidPasswordOnly() {
         login = new CBSLogin();
         String actualResult = login.loginFunctionalityWithInvalidPasswordOnly();
@@ -49,7 +55,7 @@ public class TestCBSLogin extends TestBase {
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC005LI");
     }
 
-    @Test (description = "TC006LI", priority = 6, enabled = true)
+    @Test (description = "TC006LI", priority = 6, enabled = false)
     public void testIsForgotPasswordOptionAvailable() {
         login = new CBSLogin();
         boolean actualResult = login.isForgotPasswordOptionAvailable();
@@ -57,7 +63,7 @@ public class TestCBSLogin extends TestBase {
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC006LI");
     }
 
-    @Test (description = "TC007LI", priority = 7, enabled = true)
+    @Test (description = "TC007LI", priority = 7, enabled = false)
     public void testIsSignUpOptionAvailable() {
         login = new CBSLogin();
         boolean actualResult = login.isSignUpOptionAvailable();
@@ -65,11 +71,41 @@ public class TestCBSLogin extends TestBase {
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC007LI");
     }
 
-    @Test (description = "TC008LO", priority = 8, enabled = true)
+    @Test (description = "TC008LO", priority = 8, enabled = false)
     public void testIsLoggedOut() {
         login = new CBSLogin();
         boolean actualResult = login.isLoggedOut();
         boolean expectedResult = Boolean.parseBoolean(readFromExcel("AssertionResult", 7));
         Assert.assertEquals(actualResult, expectedResult, "FAILED, TC008LI");
     }
+
+    @Test (description = "SWITCH-TAB", enabled = false)
+    public void testWindowSwitch() {
+        login = new CBSLogin();
+//        clickOnElement(login.instagramIcon);
+//        clickOnElement(login.twitterIcon);
+        String pageTitle = driver.getTitle();
+        String pageName = login.switchTabGetPageNameCloseTab(login.instagramIcon, login.instagramPageName, pageTitle);
+        System.out.println(pageName);
+    }
+
+    @Test (description = "FILE-UPLOAD", enabled = false)
+    public void testFileUpload() throws InterruptedException {
+        Thread.sleep(2000); //Delete all the Thread.sleep
+        driver.findElement(By.cssSelector("#uploadfile_0")).sendKeys("C:\\Users\\hafiz\\Desktop\\file.txt");
+        Thread.sleep(3000);
+        driver.findElement(By.cssSelector("#terms")).click();
+    }
+
+    @Test (description = "ALERT", enabled = true)
+    public void testAlert() throws InterruptedException {
+        Thread.sleep(3000); //Delete all the Thread.sleep
+        driver.findElement(By.cssSelector("body > div > div.lft_wrap > div.top_bar > div:nth-child(2) > form > div.floatL.leftwidth > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > input.signinbtn")).click();
+        Thread.sleep(2000);
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        System.out.println(alertText);
+        alert.accept();
+    }
+
 }

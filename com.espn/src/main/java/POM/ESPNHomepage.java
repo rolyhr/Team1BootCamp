@@ -107,7 +107,7 @@ public class ESPNHomepage extends Base {
     }
 
     public int topEventsDropdownList() {
-        mouseHover(topEventsDropdown);
+        mouseHoverOnly(topEventsDropdown);
         List<WebElement> topEventsDropDownList = getListOfWebElementsByXpath(topEventsDropdownMenu, TOP_EVENTS_DROPDOWN_MENU_ITEMS);
         return topEventsDropDownList.size();
     }
@@ -152,7 +152,7 @@ public class ESPNHomepage extends Base {
     }
 
     public List<WebElement> getNFLDropdownMenuLeft() {
-        mouseHover(nflDropdown);
+        mouseHoverOnly(nflDropdown);
         List<WebElement> nflDropdownElementsLeftList = nflDropdownMenuLeft.findElements(By.cssSelector(NFL_DROPDOWN_LEFT_MENU_ITEMS));
         return nflDropdownElementsLeftList;
     }
@@ -261,7 +261,7 @@ public class ESPNHomepage extends Base {
     }
 
     public List<WebElement> getNBADropdownMenuLeft() {
-        mouseHover(nbaDropdown);
+        mouseHoverOnly(nbaDropdown);
         List<WebElement> nbaDropdownElementsLeftList = getListOfWebElementsByCss(nbaDropdownMenuLeft, NBA_DROPDOWN_MENU_ITEMS_LEFT);
 
         return nbaDropdownElementsLeftList;
@@ -287,7 +287,7 @@ public class ESPNHomepage extends Base {
     }
 
     public String[] getNBADropdownMenuLeftLinks() {
-        mouseHover(nbaDropdown);
+        mouseHoverOnly(nbaDropdown);
 
         List<WebElement> nbaMenuListLeft = getListOfWebElementsByCss(nbaDropdownMenuLeft, NBA_DROPDOWN_MENU_LINKS_LEFT);
         String[] nbaMenuListLeftLinks = new String[nbaMenuListLeft.size()];
@@ -309,7 +309,7 @@ public class ESPNHomepage extends Base {
     }
 
     public String[] getNBADropdownMenuRightNBADivisionNames() {
-        mouseHover(nbaDropdown);
+        mouseHoverOnly(nbaDropdown);
 
         List<WebElement> nbaDivisions = nbaDropdownMenuRight.findElements(By.cssSelector(NBA_DROPDOWN_MENU_DIVISIONS));
         String[] nflDivision = new String[nbaDivisions.size()];
@@ -330,7 +330,7 @@ public class ESPNHomepage extends Base {
     }
 
     public String[] getNBADropdownMenuRightNBATeams() {
-        mouseHover(nbaDropdown);
+        mouseHoverOnly(nbaDropdown);
 
         List<WebElement> nbaTeamsList = nbaDropdownMenuRight.findElements(By.cssSelector(NBA_DROPDOWN_MENU_TEAMS));
         String[] nflTeams = new String[nbaTeamsList.size()];
@@ -357,7 +357,7 @@ public class ESPNHomepage extends Base {
     }
 
     public List<WebElement> getMLBDropdownMenuLeft() {
-        mouseHover(mlbDropdown);
+        mouseHoverOnly(mlbDropdown);
         List<WebElement> mlbDropdownElementsLeftList = getListOfWebElementsByCss(mlbDropdownMenuLeft, MLB_DROPDOWN_LEFT_MENU_ITEM);
 
         return mlbDropdownElementsLeftList;
@@ -383,7 +383,7 @@ public class ESPNHomepage extends Base {
     }
 
     public String[] getMLBDropdownMenuLeftLinks() {
-        mouseHover(mlbDropdown);
+        mouseHoverOnly(mlbDropdown);
 
         List<WebElement> mlbMenuListLeft = getListOfWebElementsByCss(mlbDropdownMenuLeft, MLB_DROPDOWN_LEFT_MENU_LINKS);
         String[] mlbMenuListLeftLinks = new String[mlbMenuListLeft.size()];
@@ -405,7 +405,7 @@ public class ESPNHomepage extends Base {
     }
 
     public String[] getMLBDropdownMenuRightMLBDivisionNames() {
-        mouseHover(mlbDropdown);
+        mouseHoverOnly(mlbDropdown);
 
         List<WebElement> mlbDivisions = mlbDropdownMenuRight.findElements(By.cssSelector(MLB_DROPDOWN_MENU_DIVISIONS));
         String[] mlbDivision = new String[mlbDivisions.size()];
@@ -426,7 +426,7 @@ public class ESPNHomepage extends Base {
     }
 
     public String[] getMLBDropdownMenuRightMLBTeams() {
-        mouseHover(mlbDropdown);
+        mouseHoverOnly(mlbDropdown);
 
         List<WebElement> mlbTeamsList = mlbDropdownMenuRight.findElements(By.cssSelector(MLB_DROPDOWN_MENU_TEAMS));
         String[] mlbTeams = new String[mlbTeamsList.size()];

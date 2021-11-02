@@ -20,7 +20,7 @@ public class ExtentTestManager {
     public static synchronized ExtentTest startTest(String testName) {
         return startTest(testName, "");
     }
-    public static synchronized ExtentTest startTestClass(String className,String testName) {
+    public static synchronized ExtentTest startTestClass(String className, String testName) {
         return startTest(className,testName, "");
     }
     public static synchronized ExtentTest startTest(String testName, String desc) {
@@ -28,7 +28,7 @@ public class ExtentTestManager {
         extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
         return test;
     }
-    public static synchronized ExtentTest startTest(String className,String testName, String desc) {
+    public static synchronized ExtentTest startTest(String className, String testName, String desc) {
         ExtentTest test = extentUpdate.startTest(testName, desc);
         extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
         return test;

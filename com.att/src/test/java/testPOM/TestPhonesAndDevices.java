@@ -104,4 +104,9 @@ public class TestPhonesAndDevices extends TestBase {
         pd.pickYourPhoneMenuBarTextCount();
     }
 
+    @Test
+    public void testWindowSwitch() {
+
+    }
+
 }

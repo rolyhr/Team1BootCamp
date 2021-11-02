@@ -11,18 +11,9 @@
             <class name="testPOM.TestCBSLogin"/>
         </classes>
     </test>
+<!--    THIS LINE IS ONLY FOR THE TEST "FILE-UPLOAD" IN TestCBSLogin class.-->
+<!--    <parameter name="url" value="https://demo.guru99.com/test/upload/"/>-->
 
-    <test name="SignUp" >
-        <!--        <groups>-->
-        <!--            <run>-->
-        <!--                <include name="Regression"/>-->
-        <!--            </run>-->
-        <!--        </groups>-->
-        <classes>
-            <class name="testPOM.TestCBSSignUp"/>
-        </classes>
-    </test>
-
-    <parameter name="url" value="https://www.cbssports.com/"/>
+    <parameter name="url" value="https://mail.rediff.com/cgi-bin/login.cgi"/>
     <parameter name="browser" value="chrome"/>
 </suite>

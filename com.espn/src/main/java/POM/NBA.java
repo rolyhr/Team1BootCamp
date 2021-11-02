@@ -118,7 +118,7 @@ public class NBA extends Base {
     public String validateStatsList(int x) throws Exception {
         String[] expectedStatsListArray = excelReader.fileReaderStringXSSF(System.getProperty("user.dir") + "\\src\\main\\resources\\ESPNnbapageElements.xlsx", "StatsList");
         explicitWait.until(ExpectedConditions.elementToBeClickable(statsBox));
-        mouseHover(statsBox);
+        mouseHoverOnly(statsBox);
         return expectedStatsListArray[x];
     }
 
@@ -127,7 +127,7 @@ public class NBA extends Base {
         List<WebElement> teamListArray = subHeaderTeams.findElements(By.xpath(TEAMS_SUB_HEADER));
         String[] expectedTeamsArray = excelReader.fileReaderStringXSSF(System.getProperty("user.dir") + "\\src\\main\\resources\\ESPNnbapageElements.xlsx", "TeamCategories");
         explicitWait.until(ExpectedConditions.elementToBeClickable(teamsBox));
-        mouseHover(teamsBox);
+        mouseHoverOnly(teamsBox);
         SoftAssert softAssert = new SoftAssert();
         for (int i = 0; i < teamListArray.size(); i++) {
             String actualText = teamListArray.get(i).getText();
@@ -209,7 +209,7 @@ public class NBA extends Base {
     }
 
     public int topEventsDropdownList() {
-        mouseHover(topEventsDropdown);
+        mouseHoverOnly(topEventsDropdown);
         List<WebElement> topEventsDropDownList = getListOfWebElementsByXpath(topEventsDropdownMenu, TOP_EVENT_DROPDOWN_MENU_ITEMS);
         return topEventsDropDownList.size();
     }
@@ -236,7 +236,7 @@ public class NBA extends Base {
     }
 
     public List<WebElement> getNBADropdownMenuLeft() {
-        mouseHover(nbaDropdown);
+        mouseHoverOnly(nbaDropdown);
         return getListOfWebElementsByCss(nbaDropdownMenuLeft, NBA_DROPDOWN_MENU_ITEMS_LEFT);
     }
 

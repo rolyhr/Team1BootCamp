@@ -9,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.Set;
+
 public class CBSLogin extends Base {
 
     public CBSLogin() {
@@ -61,6 +63,18 @@ public class CBSLogin extends Base {
     @FindBy (css = NEW_ACCOUNT_SIGN_UP_LINK)
     public WebElement newAccountSignUpLink;
     //END - REGISTRATION
+
+    @FindBy (css = "#cbs-network-bar > div > ul > li:nth-child(2) > a")
+    public WebElement twitterIcon;
+
+    @FindBy (css = "#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-14lw9ot.r-jxzhtn.r-1ljd8xs.r-13l2t4g.r-1phboty.r-1jgb5lz.r-11wrixw.r-61z16t.r-1ye8kvj.r-13qz1uu.r-184en5c > div > div:nth-child(2) > div > div > div:nth-child(1) > div > div.css-1dbjc4n.r-6gpygo.r-14gqq1x > div > div > div.css-1dbjc4n.r-1awozwy.r-18u37iz.r-dnmrzs > div > span:nth-child(1) > span")
+    public WebElement twitterPageName;
+
+    @FindBy (css = "#cbs-network-bar > div > ul > li:nth-child(3) > a")
+    public WebElement instagramIcon;
+
+    @FindBy (css = "#react-root > section > main > div > header > section > div.nZSzR > h2")
+    public WebElement instagramPageName;
 
     //TC001L
     public String loginFunctionalityWithValidData() {
@@ -167,5 +181,24 @@ public class CBSLogin extends Base {
         String actualLoginBtnText = explicitWait.until(ExpectedConditions.visibilityOf(homePageLoginButton)).getText();
         String expectedLoginBtnText = readFromExcel("Expected", 2);
         return actualLoginBtnText.equals(expectedLoginBtnText);
+    }
+
+    //Helper Method
+    public String switchTabGetPageNameCloseTab(WebElement newWindowLink,
+                                               WebElement pageName,
+                                               String pageTitle) {
+        String name = "";
+        String parentWindow = driver.getWindowHandle();
+        clickOnElement(newWindowLink);
+        Set<String> tabs = driver.getWindowHandles();
+        for (String tab : tabs) {
+            String title = driver.switchTo().window(tab).getTitle();
+            if (title.equals(pageTitle)) {
+                name = explicitWait.until(ExpectedConditions.visibilityOf(pageName)).getText();
+                driver.close();
+            }
+        }
+        driver.switchTo().window(parentWindow);
+        return name;
     }
 }
